@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_id"
+                android:textAppearance="@style/SmallMediumText"
+                android:textColor="@color/semi_color"/>
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:id="@+id/tv_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="214562"
+                android:textAppearance="@style/SmallMediumText"
+                android:textColor="@color/semi_color"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp">
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placed"
+                android:textAppearance="@style/SmallerText"
+                android:textColor="@color/semi_color"/>
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:id="@+id/tv_order_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:text="12:45 pm , 21 Sept 2021"
+                android:textAppearance="@style/SmallerText"
+                android:textColor="@color/semi_color"/>
+        </LinearLayout>
+
+
+        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/tv_total_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item"
+            android:textColor="@color/semi_color"
+            android:textAppearance="@style/SmallestSizeText"/>
+
+
+        <LinearLayout
+            android:id="@+id/ln_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_order_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:padding="@dimen/_10sdp">
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:id="@+id/tv_order_delivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_delivery_green"
+                android:drawablePadding="@dimen/_5sdp"
+                android:text="@string/delivered"
+                android:textAppearance="@style/SmallMediumText"
+                android:textColor="@color/Color_confirm_order"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/splash_color">
+
+    <ImageView
+        android:layout_width="@dimen/_105sdp"
+        android:layout_height="@dimen/_105sdp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/app_icon" />
+
+
+    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/_60sdp"
+        android:gravity="center"
+        android:text="@string/splash_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+</RelativeLayout>

@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black_trans">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/_15sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/dialog_bg_popup">
+
+
+                <LinearLayout
+                    android:id="@+id/hotel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/_55sdp"
+                        android:layout_height="@dimen/_55sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_menu_dialog" />
+
+                    <com.sa.grabgo.vendor.view.AppTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="@string/add_new_category"
+                        android:textAppearance="@style/MediumText"
+                        android:textColor="@color/main_text"
+                        android:textStyle="bold"
+                        />
+                </LinearLayout>
+
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tvComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hotel"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:text="@string/enter_category"
+                    android:visibility="visible"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.grabgo.vendor.view.AppEditTextView
+                    android:id="@+id/etv_Comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvComment"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/enter_here"
+                    android:inputType="text"
+                    android:padding="@dimen/_15sdp"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/app_fontBlackColor"
+                    />
+
+                <com.sa.grabgo.vendor.view.AppButton
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48sdp"
+                    android:layout_below="@+id/etv_Comment"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/bg_button_color_accent_curved_filled"
+                    android:gravity="center"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/SmallMediumSizeText"/>
+
+            </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

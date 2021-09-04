@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/BaseColor">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar_detail" />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool_bar"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_id"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="214562"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp">
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placed"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_order_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:text="12:45 pm , 21 Sept 2021"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+            </LinearLayout>
+
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:id="@+id/tv_total_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/item_details"
+                android:textAppearance="@style/SmallestSizeText"
+                android:textColor="@color/semi_color" />
+
+
+            <LinearLayout
+                android:id="@+id/ln_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_order_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/view_path"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_below="@+id/ln_recycler"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:src="@drawable/path_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="vertical">
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cooking_instruction"
+                    android:textAppearance="@style/SmallMediumText"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_cooking_instruction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy More."
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/view_path_second"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:layout_below="@+id/ln_recycler"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:src="@drawable/path_view" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_gutter_margin_half_increased"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/discount_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/sub_total"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:id="@+id/sub_total_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:orientation="horizontal">
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/packaging_charges"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:id="@+id/tv_packaging_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ln_packaging"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/vat"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:id="@+id/tv_vat_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/discount_onBill_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:orientation="horizontal">
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:text="@string/total"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color"
+                        android:textStyle="bold"/>
+
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:id="@+id/discount_onBill_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="right"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="false"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/SmallerText"
+                        android:textColor="@color/semi_color"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/payment_mode"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color"/>
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:id="@+id/tv_cancel_order"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="online"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_confirm_order"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_50sdp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@color/white">
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_decline"
+                    android:layout_width="@dimen/_140sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:background="@drawable/bg_button_black_curved_semi_half_filled"
+                    android:gravity="center"
+                    android:text="@string/decline"
+                    android:textAppearance="@style/MediumSizeText"
+                    android:textColor="@color/white" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_confirm"
+                    android:layout_width="@dimen/_140sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/bg_button_green_curved_filled"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/MediumSizeText"
+                    android:text="@string/confirm"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
