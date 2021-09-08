@@ -342,7 +342,7 @@ public class ServicesMethodsManager {
 
     public void loginUser(Context context, LoginModel loginModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
-        postData(context, loginModel, ServerConstants.URL_LoginUser, TAG);
+        postData(context, loginModel, ServerConstants.URL_Login, TAG);
     }
 
 
@@ -364,8 +364,6 @@ public class ServicesMethodsManager {
         String url = ServerConstants.URL_UpdateProfile;
         postData(context, profileModel, url, TAG);
     }
-
-
 
 
     public void getProfile(Context context, ServerResponseInterface mCallInterface, String TAG) {
@@ -400,10 +398,10 @@ public class ServicesMethodsManager {
         getData(context, new StatusMainModel(), URL, query, TAG);
     }
 
-    public void getHomeDetails(Context context, ServerResponseInterface mCallInterface, String TAG) {
+    public void getHomeDetails(Context context,String status, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        // query = query != null ? query + "&id_material_type=" + id : "id_material_type=" + id;
+        query = query != null ? query + "&status=" + status : "status=" + status;
         getData(context, new HomePageMainModel(), ServerConstants.URL_Homepage, query, TAG);
     }
 

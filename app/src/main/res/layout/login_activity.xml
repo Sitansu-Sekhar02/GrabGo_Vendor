@@ -76,19 +76,18 @@
                                 app:ccp_textSize="@dimen/_12sdp" />
 
                             <com.sa.grabgo.vendor.view.AppEditTextView
-                                android:id="@+id/phone_number_etv"
+                                android:id="@+id/etv_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:background="@null"
-                                android:inputType="number"
-                                android:padding="@dimen/_15sdp"
                                 android:hint="@string/enter_emailid"
+                                android:inputType="textEmailAddress"
+                                android:padding="@dimen/_15sdp"
                                 android:singleLine="true"
                                 android:textAppearance="@style/SmallestSizeText"
                                 android:textColor="@color/app_fontBlackColor"
-                                android:textColorHint="@color/border_color"
-                                />
+                                android:textColorHint="@color/border_color" />
                         </LinearLayout>
 
                         <com.sa.grabgo.vendor.view.AppTextView_SubTitle
@@ -101,9 +100,38 @@
                             android:textAppearance="@style/SmallestSizeText"
                             android:textColor="@color/semi_color" />
 
+                        <RelativeLayout
+                            android:id="@+id/pass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/activity_gutter_margin"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/activity_gutter_margin"
+                            android:layout_marginBottom="@dimen/activity_gutter_margin_half">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColorHint="@color/border_color"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:passwordToggleEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/password_etv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_48sdp"
+                                    android:hint="@string/type_here"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textPassword" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </RelativeLayout>
+
 
                         <com.sa.grabgo.vendor.view.AppEditTextView
-                            android:id="@+id/password_etv"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -131,7 +159,7 @@
                             android:gravity="right"
                             android:orientation="vertical">
 
-                            <com.sa.grabgo.vendor.view.AppTextView
+                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                                 android:id="@+id/tv_forgot_password"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

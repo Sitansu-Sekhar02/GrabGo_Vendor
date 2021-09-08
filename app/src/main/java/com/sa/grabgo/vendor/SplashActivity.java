@@ -70,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
             Window window = this.getWindow();
         }
 
-        Handler handler = new Handler();
+       /* Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -80,9 +80,9 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000);
+*/
 
-
-       /* shared_preference = PreferenceManager.getDefaultSharedPreferences(this
+        shared_preference = PreferenceManager.getDefaultSharedPreferences(this
                 .getApplicationContext());
         String mCustomerLanguage = shared_preference.getString(
                 globalVariables.SHARED_PREFERENCE_SELECTED_LANGUAGE, "null");
@@ -120,11 +120,9 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 goToMainActivity();
-
-               *//* Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+               /* Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_left, R.anim.slide_right);
-                finish();*//*
+                finish();*/
             }
         }, 2000);
     }
@@ -133,9 +131,9 @@ public class SplashActivity extends AppCompatActivity {
         if (globalFunctions.isLoggedIn(context)) {
             if (notificationModel != null) {
                 //clicked notification....
-                intent = MainActivity.newInstance(com.sa.gograb.SplashActivity.this, notificationModel);
+                intent = MainActivity.newInstance(SplashActivity.this, notificationModel);
             } else {
-                intent = new Intent(com.sa.gograb.SplashActivity.this, MainActivity.class);
+                intent = new Intent(SplashActivity.this, MainActivity.class);
             }
             startActivity(intent);
             activity.finish();
@@ -148,7 +146,7 @@ public class SplashActivity extends AppCompatActivity {
             }
             startActivity(intent);
             activity.finish();
-        }*/
+        }
     }
     @Override
     public void onDestroy() {

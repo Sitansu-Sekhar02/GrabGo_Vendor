@@ -20,9 +20,9 @@ public class ProfileModel implements Serializable {
             ADDRESS             = "address",
             IMAGE               = "image",
             GENDER               = "gender",
-            PROFILE_IMAGE       = "image",
             ORDER_COUNT         = "order_count",
             COUNTRY_CODE        = "country_code",
+            IS_AVAILABLE        = "is_available",
             WALLET              ="wallet",
             VEHICLE_NUMBER      ="vehicle_number";
 
@@ -33,6 +33,7 @@ public class ProfileModel implements Serializable {
             fullname                = null,
             tinNumber               = null,
             orderCount              = null,
+            address                 = null,
             panNumber               = null,
             agencyName              = null,
             firstName               = null,
@@ -41,8 +42,8 @@ public class ProfileModel implements Serializable {
             phone                   = null,
             image                   = null,
             gender                  = null,
-            profileImg              = null,
             country_code            =null,
+            is_available            =null,
             wallet                  =null,
             vehicle_number          =null;
 
@@ -92,6 +93,14 @@ public class ProfileModel implements Serializable {
         this.phone = phone;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getImage() {
         return image;
     }
@@ -100,13 +109,6 @@ public class ProfileModel implements Serializable {
         this.image = image;
     }
 
-    public String getProfileImg() {
-        return profileImg;
-    }
-
-    public void setProfileImg(String profileImg) {
-        this.profileImg = profileImg;
-    }
 
     public String getFullname() {
         return fullname;
@@ -198,7 +200,13 @@ public class ProfileModel implements Serializable {
         this.wallet = wallet;
     }
 
+    public String getIs_available() {
+        return is_available;
+    }
 
+    public void setIs_available(String is_available) {
+        this.is_available = is_available;
+    }
 
     public String getVehicle_number() {
         return vehicle_number;
@@ -236,6 +244,9 @@ public class ProfileModel implements Serializable {
             if (json.has(PHONE)) {
                 phone = json.getString(PHONE);
             }
+            if (json.has(ADDRESS)) {
+                address = json.getString(ADDRESS);
+            }
             if (json.has(IMAGE)) {
                 image = json.getString(IMAGE);
             }
@@ -248,9 +259,7 @@ public class ProfileModel implements Serializable {
             if (json.has(ORDER_COUNT)) {
                 orderCount = json.getString(ORDER_COUNT);
             }
-            if (json.has(PROFILE_IMAGE)) {
-                profileImg = json.getString(PROFILE_IMAGE);
-            }
+
             if (json.has(COUNTRY_CODE)) {
                 country_code = json.getString(COUNTRY_CODE);
             }  if (json.has(WALLET)) {
@@ -259,7 +268,9 @@ public class ProfileModel implements Serializable {
             if (json.has(VEHICLE_NUMBER)) {
                 vehicle_number = json.getString(VEHICLE_NUMBER);
             }
-
+            if (json.has(IS_AVAILABLE)) {
+                is_available = json.getString(IS_AVAILABLE);
+            }
 
             return true;
         } catch (Exception ex) {
@@ -280,14 +291,15 @@ public class ProfileModel implements Serializable {
             jsonMain.put(FULL_NAME, fullname);
             jsonMain.put(EMAIL, email);
             jsonMain.put(PHONE, phone);
+            jsonMain.put(ADDRESS, address);
             jsonMain.put(IS_OTP_VERIFIED, isOtp_verified());
             jsonMain.put(IMAGE, image);
             jsonMain.put(GENDER, gender);
             jsonMain.put(ORDER_COUNT, orderCount);
-            jsonMain.put(PROFILE_IMAGE, profileImg);
             jsonMain.put(COUNTRY_CODE, country_code);
             jsonMain.put(WALLET, wallet);
             jsonMain.put(VEHICLE_NUMBER, vehicle_number);
+            jsonMain.put(IS_AVAILABLE, is_available);
             returnString = jsonMain.toString();
         } catch (Exception ex) {
             Log.d(TAG, " To String Exception : " + ex);

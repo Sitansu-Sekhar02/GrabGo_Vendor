@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,23 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView;
 import com.sa.grabgo.vendor.AppController;
+import com.sa.grabgo.vendor.MainActivity;
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.adapters.HomeAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.services.ServerResponseInterface;
+import com.sa.grabgo.vendor.services.ServicesMethodsManager;
+import com.sa.grabgo.vendor.services.model.HomePageMainModel;
+import com.sa.grabgo.vendor.services.model.HomePageModel;
+import com.sa.grabgo.vendor.services.model.MonthlyModel;
+import com.sa.grabgo.vendor.services.model.OrderListModel;
+import com.sa.grabgo.vendor.services.model.OrderModel;
+import com.sa.grabgo.vendor.services.model.ProfileMainModel;
+import com.sa.grabgo.vendor.services.model.ProfileModel;
+import com.sa.grabgo.vendor.services.model.WeeklyModel;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.util.ArrayList;
@@ -40,24 +54,20 @@ public class HomeFragment extends Fragment {
 
     View mainView;
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
-    static Intent locationintent;
-    private boolean mAlreadyStartedService = false;
-
-    private TextView view_all_category_tv, view_all_sub_category_tv;
-    CardView search_card_view;
-
-    private TextView tv_feedback_title, tv_preparation_time, tv_order_no, tv_chat_with_restro;
-    private EditText et_feedback_comment;
-    private CircleImageView iv_product_image, iv_menu_item;
-    private ImageView iv_call, iv_location_to;
-    private Button btn_submit;
-
+    private TextView tv_td_currency, tv_td_price, tv_td_orders, tv_currency, tv_revenue_price, tv_total_orders;
 
     GlobalFunctions globalFunctions;
     GlobalVariables globalVariables;
+    String status = "100";
+
+    //home main category
+    HomeAdapter homeAdapter;
+    List<OrderModel> orderModels = new ArrayList<>();
+    LinearLayoutManager homeMain_linear;
+    ProgressLinearLayout home_category_progress;
+    RecyclerView rr_home_category;
+
 
     @Nullable
     @Override
@@ -74,7 +84,193 @@ public class HomeFragment extends Fragment {
         globalVariables = AppController.getInstance().getGlobalVariables();
 
 
+        rr_home_category = view.findViewById(R.id.rr_home_category);
+        home_category_progress = view.findViewById(R.id.home_category_progress);
+        tv_td_currency = view.findViewById(R.id.tv_td_currency);
+        tv_td_price = view.findViewById(R.id.tv_td_price);
+        tv_td_orders = view.findViewById(R.id.tv_td_orders);
+        tv_currency = view.findViewById(R.id.tv_currency);
+        tv_revenue_price = view.findViewById(R.id.tv_revenue_price);
+        tv_total_orders = view.findViewById(R.id.tv_total_orders);
+
+        homeMain_linear = new LinearLayoutManager(activity);
+        mainView = rr_home_category;
+
+
+        homePageApi();
+        getProfile();
+
         return view;
+    }
+
+    private void homePageApi() {
+// globalFunctions.showProgress(activity, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getHomeDetails(context, status, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                // globalFunctions.hideProgress();
+                Log.d(TAG, "Response: " + arg0.toString());
+                HomePageMainModel homePageMainModel = (HomePageMainModel) arg0;
+                HomePageModel homePageModel = homePageMainModel.getHomePageModel();
+
+                if (homePageModel.getMonthlyModel() != null) {
+                    MonthlyModel monthlyModel = homePageModel.getMonthlyModel();
+                    setMonthlyDetails(monthlyModel);
+                }
+
+                if (homePageModel.getWeeklyModel() != null) {
+                    WeeklyModel weeklyModel = homePageModel.getWeeklyModel();
+                    setWeeklyDetails(weeklyModel);
+                }
+
+                if (homePageModel.getOrderListModel() != null) {
+                    OrderListModel orderListModel = homePageModel.getOrderListModel();
+                    setUpHomeOrderList(orderListModel);
+                }
+
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+
+                Log.d(TAG, "Error : " + msg);
+            }
+
+        }, "Home Page");
+    }
+
+    private void setWeeklyDetails(WeeklyModel weeklyModel) {
+        if (weeklyModel != null && context != null) {
+            if (GlobalFunctions.isNotNullValue(weeklyModel.getTotal())) {
+                tv_revenue_price.setText(weeklyModel.getTotal());
+
+            }
+            if (GlobalFunctions.isNotNullValue(weeklyModel.getTotal_order())) {
+                tv_total_orders.setText(weeklyModel.getTotal_order());
+            }
+        }
+
+    }
+
+    private void setMonthlyDetails(MonthlyModel monthlyModel) {
+        if (monthlyModel != null && context != null) {
+            if (GlobalFunctions.isNotNullValue(monthlyModel.getTotal())) {
+                tv_td_price.setText(monthlyModel.getTotal());
+
+            }
+            if (GlobalFunctions.isNotNullValue(monthlyModel.getTotal_order())) {
+                tv_td_orders.setText(monthlyModel.getTotal_order());
+            }
+        }
+    }
+
+    private void setUpHomeOrderList(OrderListModel orderListModel) {
+
+        if (orderListModel != null && orderModels != null) {
+            orderModels.clear();
+            orderModels.addAll(orderListModel.getOrderModels());
+
+            if (homeAdapter != null) {
+                synchronized (homeAdapter) {
+                    homeAdapter.notifyDataSetChanged();
+                }
+            }
+
+            if (orderModels.size() <= 0) {
+                showCategoryEmptyPage();
+            } else {
+                showContent();
+                homeCategoryInitRecycler();
+            }
+
+
+        }
+    }
+
+    private void homeCategoryInitRecycler() {
+
+        rr_home_category.setLayoutManager(homeMain_linear);
+        rr_home_category.setHasFixedSize(true);
+        homeAdapter = new HomeAdapter(activity, orderModels);
+        rr_home_category.setAdapter(homeAdapter);
+    }
+
+    private void showCategoryEmptyPage() {
+        if (home_category_progress != null) {
+            home_category_progress.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
+                    getString(R.string.not_available));
+        }
+    }
+
+    private void showContent() {
+        if (home_category_progress != null) {
+            home_category_progress.showContent();
+        }
+    }
+
+    private void getProfile() {
+        // globalFunctions.showProgress( context, getString( R.string.getting_profile ));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getProfile(context, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                //globalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                if (arg0 instanceof ProfileMainModel) {
+                    ProfileMainModel profileMainModel = (ProfileMainModel) arg0;
+                    ProfileModel profileModel = profileMainModel.getProfileModel();
+                    GlobalFunctions.setProfile(context, profileModel);
+                    setProfile();
+                }
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // globalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+                Log.d(TAG, "Error : " + msg);
+            }
+        }, "Get Profile");
+
+    }
+
+    private void setProfile() {
+        ProfileModel profileModel = globalFunctions.getProfile(context);
+        if (profileModel != null && context != null) {
+            try {
+
+                if (GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
+                    MainActivity.tv_restaurant_name.setText(profileModel.getFullname());
+                }
+                if (GlobalFunctions.isNotNullValue(profileModel.getAddress())) {
+                    MainActivity.toolbar_title.setText(profileModel.getAddress());
+                }
+
+
+            } catch (Exception exxx) {
+                Log.e(TAG, exxx.getMessage());
+            }
+
+        }
     }
 
     @Override

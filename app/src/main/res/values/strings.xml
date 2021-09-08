@@ -37,7 +37,7 @@
     <string name="week_revenue">Week’s revenue</string>
     <string name="order_id">Order ID : </string>
     <string name="placed">Placed at :</string>
-    <string name="item">5 items</string>
+    <string name="item">items</string>
     <string name="decline">Decline</string>
     <string name="confirm">Confirm</string>
     <string name="item_details"><![CDATA[Items & Price details]]></string>
@@ -90,4 +90,14 @@
     <string name="past_order">Past orders</string>
     <string name="current_order">Current orders</string>
     <string name="est_time">Est. Preparation Time :</string>
+    <string name="pleaseFillMandatoryDetails">*Please fill mandatory fields</string>
+    <string name="pleaseFillpassword">*Please Give Password</string>
+    <string name="emailNotValid">Email_ID not VALID</string>
+    <string name="password_error">Password Required</string>
+    <string name="loggin">Logging...</string>
+    <string name="getting_profile">Getting Profile...</string>
+    <string name="emptyList">Empty List</string>
+    <string name="not_available">"Sorry! Data not available "</string>
+    <string name="order_details">Order Details</string>
+
 </resources>

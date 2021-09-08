@@ -30,7 +30,7 @@
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sa.grabgo.vendor.view.AppTextView
                     android:id="@+id/tv_restaurant_name"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:drawablePadding="@dimen/_5sdp"
-                    android:text="@string/add_location"
+                    android:text=""
                     android:textAllCaps="false"
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color"

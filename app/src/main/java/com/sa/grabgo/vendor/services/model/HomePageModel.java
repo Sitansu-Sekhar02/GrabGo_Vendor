@@ -9,61 +9,104 @@ public class HomePageModel {
     private final String TAG = "HomePageModel";
 
     private final String
-            ORDER_ID                            = "order_id",
-            RESTAURANT_IMAGE                    = "restaurant_image",
-            RESTAURANT_ID                       = "restaurant_id",
-            HOME_FILTER_CATEGORY                = "filters",
-            TOP_CATEGORY                        = "top_near_rest",
-            SUB_CATEGORY                        = "popular_rest";
-
-
+            WEEKLY                      = "weekly",
+            MONTHLY                     = "monthly",
+            ORDERS                      = "orders";
 
     String
-            order_id            =null,
-            restaurant_image    =null,
-            restaurant_id    =null;
+            weekly                   =null,
+            monthly                  =null,
+            orders                   =null;
 
+
+    WeeklyModel
+            weeklyModel=null;
+    MonthlyModel
+            monthlyModel=null;
+
+    OrderListModel
+                 orderListModel=null;
 
 
 
     public HomePageModel(){}
 
 
-    public String getOrder_id() {
-        return order_id;
+    public String getWeekly() {
+        return weekly;
     }
 
-    public void setOrder_id(String order_id) {
-        this.order_id = order_id;
+    public void setWeekly(String weekly) {
+        this.weekly = weekly;
     }
 
-    public String getRestaurant_image() {
-        return restaurant_image;
+    public String getMonthly() {
+        return monthly;
     }
 
-    public void setRestaurant_image(String restaurant_image) {
-        this.restaurant_image = restaurant_image;
+    public void setMonthly(String monthly) {
+        this.monthly = monthly;
     }
 
-    public String getRestaurant_id() {
-        return restaurant_id;
+    public String getOrders() {
+        return orders;
     }
 
-    public void setRestaurant_id(String restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setOrders(String orders) {
+        this.orders = orders;
     }
 
+    public OrderListModel getOrderListModel() {
+        return orderListModel;
+    }
 
+    public void setOrderListModel(OrderListModel orderListModel) {
+        this.orderListModel = orderListModel;
+    }
+
+    public WeeklyModel getWeeklyModel() {
+        return weeklyModel;
+    }
+
+    public void setWeeklyModel(WeeklyModel weeklyModel) {
+        this.weeklyModel = weeklyModel;
+    }
+
+    public MonthlyModel getMonthlyModel() {
+        return monthlyModel;
+    }
+
+    public void setMonthlyModel(MonthlyModel monthlyModel) {
+        this.monthlyModel = monthlyModel;
+    }
 
     public boolean toObject(String jsonObjectString){
         try{
             JSONObject json = new JSONObject(jsonObjectString);
-            if(json.has(ORDER_ID)){this.order_id = json.getString(ORDER_ID);}
-            if(json.has(RESTAURANT_IMAGE)){this.restaurant_image = json.getString(RESTAURANT_IMAGE);}
-            if(json.has(RESTAURANT_ID)){this.restaurant_id = json.getString(RESTAURANT_ID);}
 
+            if(json.has(WEEKLY)){
+                WeeklyModel weeklyModel1 = new WeeklyModel();
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1 = json.getJSONObject(WEEKLY);
+                if(jsonObject1 != null){weeklyModel1.toObject(jsonObject1.toString());}
+                weeklyModel = weeklyModel1;
+            }
 
+            if(json.has(MONTHLY)){
+                MonthlyModel monthlyModel1 = new MonthlyModel();
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1 = json.getJSONObject(MONTHLY);
+                if(jsonObject1 != null){monthlyModel1.toObject(jsonObject1.toString());}
+                monthlyModel = monthlyModel1;
+            }
 
+            if(json.has(ORDERS)) {
+                JSONArray array = json.getJSONArray(ORDERS);
+                OrderListModel listModelLocal = new OrderListModel();
+                listModelLocal.setRESPONSE(ORDERS);
+                if(listModelLocal.toObject(array)){this.orderListModel = listModelLocal;}
+                else{this.orderListModel = null;}
+            }
 
             return true;
         }catch(Exception ex){
@@ -76,13 +119,9 @@ public class HomePageModel {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
-            jsonMain.put(ORDER_ID, order_id);
-            jsonMain.put(RESTAURANT_IMAGE, restaurant_image);
-            jsonMain.put(RESTAURANT_ID, restaurant_id);
-
-
-            //jsonMain.put(PRICE, priceRangeModel!=null ? new JSONObject(priceRangeModel.toString()) : new JSONObject());
-
+            jsonMain.put(WEEKLY, weekly);
+            jsonMain.put(MONTHLY, monthly);
+            jsonMain.put(ORDERS, orderListModel!=null?new JSONArray(orderListModel.toString(true)):null);
 
             returnString = jsonMain.toString();
         }

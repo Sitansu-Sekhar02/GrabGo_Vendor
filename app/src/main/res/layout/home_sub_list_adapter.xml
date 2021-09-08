@@ -13,15 +13,17 @@
 
         <com.sa.grabgo.vendor.view.AppTextView_SubTitle
             android:id="@+id/tv_item_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="SAR"
+            android:gravity="start"
+            android:text=""
+            android:layout_toLeftOf="@+id/ln_currency"
             android:textAppearance="@style/SmallerText"
             android:textColor="@color/semi_color" />
 
         <LinearLayout
             android:id="@+id/ln_currency"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -32,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="SAR"
+                android:text=""
                 android:textAppearance="@style/SmallerText"
                 android:textColor="@color/semi_color" />
 
@@ -42,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:gravity="center"
-                android:text="300"
+                android:text=""
                 android:textAppearance="@style/SmallerText"
                 android:textColor="@color/semi_color" />
         </LinearLayout>

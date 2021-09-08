@@ -3,7 +3,7 @@ package com.sa.grabgo.vendor.services;
 public class ServerConstants {
 
     //public static final String SERVER_URL                              = "http://hardwarewagon.com/hardware_wagon_php/";
-    public static final String SERVER_URL                                = "http://35.154.4.154/gograb/app/v0_1/api/";
+    public static final String SERVER_URL                                = "http://35.154.4.154/gograb/rest_app/v0_1/api/";
 
     public static final String SERVER_API_VERSION                           = "driver_v0_1";
     public static final String BASE_URL                                     = SERVER_URL+"app/"+SERVER_API_VERSION+"/api/";
@@ -12,7 +12,7 @@ public class ServerConstants {
     public static final String URL_GetIndex                                  = SERVER_URL + "get_index.php";
     public static final String URL_SendOTP                                   = SERVER_URL + "send_otp.php";
     public static final String URL_VerifyOTP                                 = SERVER_URL + "verify_otp.php";
-    public static final String URL_LoginUser                                 = SERVER_URL + "login.php";
+    public static final String URL_Login                                     = SERVER_URL + "login.php";
     public static final String URL_RegisterUser                              = SERVER_URL + "registration.php";
     public static final String URL_CheckMobile                               = SERVER_URL + "check_mobile.php";
     public static final String URL_GetCategoryList                           = SERVER_URL + "category_list.php";

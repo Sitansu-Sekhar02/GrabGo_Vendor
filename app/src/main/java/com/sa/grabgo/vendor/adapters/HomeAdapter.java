@@ -1,5 +1,7 @@
 package com.sa.grabgo.vendor.adapters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,13 +9,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.orders.OrderDetailsActivity;
+import com.sa.grabgo.vendor.services.model.OrderDetailModel;
+import com.sa.grabgo.vendor.services.model.OrderModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public static final String TAG = "HomeAdapter";
+
+    private final List<OrderModel> list;
+    private final Activity activity;
+    HomeSubListAdapter homeSubListAdapter;
+
+
+    public HomeAdapter(Activity activity, List<OrderModel> list) {
+        this.list = list;
+        this.activity = activity;
+
+    }
 
     @NonNull
     @Override
@@ -24,11 +47,52 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HomeAdapter.ViewHolder holder, int position) {
 
+        final OrderModel model = list.get(position);
+
+        if (GlobalFunctions.isNotNullValue(model.getOrder_id())) {
+            holder.tv_order_id.setText(model.getOrder_id());
+        }
+
+        if (GlobalFunctions.isNotNullValue(model.getCreated_on())) {
+            holder.tv_order_time.setText(GlobalFunctions.getDateFormat(model.getCreated_on()));
+        }
+
+        if (GlobalFunctions.isNotNullValue(model.getCounts())) {
+            holder.tv_total_item.setText(model.getCounts());
+        }
+
+
+        LinearLayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
+        List<OrderDetailModel> productList = new ArrayList<OrderDetailModel>();
+
+        if (model.getOrder_details() != null && model.getOrder_details().getOrderDetailModels().size() > 0) {
+            productList.clear();
+            productList.addAll(model.getOrder_details().getOrderDetailModels());
+        }
+
+        if (productList.size() > 0) {
+            homeSubListAdapter = new HomeSubListAdapter(activity, productList);
+            holder.rv_order_details.setLayoutManager(layoutManager);
+            holder.rv_order_details.setAdapter(homeSubListAdapter);
+
+            holder.rv_order_details.setVisibility(View.VISIBLE);
+        } else {
+            holder.rv_order_details.setVisibility(View.GONE);
+        }
+
+        holder.ll_view_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = OrderDetailsActivity.newInstance(activity, model);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -27,7 +27,13 @@ import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.SplashActivity;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.services.ServerResponseInterface;
+import com.sa.grabgo.vendor.services.ServicesMethodsManager;
 import com.sa.grabgo.vendor.services.model.LoginModel;
+import com.sa.grabgo.vendor.services.model.ProfileMainModel;
+import com.sa.grabgo.vendor.services.model.ProfileModel;
+import com.sa.grabgo.vendor.services.model.StatusMainModel;
+import com.sa.grabgo.vendor.services.model.StatusModel;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -47,9 +53,9 @@ public class LoginActivity extends AppCompatActivity {
     static TextView toolbar_title;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
-    private EditText phone_number_etv, password_etv;
+    private EditText etv_email, password_etv;
     private Button btn_login;
-    private TextView skip_login, tv_register, login_with_otp_tv, login_with_password_tv, tv_forgot_password;
+    private TextView  tv_forgot_password;
     private CountryCodePicker country_code_picker;
 
 
@@ -88,7 +94,6 @@ public class LoginActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });*/
-        btn_login=(Button) findViewById(R.id.btn_login);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
@@ -96,14 +101,140 @@ public class LoginActivity extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.ColorStatusBar));
         }
+
+        btn_login=findViewById(R.id.btn_login);
+        etv_email=findViewById(R.id.etv_email);
+        password_etv=findViewById(R.id.password_etv);
+
+        mainView = etv_email;
+
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                validateInput();
+//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
+    }
+
+    private void validateInput() {
+        if (etv_email != null) {
+            String
+                    eMail = etv_email.getText().toString().trim(),
+                    password = password_etv.getText().toString().trim();
+
+            if  (eMail.isEmpty()) {
+                etv_email.setError(getString(R.string.pleaseFillMandatoryDetails));
+                etv_email.setFocusableInTouchMode(true);
+                etv_email.requestFocus();
+            } else if (!globalFunctions.isEmailValid(eMail)) {
+                globalFunctions.displayMessaage(activity, mainView, getString(R.string.emailNotValid));
+                etv_email.setFocusableInTouchMode(true);
+                etv_email.requestFocus();
+
+            } else if (password.isEmpty()) {
+                password_etv.setError( getString( R.string.password_error ) );
+                password_etv.setFocusableInTouchMode( true );
+                password_etv.requestFocus();
+            } else {
+                LoginModel loginModel = new LoginModel();
+                loginModel.setEmail_id( eMail );
+                //loginModel.setCountryCode( selected_country_code );
+                loginModel.setPassword( globalFunctions.md5(password ));
+
+                loginUser( context, loginModel );
+
+            }
+        }
+    }
+
+    private void loginUser(Context context, LoginModel loginModel) {
+        globalFunctions.showProgress( context, getString(R.string.loggin) );
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.loginUser( context, loginModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                globalFunctions.hideProgress();
+                Log.d( TAG, "Response : " + arg0.toString() );
+                validateOutput( arg0 );
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                globalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage( context, mainView, msg );
+                Log.d( TAG, "Failure : " + msg );
+            }
+
+            @Override
+            public void OnError(String msg) {
+                globalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage( context, mainView, msg );
+                Log.d( TAG, "Error : " + msg );
+            }
+        }, "Login_User" );
+    }
+
+    private void validateOutput(Object arg0) {
+        if (arg0 instanceof StatusMainModel) {
+            StatusMainModel statusMainModel = (StatusMainModel) arg0;
+            StatusModel statusModel = statusMainModel.getStatusModel();
+            if (statusMainModel.isStatus()) {
+
+                GlobalFunctions.setSharedPreferenceString(context, GlobalVariables.SHARED_PREFERENCE_TOKEN, statusModel.getToken());
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+                //get profile api
+                getProfile();
+            } else {
+                GlobalFunctions.displayErrorDialog(context, statusModel.getMessage());
+            }
+        }
+    }
+
+    private void getProfile() {
+        //GlobalFunctions.showProgress(context, getString(R.string.loading_profile) );
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getProfile(context,new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                //GlobalFunctions.hideProgress();
+                Log.d( TAG, "Response : " + arg0.toString() );
+                //ProfileDetails(arg0);
+                validateProfileOutput(arg0);
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                //GlobalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage(LoginActivity.this.context, mainView, msg );
+                Log.d( TAG, "Failure : " + msg );
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //GlobalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage(LoginActivity.this.context, mainView, msg );
+                Log.d( TAG, "Error : " + msg );
+            }
+        }, "Profile" );
+    }
+
+    private void validateProfileOutput(Object arg0) {
+        if (arg0 instanceof ProfileMainModel){
+
+            GlobalFunctions.closeAllActivities();
+            ProfileMainModel profileMainModel = ( ProfileMainModel ) arg0;
+            ProfileModel profileModel = profileMainModel.getProfileModel();
+            GlobalFunctions.setProfile( context, profileModel );
+            Intent intent = new Intent( context, MainActivity.class );
+            startActivity( intent );
+        }
+
     }
 
 

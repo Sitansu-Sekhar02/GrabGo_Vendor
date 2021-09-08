@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
     static String mTitle;
     static int mResourceID, titleResourseID;
     static Menu menu;
-    static TextView toolbar_title;
+    public static TextView toolbar_title;
+    public  static TextView tv_restaurant_name;
     static ImageView toolbar_logo;
     public static TextView header_tv;
     public static String address;
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         toolbar = (Toolbar) findViewById(R.id.tool_bar); // Attaching the layout to the toolbar object
+        tv_restaurant_name = (TextView) toolbar.findViewById(R.id.tv_restaurant_name); // Attaching the layout to the toolbar object
         //toolbar.setPadding(0, globalFunctions.getStatusBarHeight(this), 0, 0);
         toolbar.setContentInsetsAbsolute(0, 0);
         //toolbar.setNavigationIcon(navIconDrawable);
