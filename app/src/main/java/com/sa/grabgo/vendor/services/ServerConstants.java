@@ -16,11 +16,12 @@ public class ServerConstants {
     public static final String URL_RegisterUser                              = SERVER_URL + "registration.php";
     public static final String URL_CheckMobile                               = SERVER_URL + "check_mobile.php";
     public static final String URL_GetCategoryList                           = SERVER_URL + "category_list.php";
+    public static final String URL_AddCategory                               = SERVER_URL + "create_category.php";
     public static final String URL_GetConfirmedAppointmentsList              = SERVER_URL + "booking_display.php";
     public static final String URL_BookingStatusUpdate                       = SERVER_URL + "booking_status_update.php";
     public static final String URL_LogoutUser                                = SERVER_URL + "logout.php";
     public static final String URL_GetOrderList                              = SERVER_URL + "order_list.php";
-    public static final String URL_OrderStatusUpdate                         = SERVER_URL + "order_status_update.php";
+    public static final String URL_OrderStatusUpdate                         = SERVER_URL + "update_status.php";
     public static final String URL_LatlongUpdate                             = SERVER_URL + "update_lat_long.php";
     public static final String URL_Homepage                                  = SERVER_URL + "home_page.php";
     public static final String URL_Vendorlist                                = SERVER_URL + "vendor_store_detail.php";

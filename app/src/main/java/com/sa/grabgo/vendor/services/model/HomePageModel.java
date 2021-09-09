@@ -10,7 +10,7 @@ public class HomePageModel {
 
     private final String
             WEEKLY                      = "weekly",
-            MONTHLY                     = "monthly",
+            DAILY                       = "daily",
             ORDERS                      = "orders";
 
     String
@@ -92,10 +92,10 @@ public class HomePageModel {
                 weeklyModel = weeklyModel1;
             }
 
-            if(json.has(MONTHLY)){
+            if(json.has(DAILY)){
                 MonthlyModel monthlyModel1 = new MonthlyModel();
                 JSONObject jsonObject1 = new JSONObject();
-                jsonObject1 = json.getJSONObject(MONTHLY);
+                jsonObject1 = json.getJSONObject(DAILY);
                 if(jsonObject1 != null){monthlyModel1.toObject(jsonObject1.toString());}
                 monthlyModel = monthlyModel1;
             }
@@ -120,7 +120,7 @@ public class HomePageModel {
         try{
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(WEEKLY, weekly);
-            jsonMain.put(MONTHLY, monthly);
+            jsonMain.put(DAILY, monthly);
             jsonMain.put(ORDERS, orderListModel!=null?new JSONArray(orderListModel.toString(true)):null);
 
             returnString = jsonMain.toString();

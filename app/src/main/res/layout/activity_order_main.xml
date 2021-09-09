@@ -20,6 +20,7 @@
         android:id="@+id/viewPager"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_40sdp"
         android:layout_below="@id/tabLayout"
         android:layout_centerInParent="true"
         tools:layout_editor_absoluteX="8dp" />

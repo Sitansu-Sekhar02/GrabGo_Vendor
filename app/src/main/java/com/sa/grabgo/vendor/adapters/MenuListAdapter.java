@@ -1,5 +1,6 @@
 package com.sa.grabgo.vendor.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.services.model.CategoryModel;
+import com.sa.grabgo.vendor.services.model.OrderDetailModel;
+
+import java.util.List;
 
 public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder> {
 
     public static final String TAG = "MenuAdapter";
+
+    private final List<CategoryModel> list;
+    private final Activity activity;
+
+    public MenuListAdapter(Activity activity, List<CategoryModel> list) {
+        this.list = list;
+        this.activity = activity;
+    }
 
     @NonNull
     @Override
@@ -24,11 +38,25 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull MenuListAdapter.ViewHolder holder, int position) {
 
+        final CategoryModel model = list.get(position);
+
+        if (GlobalFunctions.isNotNullValue(model.getName())){
+            holder.tv_menu_title.setText(model.getName());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getCount())) {
+            holder.tv_available_qty.setText(model.getCount());
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

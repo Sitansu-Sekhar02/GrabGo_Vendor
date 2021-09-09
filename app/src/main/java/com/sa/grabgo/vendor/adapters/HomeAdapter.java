@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.adapters.interfaces.UpdateStatusInterface;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.orders.OrderDetailsActivity;
@@ -30,11 +31,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private final List<OrderModel> list;
     private final Activity activity;
     HomeSubListAdapter homeSubListAdapter;
+    UpdateStatusInterface updateStatusInterface;
+    int selectedPos = -1, clickedPos = -1;
+    String pageFrom = null;
+    String order_id = null;
 
 
-    public HomeAdapter(Activity activity, List<OrderModel> list) {
+    public HomeAdapter(Activity activity, List<OrderModel> list, UpdateStatusInterface updateStatusInterface) {
         this.list = list;
         this.activity = activity;
+        this.updateStatusInterface = updateStatusInterface;
 
     }
 
@@ -60,6 +66,30 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         if (GlobalFunctions.isNotNullValue(model.getCounts())) {
             holder.tv_total_item.setText(model.getCounts());
         }
+        if (GlobalFunctions.isNotNullValue(model.getOrder_id())){
+            order_id=model.getOrder_id();
+        }
+
+
+        holder.tv_cancel_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageFrom = GlobalVariables.ORDER_VENDOR_CANCELLED;
+
+                updateStatusInterface.OnCancelClickListener(model, pageFrom,order_id);
+                notifyDataSetChanged();
+
+            }
+        });
+        holder.tv_confirm_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pageFrom = GlobalVariables.ORDER_CONFIRMED;
+
+                updateStatusInterface.OnConfirmClickListener(model, pageFrom,order_id);
+                notifyDataSetChanged();
+            }
+        });
 
 
         LinearLayoutManager layoutManager;
@@ -96,7 +126,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_order_id,tv_order_time,tv_total_item,tv_cancel_order,tv_confirm_order;
+        TextView tv_order_id, tv_order_time, tv_total_item, tv_cancel_order, tv_confirm_order;
         RecyclerView rv_order_details;
         LinearLayout ll_view_order;
 

@@ -19,6 +19,7 @@
             android:text=""
             android:layout_toLeftOf="@+id/ln_currency"
             android:textAppearance="@style/SmallerText"
+            android:layout_marginRight="@dimen/_35sdp"
             android:textColor="@color/semi_color" />
 
         <LinearLayout

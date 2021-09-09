@@ -10,6 +10,8 @@ import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.services.model.AddCategoryModel;
+import com.sa.grabgo.vendor.services.model.CategoryMainModel;
 import com.sa.grabgo.vendor.services.model.ChangePasswordModel;
 import com.sa.grabgo.vendor.services.model.ForgotPasswordModel;
 import com.sa.grabgo.vendor.services.model.HomeIndexModel;
@@ -29,6 +31,7 @@ import com.sa.grabgo.vendor.services.model.StatusMainModel;
 import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.sa.grabgo.vendor.services.model.TokenPostModel;
 import com.sa.grabgo.vendor.services.model.UpdateLanguageModel;
+import com.sa.grabgo.vendor.services.model.UpdateOrderStatus;
 
 import org.json.JSONObject;
 
@@ -247,7 +250,21 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        }  else if (obj instanceof ProfileModel) {
+        } else if (obj instanceof CategoryMainModel) {
+            CategoryMainModel model = new CategoryMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        } else if (obj instanceof AddCategoryModel) {
+            StatusMainModel model = new StatusMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        } else if (obj instanceof ProfileModel) {
             ProfileMainModel profileModel = new ProfileMainModel();
             if (profileModel.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(profileModel);
@@ -359,6 +376,13 @@ public class ServicesMethodsManager {
         postData(context, updateLanguageModel, ServerConstants.URL_LogoutUser, null, TAG);
     }
 
+    public void insertCategory(Context context, AddCategoryModel addCategoryModel, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String url = ServerConstants.URL_AddCategory;
+        postData(context, addCategoryModel, url, TAG);
+    }
+
+
     public void updateUser(Context context, ProfileModel profileModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String url = ServerConstants.URL_UpdateProfile;
@@ -373,6 +397,22 @@ public class ServicesMethodsManager {
         getData(context, new ProfileMainModel(), url, query, TAG);
     }
 
+    public void getStatusUpdate(Context context, String status,String order_id, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+        query = query != null ? query + "&status=" + status : "status=" + status;
+        query = query != null ? query + "&order_id=" + order_id : "order_id=" + order_id;
+
+        String URL = ServerConstants.URL_OrderStatusUpdate;
+        getData(context,new UpdateOrderStatus(), URL, query, TAG);
+    }
+
+    public void getHomeDetails(Context context,String status, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+        query = query != null ? query + "&status=" + status : "status=" + status;
+        getData(context, new HomePageMainModel(), ServerConstants.URL_Homepage, query, TAG);
+    }
 
     public void sendPushNotificationID(Context context, PushNotificationModel pushNotificationModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
@@ -398,18 +438,12 @@ public class ServicesMethodsManager {
         getData(context, new StatusMainModel(), URL, query, TAG);
     }
 
-    public void getHomeDetails(Context context,String status, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&status=" + status : "status=" + status;
-        getData(context, new HomePageMainModel(), ServerConstants.URL_Homepage, query, TAG);
-    }
 
 
-    public void getMenu(Context context, ServerResponseInterface mCallInterface, String TAG) {
+    public void getCategoryList(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        // getData(context, new UtilityMainModel(), ServerConstants.URL_GetMenu, query, TAG);
+        getData(context, new CategoryMainModel(), ServerConstants.URL_GetCategoryList, query, TAG);
     }
 
 

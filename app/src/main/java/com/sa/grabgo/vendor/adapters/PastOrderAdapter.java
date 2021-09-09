@@ -1,19 +1,37 @@
 package com.sa.grabgo.vendor.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.services.model.OrderDetailModel;
+import com.sa.grabgo.vendor.services.model.OrderModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.ViewHolder> {
 
     public static final String TAG = "PastOrderAdapter";
 
+    private final List<OrderModel> list;
+    private final Activity activity;
+    PastOrderListAdapter pastOrderListAdapter;
+
+
+    public PastOrderAdapter(Activity activity, List<OrderModel> list) {
+        this.list = list;
+        this.activity = activity;
+
+    }
     @NonNull
     @Override
     public PastOrderAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -23,15 +41,50 @@ public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.View
     @Override
     public void onBindViewHolder(@NonNull PastOrderAdapter.ViewHolder holder, int position) {
 
+
+        final OrderModel model = list.get(position);
+
+        if (GlobalFunctions.isNotNullValue(model.getOrder_id())) {
+            holder.tv_order_id.setText(model.getOrder_id());
+        }
+
+        if (GlobalFunctions.isNotNullValue(model.getCreated_on())) {
+            holder.tv_order_time.setText(GlobalFunctions.getDateFormat(model.getCreated_on()));
+        }
+
+        if (GlobalFunctions.isNotNullValue(model.getCounts())) {
+            holder.tv_total_item.setText(model.getCounts());
+        }
+
+
+        LinearLayoutManager layoutManager;
+        layoutManager = new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
+        List<OrderDetailModel> productList = new ArrayList<OrderDetailModel>();
+
+        if (model.getOrder_details() != null && model.getOrder_details().getOrderDetailModels().size() > 0) {
+            productList.clear();
+            productList.addAll(model.getOrder_details().getOrderDetailModels());
+        }
+
+        if (productList.size() > 0) {
+            pastOrderListAdapter = new PastOrderListAdapter(activity, productList);
+            holder.rv_order_details.setLayoutManager(layoutManager);
+            holder.rv_order_details.setAdapter(pastOrderListAdapter);
+
+            holder.rv_order_details.setVisibility(View.VISIBLE);
+        } else {
+            holder.rv_order_details.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_order_id,tv_order_time,tv_total_item,tv_order_delivery;
+        RecyclerView rv_order_details;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,6 +93,7 @@ public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.View
             tv_order_time = itemView.findViewById(R.id.tv_order_time);
             tv_total_item = itemView.findViewById(R.id.tv_total_item);
             tv_order_delivery = itemView.findViewById(R.id.tv_order_delivery);
+            rv_order_details = itemView.findViewById(R.id.rv_order_details);
 
         }
     }

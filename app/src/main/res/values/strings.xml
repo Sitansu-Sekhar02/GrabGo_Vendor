@@ -99,5 +99,6 @@
     <string name="emptyList">Empty List</string>
     <string name="not_available">"Sorry! Data not available "</string>
     <string name="order_details">Order Details</string>
+    <string name="status">Status</string>
 
 </resources>

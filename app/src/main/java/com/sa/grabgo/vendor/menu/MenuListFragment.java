@@ -1,5 +1,6 @@
 package com.sa.grabgo.vendor.menu;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,12 +31,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.adapters.CurrentOrderAdapter;
+import com.sa.grabgo.vendor.adapters.HomeAdapter;
+import com.sa.grabgo.vendor.adapters.MenuListAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.services.ServerResponseInterface;
+import com.sa.grabgo.vendor.services.ServicesMethodsManager;
+import com.sa.grabgo.vendor.services.model.AddCategoryModel;
+import com.sa.grabgo.vendor.services.model.CategoryListModel;
+import com.sa.grabgo.vendor.services.model.CategoryMainModel;
+import com.sa.grabgo.vendor.services.model.CategoryModel;
+import com.sa.grabgo.vendor.services.model.HomePageMainModel;
+import com.sa.grabgo.vendor.services.model.HomePageModel;
+import com.sa.grabgo.vendor.services.model.OrderListModel;
+import com.sa.grabgo.vendor.services.model.OrderModel;
+import com.sa.grabgo.vendor.services.model.StatusMainModel;
+import com.sa.grabgo.vendor.services.model.StatusModel;
+import com.vlonjatg.progressactivity.ProgressLinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuListFragment extends Fragment {
 
@@ -60,9 +85,15 @@ public class MenuListFragment extends Fragment {
     private EditText etv_Comment;
     private Button btn_submit;
 
-    private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    AddCategoryModel addCategoryModel = null;
 
+
+    MenuListAdapter menuListAdapter;
+    List<CategoryModel> categoryModels = new ArrayList<>();
+    LinearLayoutManager category_linearLayout;
+    ProgressLinearLayout details_progressActivity;
+    SwipeRefreshLayout swipe_container;
+    RecyclerView menu_list_rr;
 
     @Nullable
     @Override
@@ -94,8 +125,113 @@ public class MenuListFragment extends Fragment {
             }
         });
 
+        details_progressActivity = view.findViewById(R.id.details_progressActivity);
+        swipe_container = view.findViewById(R.id.swipe_container);
+        menu_list_rr = view.findViewById(R.id.menu_list_rr);
+
+        category_linearLayout = new LinearLayoutManager(activity);
+        mainView = toolbar;
+
+        getMenuList();
+
+        swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMenuList();
+            }
+        });
+
         return view;
 
+    }
+
+    private void getMenuList() {
+        globalFunctions.showProgress(activity, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getCategoryList(context, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
+                Log.d(TAG, "Response: " + arg0.toString());
+                CategoryMainModel categoryMainModel = (CategoryMainModel) arg0;
+                CategoryListModel categoryListModel = categoryMainModel.getCategoryListModel();
+
+                if (categoryListModel.getCategoryList() != null) {
+                    setThisPage(categoryListModel);
+                }
+
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
+                globalFunctions.displayMessaage(activity, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+
+            }
+
+            @Override
+            public void OnError(String msg) {
+                globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
+                globalFunctions.displayMessaage(activity, mainView, msg);
+
+                Log.d(TAG, "Error : " + msg);
+            }
+
+        }, "Current Orders");
+    }
+
+    private void setThisPage(CategoryListModel categoryListModel) {
+        if (categoryListModel != null && categoryModels != null) {
+            categoryModels.clear();
+            categoryModels.addAll(categoryListModel.getCategoryList());
+
+            if (menuListAdapter != null) {
+                synchronized (menuListAdapter) {
+                    menuListAdapter.notifyDataSetChanged();
+                }
+            }
+
+            if (categoryModels.size() <= 0) {
+                showCategoryEmptyPage();
+            } else {
+                showContent();
+                homeCategoryInitRecycler();
+            }
+
+
+        }
+    }
+
+    private void homeCategoryInitRecycler() {
+
+        menu_list_rr.setLayoutManager(category_linearLayout);
+        menu_list_rr.setHasFixedSize(true);
+        menuListAdapter = new MenuListAdapter(activity, categoryModels);
+        menu_list_rr.setAdapter(menuListAdapter);
+    }
+
+    private void showCategoryEmptyPage() {
+        if (details_progressActivity != null) {
+            details_progressActivity.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
+                    getString(R.string.not_available));
+        }
+    }
+
+    private void showContent() {
+        if (details_progressActivity != null) {
+            details_progressActivity.showContent();
+        }
     }
 
     private void openAddCategoryDialog() {
@@ -113,21 +249,77 @@ public class MenuListFragment extends Fragment {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-        etv_Comment=dialog.findViewById(R.id.etv_Comment);
-        btn_submit=dialog.findViewById(R.id.btn_submit);
+        etv_Comment = dialog.findViewById(R.id.etv_Comment);
+        btn_submit = dialog.findViewById(R.id.btn_submit);
         etv_Comment.clearFocus();
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    dialog.dismiss();
+
+                String
+                        category = etv_Comment.getText().toString().trim();
+
+                if (addCategoryModel == null) {
+                    addCategoryModel = new AddCategoryModel();
+                }
+                addCategoryModel.setName(category);
+
+                insertCategort(activity, addCategoryModel);
+                dialog.dismiss();
 
 
             }
 
         });
     }
+
+    private void insertCategort(Activity activity, AddCategoryModel addCategoryModel) {
+        globalFunctions.showProgress(activity, activity.getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.insertCategory(context, addCategoryModel, new ServerResponseInterface() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                globalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                validateOutputAfterFeedback(arg0);
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnFailureFromServer(String msg) {
+                globalFunctions.hideProgress();
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Failure : " + msg);
+            }
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnError(String msg) {
+                globalFunctions.hideProgress();
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Error : " + msg);
+            }
+        }, "Add Category");
+    }
+
+    private void validateOutputAfterFeedback(Object arg0) {
+        if (arg0 instanceof StatusMainModel) {
+            StatusMainModel statusMainModel = (StatusMainModel) arg0;
+            StatusModel statusModel = statusMainModel.getStatusModel();
+            if (!statusMainModel.isStatusLogin()) {
+                globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+
+            } else {
+                globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+                getMenuList();
+
+            }
+        }
+    }
+
 
     @Override
     public void onResume() {

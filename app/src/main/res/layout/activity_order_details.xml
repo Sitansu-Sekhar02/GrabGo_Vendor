@@ -33,12 +33,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/white">
+                android:background="@color/white"
+                >
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="wrap_content"
@@ -52,7 +54,7 @@
                     android:id="@+id/tv_order_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="214562"
+                    android:text=""
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color"
                     android:textStyle="bold"/>
@@ -75,7 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_4sdp"
-                    android:text="12:45 pm , 21 Sept 2021"
+                    android:text=""
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
             </LinearLayout>
@@ -129,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy More."
+                    android:text=""
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
@@ -263,6 +265,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:orientation="horizontal">
 
                     <com.sa.grabgo.vendor.view.AppTextView
@@ -302,7 +305,46 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_25sdp">
+                android:layout_marginTop="@dimen/_25sdp"
+                android:padding="@dimen/_8sdp"
+                android:background="@color/white">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status"
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/semi_color"/>
+
+                    <com.sa.grabgo.vendor.view.AppTextView
+                        android:id="@+id/tv_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textAppearance="@style/SmallMediumText"
+                        android:textColor="@color/light_yellow"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_status"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_50sdp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:padding="@dimen/_8sdp"
+                android:background="@color/white">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -313,14 +355,15 @@
                         android:text="@string/payment_mode"
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color"/>
+
                     <com.sa.grabgo.vendor.view.AppTextView
                         android:id="@+id/tv_payment_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="online"
+                        android:text=""
                         android:textAppearance="@style/SmallMediumText"
                         android:textColor="@color/semi_color"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <ImageView
@@ -337,6 +380,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:background="@color/white">
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle

@@ -40,7 +40,6 @@ public class FragmentOrderMain extends Fragment {
     Activity activity;
     View mainView;
 
-    private TextView tv_est_time, tv_view_allOrders;
     private RelativeLayout rl_favorite_main, rl_setting_main;
 
     private boolean loading = true;
@@ -54,6 +53,7 @@ public class FragmentOrderMain extends Fragment {
     static int mResourceID, titleResourseID;
     static Menu menu;
     static TextView toolbar_title;
+    public static TextView tv_est_time;
     static ImageView toolbar_logo;
     TabLayout tabLayout;
     ViewPager viewPager;

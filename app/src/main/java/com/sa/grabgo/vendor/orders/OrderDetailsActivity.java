@@ -27,9 +27,13 @@ import com.sa.grabgo.vendor.adapters.HomeSubListAdapter;
 import com.sa.grabgo.vendor.adapters.OrderDetailsAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.services.ServerResponseInterface;
+import com.sa.grabgo.vendor.services.ServicesMethodsManager;
 import com.sa.grabgo.vendor.services.model.OrderDetailListModel;
 import com.sa.grabgo.vendor.services.model.OrderDetailModel;
 import com.sa.grabgo.vendor.services.model.OrderModel;
+import com.sa.grabgo.vendor.services.model.StatusMainModel;
+import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.util.ArrayList;
@@ -54,8 +58,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
     static ImageView toolbar_logo, tool_bar_back_icon;
 
     private Button btn_login;
-    private TextView  tv_order_id,tv_order_time,tv_cooking_instruction,sub_total_tv,tv_packaging_price,tv_vat_price,tv_grant_total,tv_payment_type;
-
+    private TextView  tv_order_id,tv_order_time,tv_cooking_instruction,sub_total_tv,tv_packaging_price,tv_vat_price,tv_grant_total,tv_payment_type,tv_status,tv_decline,tv_confirm;
+    String order_id=null;
 
 
 
@@ -125,7 +129,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
         tv_vat_price=findViewById(R.id.tv_vat_price);
         tv_grant_total=findViewById(R.id.tv_grant_total);
         tv_payment_type=findViewById(R.id.tv_payment_type);
+        tv_decline=findViewById(R.id.tv_decline);
+        tv_confirm=findViewById(R.id.tv_confirm);
         rv_order_details=findViewById(R.id.rv_order_details);
+        tv_status=findViewById(R.id.tv_status);
 
         orderMail_linear=new LinearLayoutManager(activity);
 
@@ -133,6 +140,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         setOrderDetails(orderModel);
         getOrderSubDetails(orderModel.getOrder_details());
+
+
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
@@ -171,6 +180,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
             if (GlobalFunctions.isNotNullValue(orderModel.getOrder_id())) {
                 tv_order_id.setText(orderModel.getOrder_id());
+                order_id=orderModel.getOrder_id();
             }
 
             if (GlobalFunctions.isNotNullValue(orderModel.getCreated_on())) {
@@ -194,8 +204,62 @@ public class OrderDetailsActivity extends AppCompatActivity {
             if (GlobalFunctions.isNotNullValue(orderModel.getPayment_type())) {
                 tv_payment_type.setText(orderModel.getPayment_type());
             }
+            if (GlobalFunctions.isNotNullValue(orderModel.getStatus_title())) {
+                tv_status.setText(orderModel.getStatus_title());
+            }
+
+            tv_decline.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String pageFrom=GlobalVariables.ORDER_VENDOR_CANCELLED;
+                    updateStatus(pageFrom,order_id);
+
+                }
+            });
+            tv_confirm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String pageFrom=GlobalVariables.ORDER_CONFIRMED;
+
+                    updateStatus(pageFrom,order_id);
+                }
+            });
         }
 
+    }
+    private void updateStatus(String pageFrom, String order_id) {
+        //globalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getStatusUpdate(context,pageFrom,order_id, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                // globalFunctions.hideProgress();
+                Log.d(TAG, "Response Update : " + arg0.toString());
+                StatusMainModel statusMainModel = (StatusMainModel) arg0;
+                StatusModel statusModel = statusMainModel.getStatusModel();
+                if (statusMainModel.isStatus()){
+                    GlobalFunctions.displayDialog(activity,statusModel.getMessage());
+                }else {
+                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
+                }
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // globalFunctions.hideProgress();
+
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Update Status");
     }
 
 

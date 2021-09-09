@@ -1,33 +1,27 @@
 package com.sa.grabgo.vendor.home;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.MainActivity;
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.adapters.HomeAdapter;
+import com.sa.grabgo.vendor.adapters.interfaces.UpdateStatusInterface;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.services.ServerResponseInterface;
@@ -39,15 +33,15 @@ import com.sa.grabgo.vendor.services.model.OrderListModel;
 import com.sa.grabgo.vendor.services.model.OrderModel;
 import com.sa.grabgo.vendor.services.model.ProfileMainModel;
 import com.sa.grabgo.vendor.services.model.ProfileModel;
+import com.sa.grabgo.vendor.services.model.StatusMainModel;
+import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.sa.grabgo.vendor.services.model.WeeklyModel;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements UpdateStatusInterface {
     public static final String TAG = "HomeFragment";
     Activity activity;
     Context context;
@@ -59,13 +53,15 @@ public class HomeFragment extends Fragment {
 
     GlobalFunctions globalFunctions;
     GlobalVariables globalVariables;
-    String status = "100";
+    String status = "1";
 
     //home main category
     HomeAdapter homeAdapter;
     List<OrderModel> orderModels = new ArrayList<>();
     LinearLayoutManager homeMain_linear;
     ProgressLinearLayout home_category_progress;
+    SwipeRefreshLayout swipe_container;
+
     RecyclerView rr_home_category;
 
 
@@ -92,6 +88,8 @@ public class HomeFragment extends Fragment {
         tv_currency = view.findViewById(R.id.tv_currency);
         tv_revenue_price = view.findViewById(R.id.tv_revenue_price);
         tv_total_orders = view.findViewById(R.id.tv_total_orders);
+        swipe_container = view.findViewById(R.id.swipe_container);
+
 
         homeMain_linear = new LinearLayoutManager(activity);
         mainView = rr_home_category;
@@ -99,6 +97,13 @@ public class HomeFragment extends Fragment {
 
         homePageApi();
         getProfile();
+
+        swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                homePageApi();
+            }
+        });
 
         return view;
     }
@@ -110,6 +115,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 // globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
                 Log.d(TAG, "Response: " + arg0.toString());
                 HomePageMainModel homePageMainModel = (HomePageMainModel) arg0;
                 HomePageModel homePageModel = homePageMainModel.getHomePageModel();
@@ -135,6 +143,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void OnFailureFromServer(String msg) {
                 // globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
                 globalFunctions.displayMessaage(activity, mainView, msg);
                 Log.d(TAG, "Failure : " + msg);
 
@@ -143,6 +154,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void OnError(String msg) {
                 //globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
                 globalFunctions.displayMessaage(activity, mainView, msg);
 
                 Log.d(TAG, "Error : " + msg);
@@ -203,7 +217,7 @@ public class HomeFragment extends Fragment {
 
         rr_home_category.setLayoutManager(homeMain_linear);
         rr_home_category.setHasFixedSize(true);
-        homeAdapter = new HomeAdapter(activity, orderModels);
+        homeAdapter = new HomeAdapter(activity, orderModels,this);
         rr_home_category.setAdapter(homeAdapter);
     }
 
@@ -304,4 +318,52 @@ public class HomeFragment extends Fragment {
         super.onDestroy();
     }
 
+
+
+    @Override
+    public void OnCancelClickListener(OrderModel orderModel, String pageFrom, String order_id) {
+        statusUpdate(pageFrom,order_id);
+
+    }
+
+    @Override
+    public void OnConfirmClickListener(OrderModel orderModel, String pageFrom, String order_id) {
+
+        statusUpdate(pageFrom, order_id);
+    }
+    private void statusUpdate(String pageFrom, String order_id) {
+        //globalFunctions.showProgress(context, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getStatusUpdate(context,pageFrom,order_id, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+               // globalFunctions.hideProgress();
+                Log.d(TAG, "Response Update : " + arg0.toString());
+                StatusMainModel statusMainModel = (StatusMainModel) arg0;
+                StatusModel statusModel = statusMainModel.getStatusModel();
+                if (statusMainModel.isStatus()){
+                    GlobalFunctions.displayDialog(activity,statusModel.getMessage());
+                     homePageApi();
+                }else {
+                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
+                }
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+               // globalFunctions.hideProgress();
+
+                Log.d(TAG, "Failure : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                Log.d(TAG, "Error : " + msg);
+                GlobalFunctions.displayMessaage(context, mainView, msg);
+            }
+        }, "Update Status");
+    }
 }

@@ -742,9 +742,10 @@ public class GlobalVariables {
             ORDER_TYPE_ON_GOING                = "2";
 
     public static final String
-            ORDER_DISPATCHED                   = "103",
-            ORDER_ON_THE_WAY                   = "104",
-            ORDER_DELIVERED                    = "106";
+            ORDER_CONFIRMED                   = "101",
+            ORDER_READY                       = "102",
+            ORDER_COMPLETED                   = "103",
+            ORDER_VENDOR_CANCELLED            = "105";
 
     //Profile Photo Variables
     public static String PROFILE_PICTURE_FOLDER    = "Profile";

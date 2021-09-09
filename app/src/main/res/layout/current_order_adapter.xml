@@ -2,15 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/_8sdp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_5sdp"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@color/white"
+        >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp">
             <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
@@ -27,32 +35,55 @@
                 android:text="@string/prepare_time"
                 android:textAppearance="@style/SmallerText"
                 android:textColor="@color/sub_color"/>
-
-
+            <com.budiyev.android.circularprogressbar.CircularProgressBar
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                app:animateProgress="true"
+                android:layout_marginLeft="@dimen/_30sdp"
+                app:backgroundStrokeColor="@color/main_text"
+                app:backgroundStrokeWidth="@dimen/_2sdp"
+                app:drawBackgroundStroke="false"
+                app:foregroundStrokeCap="butt"
+                app:foregroundStrokeColor="@color/Color_confirm_order"
+                app:foregroundStrokeWidth="@dimen/_3sdp"
+                app:indeterminate="false"
+                app:indeterminateRotationAnimationDuration="1200"
+                app:indeterminateSweepAnimationDuration="600"
+                app:indeterminateMinimumAngle="45"
+                app:maximum="100"
+                app:progress="50"
+                app:progressAnimationDuration="100"
+                app:startAngle="270"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp">
+            <com.sa.grabgo.vendor.view.AppTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/order_id"
                 android:textAppearance="@style/SmallMediumText"
-                android:textColor="@color/semi_color"/>
-            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:textColor="@color/semi_color"
+                android:textStyle="bold"/>
+            <com.sa.grabgo.vendor.view.AppTextView
                 android:id="@+id/tv_order_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="214562"
                 android:textAppearance="@style/SmallMediumText"
-                android:textColor="@color/semi_color"/>
+                android:textColor="@color/semi_color"
+                android:textStyle="bold"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2sdp">
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginLeft="@dimen/_5sdp">
             <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,22 +100,40 @@
                 android:textColor="@color/semi_color"/>
         </LinearLayout>
 
+         <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+             android:layout_marginLeft="@dimen/_5sdp"
+            android:orientation="horizontal">
 
             <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                 android:id="@+id/tv_total_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/semi_color"
+                android:textAppearance="@style/SmallestSizeText"
+                android:textStyle="bold"/>
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_weight="1"
                 android:text="@string/item"
                 android:textColor="@color/semi_color"
-                android:textAppearance="@style/SmallestSizeText"/>
+                android:textAppearance="@style/SmallestSizeText"
+                android:textStyle="bold"/>
+         </LinearLayout>
+
 
 
         <LinearLayout
             android:id="@+id/ln_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp">
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginLeft="@dimen/_5sdp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_order_details"
@@ -103,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
             android:padding="@dimen/_10sdp">
-            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            <com.sa.grabgo.vendor.view.AppTextView
                 android:id="@+id/tv_order_delivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -115,11 +164,11 @@
                 android:textColor="@color/semi_color"
                 android:textStyle="bold"/>
 
-            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            <com.sa.grabgo.vendor.view.AppTextView
                 android:id="@+id/tv_order_ready"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_50sdp"
                 android:drawableLeft="@drawable/ic_mark_prepare"
                 android:drawablePadding="@dimen/_5sdp"
                 android:text="@string/mark_ready"
@@ -132,5 +181,6 @@
 
     </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

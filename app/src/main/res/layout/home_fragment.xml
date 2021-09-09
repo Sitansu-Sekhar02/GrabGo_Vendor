@@ -83,7 +83,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/_5sdp"
-                                    android:text="45000"
+                                    android:text="0"
                                     android:textAppearance="@style/MediumSizeText"
                                     android:textColor="@color/white" />
                             </LinearLayout>
@@ -160,7 +160,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_5sdp"
-                                android:text="45000"
+                                android:text="0"
                                 android:textAppearance="@style/MediumSizeText"
                                 android:textColor="@color/white" />
                         </LinearLayout>
@@ -223,11 +223,16 @@
                     progressActivity:errorBackgroundColor="@color/transparent"
                     progressActivity:loadingBackgroundColor="@color/transparent"
                     progressActivity:loadingProgressBarColor="@color/red_color">
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/swipe_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rr_home_category"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
                 </com.vlonjatg.progressactivity.ProgressLinearLayout>
 
 

@@ -13,6 +13,7 @@
         android:id="@+id/details_progressActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_38sdp"
         android:background="@color/BaseColor"
         app:emptyTitleTextColor="@color/red_color"
         app:errorContentTextColor="@color/app_fontColor"
@@ -22,18 +23,18 @@
         progressActivity:loadingBackgroundColor="@color/transparent"
         progressActivity:loadingProgressBarColor="@color/red_color">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menu_list_rr"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/menu_list_rr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </com.vlonjatg.progressactivity.ProgressLinearLayout>
 
 </LinearLayout>

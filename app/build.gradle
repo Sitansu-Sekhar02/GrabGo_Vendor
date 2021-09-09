@@ -226,7 +226,8 @@ dependencies {
     implementation 'io.github.informramiz:nameinitialscircleimageview:1.6'
 
     //count down progressbar
-    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+    implementation 'com.budiyev.android:circular-progress-bar:1.2.2'
+
 
 }
 apply plugin: 'com.google.gms.google-services'
