@@ -31,7 +31,7 @@
                 android:orientation="vertical">
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                    android:id="@+id/tv_item_drop_down"
+                    android:id="@+id/tv_menuItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -70,13 +70,38 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
-                    android:clickable="false"
                     android:elevation="2dp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:hint="@string/enter_title"
                     android:inputType="text"
-                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/semi_color"
+                    android:textColorHint="@color/border_color" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:text="@string/item_name_ar"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.grabgo.vendor.view.AppEditTextView
+                    android:id="@+id/etv_item_ar_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:hint="@string/enter_title"
+                    android:inputType="text"
                     android:padding="@dimen/_15sdp"
                     android:singleLine="true"
                     android:textAppearance="@style/SmallestSizeText"
@@ -103,11 +128,34 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
-                    android:focusable="true"
                     android:inputType="text"
-                    android:maxLines="1"
                     android:padding="@dimen/_15sdp"
-                    android:singleLine="true"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/app_fontBlackColor"
+                    android:textColorHint="@color/border_color" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:text="@string/item_description_ar"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.grabgo.vendor.view.AppEditTextView
+                    android:id="@+id/etv_description_ar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_87sdp"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:elevation="2dp"
+                    android:inputType="text"
+                    android:padding="@dimen/_15sdp"
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/app_fontBlackColor"
                     android:textColorHint="@color/border_color" />
@@ -132,7 +180,6 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
-                    android:focusable="true"
                     android:hint="@string/enter_price"
                     android:inputType="text"
                     android:maxLines="1"
@@ -152,26 +199,34 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
-                <LinearLayout
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_10sdp">
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:orientation="horizontal">
+
                     <RadioButton
-                        android:id="@+id/radioButton1"
+                        android:id="@+id/rd_type_veg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_gravity="start"
+                        android:buttonTint="@color/Color_confirm_order"
+                        android:checked="true"
                         android:text="@string/veg"
                         android:textAppearance="@style/SmallMediumText" />
+
                     <RadioButton
+                        android:id="@+id/rd_type_nonveg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_gravity="start"
                         android:layout_marginLeft="@dimen/_15sdp"
+                        android:buttonTint="@color/red"
                         android:text="@string/non_veg"
                         android:textAppearance="@style/SmallMediumText" />
-                </LinearLayout>
+                </RadioGroup>
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
@@ -187,29 +242,61 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    >
+                    android:layout_marginTop="@dimen/_5sdp">
+
                     <ImageView
+                        android:id="@+id/iv_item"
                         android:layout_width="@dimen/_79sdp"
                         android:layout_height="@dimen/_79sdp"
-                        android:background="@drawable/ic_lazyload"/>
+                        android:background="@drawable/ic_lazyload" />
 
                     <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                        android:id="@+id/tv_decline"
+                        android:id="@+id/tv_addImage"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_15sdp"
                         android:background="@drawable/bg_button_border_black_curved"
                         android:gravity="center"
-                        android:layout_marginLeft="@dimen/_15sdp"
                         android:text="@string/add_picture"
                         android:textAppearance="@style/MediumSizeText"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:text="@string/select_status"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_select_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:drawableRight="@drawable/ic_drop_down"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:text="@string/select_status"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/main_text"
+                    android:textStyle="normal" />
+
 
                 <com.sa.grabgo.vendor.view.AppButton
-                    android:id="@+id/btn_save"
+                    android:id="@+id/btn_saveItem"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_48sdp"
                     android:layout_gravity="center_horizontal"

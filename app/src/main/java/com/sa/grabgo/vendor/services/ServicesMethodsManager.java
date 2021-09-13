@@ -23,13 +23,15 @@ import com.sa.grabgo.vendor.services.model.LanguageListModel;
 import com.sa.grabgo.vendor.services.model.LatlongMainModel;
 import com.sa.grabgo.vendor.services.model.LatlongModel;
 import com.sa.grabgo.vendor.services.model.LoginModel;
+import com.sa.grabgo.vendor.services.model.MenuModel;
+import com.sa.grabgo.vendor.services.model.MenuSubMainModel;
+import com.sa.grabgo.vendor.services.model.MenuTypeMainModel;
 import com.sa.grabgo.vendor.services.model.NotificationListModel;
 import com.sa.grabgo.vendor.services.model.ProfileMainModel;
 import com.sa.grabgo.vendor.services.model.ProfileModel;
 import com.sa.grabgo.vendor.services.model.PushNotificationModel;
 import com.sa.grabgo.vendor.services.model.StatusMainModel;
 import com.sa.grabgo.vendor.services.model.StatusModel;
-import com.sa.grabgo.vendor.services.model.TokenPostModel;
 import com.sa.grabgo.vendor.services.model.UpdateLanguageModel;
 import com.sa.grabgo.vendor.services.model.UpdateOrderStatus;
 
@@ -250,6 +252,13 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
+        } else if (obj instanceof MenuSubMainModel) {
+            MenuSubMainModel model = new MenuSubMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
         } else if (obj instanceof CategoryMainModel) {
             CategoryMainModel model = new CategoryMainModel();
             if (model.toObject(resp.toString())) {
@@ -257,7 +266,14 @@ public class ServicesMethodsManager {
             } else {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
             }
-        } else if (obj instanceof AddCategoryModel) {
+        }else if (obj instanceof MenuTypeMainModel) {
+            MenuTypeMainModel model = new MenuTypeMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+            }
+        }  else if (obj instanceof AddCategoryModel) {
             StatusMainModel model = new StatusMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -291,6 +307,15 @@ public class ServicesMethodsManager {
                 }
             }
         } else if (obj instanceof ChangePasswordModel) {
+            StatusMainModel model = new StatusMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+
+            }
+        }
+        else if (obj instanceof MenuModel) {
             StatusMainModel model = new StatusMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -422,6 +447,13 @@ public class ServicesMethodsManager {
         postData(context, pushNotificationModel, ServerConstants.URL_PushNotification, query, TAG);
     }
 
+    public void createMenu(Context context, MenuModel menuModel, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+
+        postData(context, menuModel, ServerConstants.URL_RegisterUser,query, TAG);
+    }
+
     public void forgotMyPassword(Context context, ForgotPasswordModel forgotPasswordModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         // postData(context, forgotPasswordModel, ServerConstants.URL_ForgotMyPassword, TAG);
@@ -438,16 +470,24 @@ public class ServicesMethodsManager {
         getData(context, new StatusMainModel(), URL, query, TAG);
     }
 
+    public void getMenuItemList(Context context, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+        getData(context, new MenuTypeMainModel(), ServerConstants.URL_Menu_ItemList, query, TAG);
+    }
 
+    public void getMenuSubList(Context context, String category_id, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+        query = query != null ? query + "&category_id=" + category_id : "category_id=" + category_id;
+        getData(context, new MenuSubMainModel(), ServerConstants.URL_MenuList, query, TAG);
+    }
 
     public void getCategoryList(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
         getData(context, new CategoryMainModel(), ServerConstants.URL_GetCategoryList, query, TAG);
     }
-
-
-
 
 
     public void getProductDetails(Context context, String productId, String variationId, ServerResponseInterface mCallInterface, String TAG) {

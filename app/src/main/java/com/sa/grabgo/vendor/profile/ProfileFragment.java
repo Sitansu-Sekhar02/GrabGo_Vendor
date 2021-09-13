@@ -3,8 +3,10 @@ package com.sa.grabgo.vendor.profile;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +26,21 @@ import androidx.fragment.app.Fragment;
 import com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.SplashActivity;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.services.ServerResponseInterface;
 import com.sa.grabgo.vendor.services.ServicesMethodsManager;
 import com.sa.grabgo.vendor.services.model.ProfileMainModel;
 import com.sa.grabgo.vendor.services.model.ProfileModel;
+import com.sa.grabgo.vendor.services.model.StatusModel;
+import com.sa.grabgo.vendor.services.model.UpdateLanguageModel;
+import com.sa.grabgo.vendor.view.AlertDialog;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.sa.grabgo.vendor.MainActivity.mainContext;
 
 public class ProfileFragment extends Fragment {
 
@@ -98,10 +107,121 @@ public class ProfileFragment extends Fragment {
         mainView=tv_restaurantName;
 
         getProfile();
+        tv_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
 
 
         return view;
 
+    }
+
+    private void logout() {
+        final AlertDialog alertDialog = new AlertDialog(activity);
+        alertDialog.setCancelable(false);
+        alertDialog.setIcon(R.drawable.app_icon);
+        alertDialog.setTitle(activity.getString(R.string.app_name));
+        alertDialog.setMessage(activity.getResources().getString(R.string.appLogoutText));
+        alertDialog.setPositiveButton(activity.getString(R.string.yes), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                //Logout the Application
+              /*  LogoutModel logoutModel=new LogoutModel();
+                logoutModel.setUuid(GlobalFunctions.getUniqueID(activity));
+                logoutUser( mainContext ,logoutModel);*/
+
+                UpdateLanguageModel updateLanguageModel = new UpdateLanguageModel();
+                if (GlobalFunctions.isNotNullValue(GlobalFunctions.getSharedPreferenceString(mainContext, GlobalVariables.SHARED_PREFERENCE_TOKEN))) {
+                    updateLanguageModel.setPushToken(GlobalFunctions.getSharedPreferenceString(mainContext, GlobalVariables.SHARED_PREFERENCE_TOKEN));
+                    logoutUser(mainContext, updateLanguageModel);
+                }
+            }
+        });
+
+        alertDialog.setNegativeButton(activity.getString(R.string.cancel), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+    private void logoutUser(final Context mainContext, final UpdateLanguageModel updateLanguageModel) {
+        GlobalFunctions.showProgress(mainContext, getString(R.string.logingout));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.logout(mainContext, updateLanguageModel, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                GlobalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                validateOutput(arg0);
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                GlobalFunctions.hideProgress();
+                Toast.makeText(mainContext, msg, Toast.LENGTH_SHORT).show();
+                //GlobalFunctions.displayMessaage(context, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                GlobalFunctions.hideProgress();
+                Toast.makeText(mainContext, msg, Toast.LENGTH_SHORT).show();
+                //GlobalFunctions.displayMessaage(context, mainView, msg);
+                Log.d(TAG, "Error : " + msg);
+            }
+        }, "Logout_User");
+    }
+
+    private void validateOutput(Object arg0) {
+        if (arg0 instanceof StatusModel) {
+            StatusModel statusModel = (StatusModel) arg0;
+            //globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+            if (statusModel.isStatus()) {
+                /*Logout success, Clear all cache and reload the home page*/
+                globalFunctions.logoutApplication(mainContext, false);
+                GlobalFunctions.closeAllActivities();
+                RestartEntireApp(mainContext, false);
+
+            }
+        }
+
+    }
+
+    public void RestartEntireApp(Context context, boolean isLanguageChange) {
+        if (isLanguageChange) {
+            SharedPreferences shared_preference = PreferenceManager.getDefaultSharedPreferences(this
+                    .getActivity());
+
+            String mCustomerLanguage = shared_preference.getString(
+                    globalVariables.SHARED_PREFERENCE_SELECTED_LANGUAGE, "null");
+            String mCurrentlanguage;
+            if ((mCustomerLanguage.equalsIgnoreCase("en"))) {
+                globalFunctions.setLanguage(context, GlobalVariables.LANGUAGE.ARABIC);
+
+                mCurrentlanguage = "ar";
+            } else {
+                mCurrentlanguage = "en";
+                globalFunctions.setLanguage(context, GlobalVariables.LANGUAGE.ENGLISH);
+
+            }
+            SharedPreferences.Editor editor = shared_preference.edit();
+            editor.putString(globalVariables.SHARED_PREFERENCE_SELECTED_LANGUAGE, mCurrentlanguage);
+            editor.commit();
+        }
+        globalFunctions.closeAllActivities();
+        Intent i = new Intent(activity, SplashActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        System.exit(0);
     }
 
     private void getProfile() {

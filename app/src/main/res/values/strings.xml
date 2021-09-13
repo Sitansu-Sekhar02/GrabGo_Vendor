@@ -100,5 +100,13 @@
     <string name="not_available">"Sorry! Data not available "</string>
     <string name="order_details">Order Details</string>
     <string name="status">Status</string>
-
+    <string name="item_name_ar">Item Arabic name</string>
+    <string name="item_description_ar">Item Arabic Description</string>
+    <string name="select_status">Select Status</string>
+    <string name="enter_category_ar">Enter category Arabic name</string>
+    <string name="active">Active</string>
+    <string name="inactive">InActive</string>
+    <string name="menu_create_successfully">"Menu created successsfully "</string>
+    <string name="logingout">Logging out...</string>
+    <string name="appLogoutText">Are you sure ? You want to Logout</string>
 </resources>

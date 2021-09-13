@@ -47,13 +47,19 @@
                         android:textStyle="bold"
                         />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ln_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/hotel">
+
 
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tvComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/hotel"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginRight="@dimen/_8sdp"
@@ -65,7 +71,6 @@
                     android:id="@+id/etv_Comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvComment"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="7dp"
                     android:layout_marginRight="@dimen/_8sdp"
@@ -78,11 +83,41 @@
                     android:textColor="@color/app_fontBlackColor"
                     />
 
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_ar_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:text="@string/enter_category_ar"
+                    android:visibility="visible"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.grabgo.vendor.view.AppEditTextView
+                    android:id="@+id/etv_ar_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/enter_here"
+                    android:inputType="text"
+                    android:padding="@dimen/_15sdp"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/app_fontBlackColor"
+                    />
+                </LinearLayout>
+
                 <com.sa.grabgo.vendor.view.AppButton
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_48sdp"
-                    android:layout_below="@+id/etv_Comment"
+                    android:layout_below="@+id/ln_item"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginRight="@dimen/_8sdp"

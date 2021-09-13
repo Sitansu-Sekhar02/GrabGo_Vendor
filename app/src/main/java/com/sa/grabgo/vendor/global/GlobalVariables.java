@@ -626,9 +626,9 @@ public class GlobalVariables {
     public static final String FROM_LOGIN                   = "1";
     public static final String FROM_REGISTERATON            = "2";
 
-    public static final String  GENDER_NONE      = "0";
-    public static final String  GENDER_MALE      = "1";
-    public static final String  GENDER_FEMALE    = "2";
+    public static final String  GENDER_NONE        = "0";
+    public static final String  STATUS_ACTIVE      = "1";
+    public static final String  STATUS_INACTIVE    = "2";
 
 
     public static String SHARED_PREFERENCE_KEY                  =  "Yin-Therapist-Android-IMCRINOX@2019";

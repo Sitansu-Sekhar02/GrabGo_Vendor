@@ -82,7 +82,7 @@ public class MenuListFragment extends Fragment {
     private RelativeLayout rl_favorite_main, rl_setting_main;
     // private CircleImageView iv_profile, iv_restaurant;
     NameInitialsCircleImageView iv_profile;
-    private EditText etv_Comment;
+    private EditText etv_Comment,etv_ar_name;
     private Button btn_submit;
 
     AddCategoryModel addCategoryModel = null;
@@ -250,32 +250,47 @@ public class MenuListFragment extends Fragment {
         dialog.show();
 
         etv_Comment = dialog.findViewById(R.id.etv_Comment);
+        etv_ar_name = dialog.findViewById(R.id.etv_ar_name);
         btn_submit = dialog.findViewById(R.id.btn_submit);
         etv_Comment.clearFocus();
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (etv_Comment != null && etv_ar_name!=null) {
 
+                    String
+                            category = etv_Comment.getText().toString().trim(),
+                            category_arabic = etv_ar_name.getText().toString().trim();
 
-                String
-                        category = etv_Comment.getText().toString().trim();
+                    if  (category.isEmpty()) {
+                        etv_Comment.setError(getString(R.string.pleaseFillMandatoryDetails));
+                        etv_Comment.setFocusableInTouchMode(true);
+                        etv_Comment.requestFocus();
+                    }else if (category_arabic.isEmpty()){
+                        etv_ar_name.setError(getString(R.string.pleaseFillMandatoryDetails));
+                        etv_ar_name.setFocusableInTouchMode(true);
+                        etv_ar_name.requestFocus();
+                    }else {
 
-                if (addCategoryModel == null) {
-                    addCategoryModel = new AddCategoryModel();
+                        if (addCategoryModel == null) {
+                            addCategoryModel = new AddCategoryModel();
+                        }
+                        addCategoryModel.setName(category);
+                        addCategoryModel.setAr_name(category_arabic);
+
+                        insertCategory(activity, addCategoryModel);
+                        dialog.dismiss();
+
+                    }
+
                 }
-                addCategoryModel.setName(category);
-
-                insertCategort(activity, addCategoryModel);
-                dialog.dismiss();
-
-
             }
 
         });
     }
 
-    private void insertCategort(Activity activity, AddCategoryModel addCategoryModel) {
+    private void insertCategory(Activity activity, AddCategoryModel addCategoryModel) {
         globalFunctions.showProgress(activity, activity.getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.insertCategory(context, addCategoryModel, new ServerResponseInterface() {

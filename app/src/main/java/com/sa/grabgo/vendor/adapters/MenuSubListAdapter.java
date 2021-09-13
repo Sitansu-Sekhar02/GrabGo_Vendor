@@ -1,20 +1,39 @@
 package com.sa.grabgo.vendor.adapters;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.services.model.MenuSubModel;
+import com.sa.grabgo.vendor.services.model.MenuTypeModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class MenuSubListAdapter extends RecyclerView.Adapter<MenuSubListAdapter.ViewHolder> {
 
     public static final String TAG = "MenuSubListAdapter";
+
+    private final List<MenuSubModel> list;
+    private final Activity activity;
+    GlobalFunctions globalFunctions;
+
+    public MenuSubListAdapter(Activity activity, List<MenuSubModel> list) {
+        this.list = list;
+        this.activity = activity;
+        globalFunctions = AppController.getInstance().getGlobalFunctions();
+
+    }
+
 
     @NonNull
     @Override
@@ -24,12 +43,30 @@ public class MenuSubListAdapter extends RecyclerView.Adapter<MenuSubListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MenuSubListAdapter.ViewHolder holder, int position) {
+        final MenuSubModel model = list.get(position);
+
+        if (GlobalFunctions.isNotNullValue(model.getName())){
+            holder.item_title_tv.setText(model.getName());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
+            holder.tv_currency.setText(model.getCurrency());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getPrice())) {
+            holder.unit_price_tv.setText(model.getPrice());
+        }
+        if (GlobalFunctions.isNotNullValue(model.getDescription())) {
+            holder.product_description_tv.setText(globalFunctions.getHTMLString(model.getDescription()));
+
+        }
+        if (GlobalFunctions.isNotNullValue(model.getImage())) {
+            Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.ic_lazyload).into(holder.product_iv);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

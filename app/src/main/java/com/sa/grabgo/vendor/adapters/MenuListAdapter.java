@@ -1,6 +1,7 @@
 package com.sa.grabgo.vendor.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.menu.MenuSubListActivity;
+import com.sa.grabgo.vendor.orders.OrderDetailsActivity;
 import com.sa.grabgo.vendor.services.model.CategoryModel;
 import com.sa.grabgo.vendor.services.model.OrderDetailModel;
 
@@ -49,7 +52,8 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = MenuSubListActivity.newInstance(activity, model);
+                activity.startActivity(intent);
             }
         });
     }

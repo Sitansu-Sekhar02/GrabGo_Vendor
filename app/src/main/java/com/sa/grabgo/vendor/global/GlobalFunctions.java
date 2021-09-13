@@ -44,6 +44,7 @@ import com.sa.grabgo.vendor.MainActivity;
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.SplashActivity;
 import com.sa.grabgo.vendor.addon.PasswordValidator;
+import com.sa.grabgo.vendor.login.LoginActivity;
 import com.sa.grabgo.vendor.services.model.KeyValueListModel;
 import com.sa.grabgo.vendor.services.model.NotificationSettingsModel;
 import com.sa.grabgo.vendor.services.model.ProfileModel;
@@ -1108,7 +1109,7 @@ public class GlobalFunctions {
     }
 
     public static void closeAllActivities(){
-      //  LoginActivity.closeThisActivity();
+        LoginActivity.closeThisActivity();
         //ProfileMainActivity.closeThisActivity();
       //  CitySelectingActivity.closeThisActivity();
        // MainActivity.closeThisActivity();
