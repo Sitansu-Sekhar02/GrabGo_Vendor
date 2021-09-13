@@ -45,9 +45,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuSubListActivity extends AppCompatActivity {
+
     private static final String TAG = "MenuSubListActivity",
             BUNDLE_CATEGORY_MODEL = "BundleCategoryModel";
-
 
 
     Context context;
@@ -148,9 +148,16 @@ public class MenuSubListActivity extends AppCompatActivity {
             }
         });
 
+
         getSubMenuList();
 
+        swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getSubMenuList();
 
+            }
+        });
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
@@ -165,6 +172,9 @@ public class MenuSubListActivity extends AppCompatActivity {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                  globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
                 Log.d(TAG, "Response Update : " + arg0.toString());
                 MenuSubMainModel menuSubMainModel = (MenuSubMainModel) arg0;
                 MenuSubListModel menuSubListModel = menuSubMainModel.getMenuSubListModel();
@@ -177,7 +187,9 @@ public class MenuSubListActivity extends AppCompatActivity {
             @Override
             public void OnFailureFromServer(String msg) {
                  globalFunctions.hideProgress();
-
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
                 Log.d(TAG, "Failure : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
@@ -185,6 +197,9 @@ public class MenuSubListActivity extends AppCompatActivity {
             @Override
             public void OnError(String msg) {
                 globalFunctions.hideProgress();
+                if (swipe_container.isRefreshing()) {
+                    swipe_container.setRefreshing(false);
+                }
                 Log.d(TAG, "Error : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }

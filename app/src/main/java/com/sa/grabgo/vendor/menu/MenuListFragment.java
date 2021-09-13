@@ -62,7 +62,7 @@ import java.util.List;
 
 public class MenuListFragment extends Fragment {
 
-    public static String TAG = "MenuFragment";
+    public static String TAG = "MenuListFragment";
     Context context;
     Activity activity;
     View mainView;
@@ -77,11 +77,6 @@ public class MenuListFragment extends Fragment {
     GlobalVariables globalVariables;
     GlobalFunctions globalFunctions;
 
-    private TextView tv_edit_profile, tv_view_allOrders;
-    private TextView tv_logout, tv_user_name, etv_mobile_no, etv_country_code, tv_order_date, tv_item_title, tv_ratings, tv_rating_count, tv_distance;
-    private RelativeLayout rl_favorite_main, rl_setting_main;
-    // private CircleImageView iv_profile, iv_restaurant;
-    NameInitialsCircleImageView iv_profile;
     private EditText etv_Comment,etv_ar_name;
     private Button btn_submit;
 
@@ -214,7 +209,6 @@ public class MenuListFragment extends Fragment {
     }
 
     private void homeCategoryInitRecycler() {
-
         menu_list_rr.setLayoutManager(category_linearLayout);
         menu_list_rr.setHasFixedSize(true);
         menuListAdapter = new MenuListAdapter(activity, categoryModels);

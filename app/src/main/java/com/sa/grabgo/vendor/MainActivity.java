@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     static Menu menu;
     public static TextView toolbar_title;
     public  static TextView tv_restaurant_name;
-    static ImageView toolbar_logo;
+    public static ImageView toolbar_logo,ic_logout;
     public static TextView header_tv;
     public static String address;
     Double latitude, longitude;
@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         //toolbar.setNavigationIcon(navIconDrawable);
         toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar_logo = (ImageView) toolbar.findViewById(R.id.tool_bar_logo);
+        ic_logout = (ImageView) toolbar.findViewById(R.id.ic_logout);
 
 
         header_tv = (TextView) findViewById(R.id.toolbar_title);

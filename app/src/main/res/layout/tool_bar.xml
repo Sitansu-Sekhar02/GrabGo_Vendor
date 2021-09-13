@@ -52,7 +52,7 @@
                     android:drawablePadding="@dimen/_5sdp"
                     android:text=""
                     android:textAllCaps="false"
-                    android:textAppearance="@style/SmallerText"
+                    android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color"
                     android:textStyle="normal"
                     android:visibility="visible" />

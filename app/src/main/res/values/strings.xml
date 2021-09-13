@@ -109,4 +109,8 @@
     <string name="menu_create_successfully">"Menu created successsfully "</string>
     <string name="logingout">Logging out...</string>
     <string name="appLogoutText">Are you sure ? You want to Logout</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="select_type">Select Type</string>
+    <string name="order_confirm">"Order Confirmed "</string>
+
 </resources>

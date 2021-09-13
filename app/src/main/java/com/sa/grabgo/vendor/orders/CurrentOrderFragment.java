@@ -77,7 +77,6 @@ public class CurrentOrderFragment extends Fragment implements UpdateCurrentStatu
 
         getCurrentOrders();
 
-
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

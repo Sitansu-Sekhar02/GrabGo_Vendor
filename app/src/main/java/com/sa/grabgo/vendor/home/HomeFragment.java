@@ -1,6 +1,7 @@
 package com.sa.grabgo.vendor.home;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +43,8 @@ import com.vlonjatg.progressactivity.ProgressLinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class HomeFragment extends Fragment implements UpdateStatusInterface {
     public static final String TAG = "HomeFragment";
     Activity activity;
@@ -63,6 +67,7 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
     SwipeRefreshLayout swipe_container;
 
     RecyclerView rr_home_category;
+    ProgressDialog progress;
 
 
     @Nullable
@@ -94,6 +99,11 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
         homeMain_linear = new LinearLayoutManager(activity);
         mainView = rr_home_category;
 
+        progress = new ProgressDialog(activity);
+        progress.setTitle(activity.getString(R.string.loading));
+        progress.setMessage(activity.getString(R.string.please_wait));
+        progress.setCancelable(false);
+        progress.show();
 
         homePageApi();
         getProfile();
@@ -115,6 +125,8 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
             @Override
             public void OnSuccessFromServer(Object arg0) {
                 // globalFunctions.hideProgress();
+                progress.dismiss();
+
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
                 }
@@ -143,6 +155,8 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
             @Override
             public void OnFailureFromServer(String msg) {
                 // globalFunctions.hideProgress();
+                progress.dismiss();
+
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
                 }
@@ -153,6 +167,7 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
 
             @Override
             public void OnError(String msg) {
+                progress.dismiss();
                 //globalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
@@ -279,6 +294,12 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
                     MainActivity.toolbar_title.setText(profileModel.getAddress());
                 }
 
+                if (GlobalFunctions.isNotNullValue(profileModel.getIs_available())) {
+                    MainActivity.ic_logout.setImageResource(R.drawable.ic_logout_green);
+                }else {
+                    MainActivity.ic_logout.setImageResource(R.drawable.ic_logout_red);
+
+                }
 
             } catch (Exception exxx) {
                 Log.e(TAG, exxx.getMessage());
@@ -343,7 +364,8 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
                 StatusModel statusModel = statusMainModel.getStatusModel();
                 if (statusMainModel.isStatus()){
                     GlobalFunctions.displayDialog(activity,statusModel.getMessage());
-                     homePageApi();
+                    homePageApi();
+
                 }else {
                     GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
                 }

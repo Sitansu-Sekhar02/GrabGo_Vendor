@@ -91,7 +91,7 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
 
 
         LinearLayoutManager layoutManager;
-        layoutManager = new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
         List<OrderDetailModel> productList = new ArrayList<OrderDetailModel>();
 
         if (model.getOrder_details() != null && model.getOrder_details().getOrderDetailModels().size() > 0) {

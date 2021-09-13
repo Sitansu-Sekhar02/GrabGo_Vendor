@@ -31,6 +31,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -39,18 +42,27 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.adapters.MenuListAdapter;
+import com.sa.grabgo.vendor.adapters.MenuTypeListAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.image_picker.ImagePickerActivity;
 import com.sa.grabgo.vendor.services.ServerResponseInterface;
 import com.sa.grabgo.vendor.services.ServicesMethodsManager;
+import com.sa.grabgo.vendor.services.model.CategoryListModel;
+import com.sa.grabgo.vendor.services.model.CategoryMainModel;
+import com.sa.grabgo.vendor.services.model.CategoryModel;
 import com.sa.grabgo.vendor.services.model.MenuModel;
+import com.sa.grabgo.vendor.services.model.MenuTypeListModel;
+import com.sa.grabgo.vendor.services.model.MenuTypeMainModel;
+import com.sa.grabgo.vendor.services.model.MenuTypeModel;
 import com.sa.grabgo.vendor.services.model.StatusMainModel;
 import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.sa.grabgo.vendor.upload.UploadImage;
 import com.sa.grabgo.vendor.upload.UploadListener;
 import com.sa.grabgo.vendor.view.AlertDialog;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,6 +105,14 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     MenuModel menuModel=null;
 
 
+    MenuTypeListAdapter menuTypeListAdapter;
+    List<MenuTypeModel> menuTypeModel = new ArrayList<>();
+    LinearLayoutManager category_linearLayout;
+    ProgressLinearLayout details_progressActivity;
+    SwipeRefreshLayout swipe_container;
+    RecyclerView menu_list_rr;
+   // MenuTypeModel menuTypeModel=null;
+
     String
             selectStatus = "1";
 
@@ -110,7 +130,6 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         activity = this;
 
         this.layoutInflater = activity.getLayoutInflater();
-
 
 
         globalFunctions = AppController.getInstance().getGlobalFunctions();
@@ -164,9 +183,6 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         // find the radiobutton by returned id
         radioButton = (RadioButton) findViewById(selectedId);
 
-        Toast.makeText(activity,
-                radioButton.getText(), Toast.LENGTH_SHORT).show();
-
 
         tv_select_status.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,10 +208,55 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             }
         });
 
+        getMenuTypeList();
+
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         setTitle(getString(R.string.add_new_item), 0, 0);
+    }
+
+    private void getMenuTypeList() {
+       // globalFunctions.showProgress(activity, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getItemList(context, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+               // globalFunctions.hideProgress();
+                Log.d(TAG, "Response: " + arg0.toString());
+                MenuTypeMainModel menuTypeMainModel = (MenuTypeMainModel) arg0;
+                MenuTypeListModel menuTypeListModel = menuTypeMainModel.getMenuTypeListModel();
+
+                if (menuTypeListModel.getMenuTypeModels() != null) {
+                    setThisPage(menuTypeListModel);
+                }
+
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+               // globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+
+            }
+
+            @Override
+            public void OnError(String msg) {
+               // globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+
+                Log.d(TAG, "Error : " + msg);
+            }
+
+        }, "MenuType List");
+    }
+
+    private void setThisPage(MenuTypeListModel menuTypeListModel) {
+        if (menuTypeListModel != null && menuTypeModel != null) {
+            menuTypeModel.clear();
+            menuTypeModel.addAll(menuTypeListModel.getMenuTypeModels());
+        }
     }
 
     private void openCropFuctionalImage() {

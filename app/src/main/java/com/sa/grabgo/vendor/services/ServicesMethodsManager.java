@@ -361,27 +361,6 @@ public class ServicesMethodsManager {
         // getData(context,new WalletListModel(), ServerConstants.URL_WalletHistory, query, TAG);
     }
 
-    public void getMaterialList(Context context, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        //getData(context, new KeyValueMainModel(), ServerConstants.URL_GetMaterialList, query, TAG);
-    }
-
-    public void getSubCatList(Context context, String catId, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&id_parent=" + catId : "id_parent=" + catId;
-        // getData(context, new SubCatMainModel(), ServerConstants.URL_GetSubCategoryList, query, TAG);
-    }
-
-    public void getGuestUserCreation(Context context, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        HomeIndexModel model = new HomeIndexModel();
-        model.setSystem_info(globalFunctions.getDevice());
-        model.setUid(globalFunctions.getUniqueID(context));
-        postData(context, model, ServerConstants.URL_GuestUserCreation, null, TAG, true);
-    }
-
     public void loginUser(Context context, LoginModel loginModel, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         postData(context, loginModel, ServerConstants.URL_Login, TAG);
@@ -407,12 +386,6 @@ public class ServicesMethodsManager {
         postData(context, addCategoryModel, url, TAG);
     }
 
-
-    public void updateUser(Context context, ProfileModel profileModel, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String url = ServerConstants.URL_UpdateProfile;
-        postData(context, profileModel, url, TAG);
-    }
 
 
     public void getProfile(Context context, ServerResponseInterface mCallInterface, String TAG) {
@@ -451,7 +424,7 @@ public class ServicesMethodsManager {
         setCallbacks(mCallInterface);
         String query = null;
 
-        postData(context, menuModel, ServerConstants.URL_RegisterUser,query, TAG);
+        postData(context, menuModel, ServerConstants.URL_CreateMenu,query, TAG);
     }
 
     public void forgotMyPassword(Context context, ForgotPasswordModel forgotPasswordModel, ServerResponseInterface mCallInterface, String TAG) {
@@ -470,7 +443,7 @@ public class ServicesMethodsManager {
         getData(context, new StatusMainModel(), URL, query, TAG);
     }
 
-    public void getMenuItemList(Context context, ServerResponseInterface mCallInterface, String TAG) {
+    public void getItemList(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
         getData(context, new MenuTypeMainModel(), ServerConstants.URL_Menu_ItemList, query, TAG);
@@ -488,70 +461,6 @@ public class ServicesMethodsManager {
         String query = null;
         getData(context, new CategoryMainModel(), ServerConstants.URL_GetCategoryList, query, TAG);
     }
-
-
-    public void getProductDetails(Context context, String productId, String variationId, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&id_product=" + productId : "id_product=" + productId;
-        query = query != null ? query + "&id_variation=" + variationId : "id_variation=" + variationId;
-        //getData(context, new ProductDetailMainModel(), ServerConstants.URL_ProductDetail, query, TAG);
-    }
-
-
-
-
-
-    public void getVendorRating(Context context, String vendorId, String size, String index, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&id_vendor=" + vendorId : "id_vendor=" + vendorId;
-        query = query != null ? query + "&index=" + index : "index=" + index;
-        query = query != null ? query + "&size=" + size : "size=" + size;
-        // getData(context, new CommentListMainModel(), ServerConstants.URL_VendorRating, query, TAG);
-    }
-
-
-
-
-  public  void getRelatedProducts(Context context, String productId, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&product_id=" + productId : "product_id=" + productId;
-        // getData(context, new RelatedProductsListModel(), ServerConstants.URL_RelatedProduct, query, TAG);
-    }
-
-
-
-
-    public void getUserAddress(Context context, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-//        query = query != null ? query + "&type=" + "1" : "type=" + "1";
-        //   String url = ServerConstants.URL_GetUserAddress;
-        //  getData(context, new UserAddressListModel(), url, query, TAG);
-    }
-
-    public void getDefaultUserAddress(Context context, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&type=" + "1" : "type=" + "1";
-        //  String url = ServerConstants.URL_GetUserAddress;
-        // getData(context, new UserAddressListModel(), url, query, TAG);
-    }
-
-
-
-
-
-    public void getReOrder(Context context, String orderId, ServerResponseInterface mCallInterface, String TAG) {
-        setCallbacks(mCallInterface);
-        String query = null;
-        query = query != null ? query + "&order_id=" + orderId : "order_id=" + orderId;
-       // getData(context, new StatusMainModel(), ServerConstants.URL_ReOrder, query, TAG);
-    }
-
-
 
 
     public void changePassword(Context context, ChangePasswordModel changePasswordModel, ServerResponseInterface mCallInterface, String TAG) {

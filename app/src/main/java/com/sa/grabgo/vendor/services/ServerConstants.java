@@ -5,12 +5,11 @@ public class ServerConstants {
     //public static final String SERVER_URL                              = "http://hardwarewagon.com/hardware_wagon_php/";
     public static final String SERVER_URL                                = "http://35.154.4.154/gograb/rest_app/v0_1/api/";
 
-    public static final String SERVER_API_VERSION                           = "driver_v0_1";
-    public static final String BASE_URL                                     = SERVER_URL+"app/"+SERVER_API_VERSION+"/api/";
+    public static final String SERVER_API_VERSION                            = "driver_v0_1";
+    public static final String BASE_URL                                      = SERVER_URL+"app/"+SERVER_API_VERSION+"/api/";
 
     public static final String URL_GuestUserCreation                         = SERVER_URL + "guest_user_creation.php";
     public static final String URL_Login                                     = SERVER_URL + "login.php";
-    public static final String URL_RegisterUser                              = SERVER_URL + "registration.php";
     public static final String URL_CheckMobile                               = SERVER_URL + "check_mobile.php";
     public static final String URL_GetCategoryList                           = SERVER_URL + "category_list.php";
     public static final String URL_AddCategory                               = SERVER_URL + "create_category.php";
@@ -28,9 +27,9 @@ public class ServerConstants {
     public static final String URL_GetProfile                                = SERVER_URL + "get_profile.php";
 
 
-    public static final String URL_GetNotifications     = BASE_URL + "get_notifications.php";
-    public static final String URL_ForgotPassword       = BASE_URL + "forgot_password.php";
-    public static final String URL_PushNotification     = SERVER_URL + "push.php";
+    public static final String URL_GetNotifications                         = SERVER_URL + "get_notifications.php";
+    public static final String URL_ForgotPassword                           = SERVER_URL + "forgot_password.php";
+    public static final String URL_PushNotification                         = SERVER_URL + "push.php";
 
 
     public static final String URL_AboutUs              = "http://hardwarewagon.com/hardware_wagon_ui/about-nomenu.html";

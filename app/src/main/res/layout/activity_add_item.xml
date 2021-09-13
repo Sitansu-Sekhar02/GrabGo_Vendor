@@ -188,6 +188,36 @@
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/app_fontBlackColor"
                     android:textColorHint="@color/border_color" />
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/activity_gutter_margin"
+                    android:text="@string/select_type"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/SmallerText"
+                    android:textColor="@color/semi_color" />
+
+                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    android:id="@+id/tv_selectMenuType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/activity_gutter_margin"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/activity_gutter_margin"
+                    android:background="@drawable/bg_button_color_primary_dark_curved_filled"
+                    android:drawableRight="@drawable/ic_drop_down"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:maxLines="1"
+                    android:padding="@dimen/_15sdp"
+                    android:singleLine="true"
+                    android:text="Chef's Special"
+                    android:textAppearance="@style/SmallestSizeText"
+                    android:textColor="@color/main_text"
+                    android:textStyle="normal" />
+
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"

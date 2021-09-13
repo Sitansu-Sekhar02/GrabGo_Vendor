@@ -1,6 +1,7 @@
 package com.sa.grabgo.vendor.orders;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
-import com.sa.grabgo.vendor.adapters.CurrentOrderAdapter;
 import com.sa.grabgo.vendor.adapters.PastOrderAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
@@ -53,6 +53,8 @@ public class PastOrderFragment extends Fragment {
     SwipeRefreshLayout swipe_container;
     RecyclerView rr_past_orders;
 
+    ProgressDialog progress;
+
 
     @Nullable
     @Override
@@ -72,20 +74,20 @@ public class PastOrderFragment extends Fragment {
         homeMain_linear = new LinearLayoutManager(activity);
         mainView = rr_past_orders;
 
-        getCurrentOrders();
+        getPastOrders();
 
 
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getCurrentOrders();
+                getPastOrders();
             }
         });
 
         return view;
     }
 
-    private void getCurrentOrders() {
+    private void getPastOrders() {
         //globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getHomeDetails(context, status, new ServerResponseInterface() {
@@ -129,7 +131,7 @@ public class PastOrderFragment extends Fragment {
                 Log.d(TAG, "Error : " + msg);
             }
 
-        }, "Current Orders");
+        }, "Past Orders");
     }
 
     private void setCurrentOrderList(OrderListModel orderListModel) {
