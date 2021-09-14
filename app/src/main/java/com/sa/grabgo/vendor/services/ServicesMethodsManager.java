@@ -386,8 +386,6 @@ public class ServicesMethodsManager {
         postData(context, addCategoryModel, url, TAG);
     }
 
-
-
     public void getProfile(Context context, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;

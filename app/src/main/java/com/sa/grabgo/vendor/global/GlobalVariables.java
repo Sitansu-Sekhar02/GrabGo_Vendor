@@ -726,8 +726,8 @@ public class GlobalVariables {
             REQUEST_LOCATION_CODE           = 225,
             REQUEST_GPS_ENABLED             = 226,
             REQUEST_COLOR_CODE              = 227,
-            REQUEST_CODE_FOR_SEARCH         = 227;
-
+            REQUEST_RESULT_CODE              = 228,
+            REQUEST_CODE_FOR_SEARCH         = 229;
     public static final int
                CAR_SERVICE_TYPE_SINGLE_CAR        = 1,
                CAR_SERVICE_TYPE_MULTIPLE_CAR      = 2,

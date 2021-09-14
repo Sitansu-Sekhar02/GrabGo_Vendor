@@ -7,20 +7,27 @@
         android:id="@+id/ln_prepare_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_margin="@dimen/_8sdp"
         android:orientation="horizontal">
 
-        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+        <com.sa.grabgo.vendor.view.AppTextView
             android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:gravity="center"
             android:text=""
             android:layout_toLeftOf="@+id/ln_currency"
-            android:textAppearance="@style/SmallerText"
-            android:textColor="@color/semi_color" />
+            android:textAppearance="@style/SmallMediumText"
+            android:textColor="@color/semi_color"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
+    <View
+        android:layout_below="@+id/ln_prepare_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="@color/grey_lighter"/>
 
 </RelativeLayout>

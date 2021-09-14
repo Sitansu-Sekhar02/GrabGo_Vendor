@@ -183,7 +183,7 @@ public class MenuListFragment extends Fragment {
                 Log.d(TAG, "Error : " + msg);
             }
 
-        }, "Current Orders");
+        }, "Menu List");
     }
 
     private void setThisPage(CategoryListModel categoryListModel) {

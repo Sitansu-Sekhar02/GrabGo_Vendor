@@ -14,7 +14,7 @@ public class ServerConstants {
     public static final String URL_GetCategoryList                           = SERVER_URL + "category_list.php";
     public static final String URL_AddCategory                               = SERVER_URL + "create_category.php";
     public static final String URL_CreateMenu                                = SERVER_URL + "create_menu.php";
-    public static final String URL_Menu_ItemList                             = SERVER_URL + "menu_item_list.php";
+    public static final String URL_Menu_ItemList                             = SERVER_URL + "menu_type_list.php";
     public static final String URL_MenuList                                  = SERVER_URL + "menu_list.php";
     public static final String URL_LogoutUser                                = SERVER_URL + "logout.php";
     public static final String URL_GetOrderList                              = SERVER_URL + "order_list.php";

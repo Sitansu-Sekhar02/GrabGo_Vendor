@@ -15,7 +15,7 @@ public class AddCategoryModel implements Serializable {
 
     private final String
                     NAME               = "name",
-                    AR_NAME                   = "ar_name";
+                    AR_NAME            = "ar_name";
 
 
     private  String
@@ -69,7 +69,6 @@ public class AddCategoryModel implements Serializable {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(NAME, name);
             jsonMain.put(AR_NAME, ar_name);
-
 
             returnString = jsonMain.toString();
         }

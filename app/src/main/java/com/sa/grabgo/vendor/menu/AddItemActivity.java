@@ -73,6 +73,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     private static final String TAG = "AddItemActivity";
     private static final int PERMISSION_REQUEST_CODE = 200;
     public static final int REQUEST_IMAGE = 100;
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
 
 
 
@@ -91,7 +92,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     private EditText etv_item_name,etv_item_ar_name,etv_description,etv_description_ar,etv_item_price;
     private  ImageView iv_item;
     private  Button btn_saveItem;
-    private TextView  tv_select_status,tv_menuItems,tv_addImage;
+    private TextView  tv_select_status,tv_menuItems,tv_addImage,tv_selectMenuType;
     private RadioButton rd_type_veg,rd_type_nonveg;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
@@ -158,6 +159,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         rd_type_veg=findViewById(R.id.rd_type_veg);
         rd_type_nonveg=findViewById(R.id.rd_type_nonveg);
         radioGroup=findViewById(R.id.radioGroup);
+        tv_selectMenuType=findViewById(R.id.tv_selectMenuType);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
@@ -183,6 +185,23 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         // find the radiobutton by returned id
         radioButton = (RadioButton) findViewById(selectedId);
 
+        tv_selectMenuType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(activity,MenuItemListActivity.class);
+               // startActivityForResult(intent, GlobalVariables.REQUEST_RESULT_CODE);
+                startActivity(intent);
+            }
+        });
+
+        tv_menuItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(activity,CategoryItemListActivity.class);
+                // startActivityForResult(intent, GlobalVariables.REQUEST_RESULT_CODE);
+                startActivity(intent);
+            }
+        });
 
         tv_select_status.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -455,17 +474,23 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     }
 
     private void validateInput() {
-        if (tv_menuItems != null && etv_item_name != null &&  etv_item_ar_name != null && etv_description != null && etv_description_ar!=null && etv_item_price!=null ) {
+        if (tv_menuItems != null && etv_item_name != null &&  etv_item_ar_name != null && etv_description != null && etv_description_ar!=null && etv_item_price!=null && tv_selectMenuType!=null) {
             String
+                    tv_menu_item=tv_menuItems.getText().toString().trim(),
                     etv_itemName = etv_item_name.getText().toString().trim(),
                     etv_item_ArabicName = etv_item_ar_name.getText().toString().trim(),
                     etv_item_Price = etv_item_price.getText().toString().trim(),
                     tv_description = etv_description.getText().toString().trim(),
                     etv_ArabicDesc = etv_description_ar.getText().toString().trim(),
-                    etv_itemPrice = etv_item_price.getText().toString().trim();
+                    etv_itemPrice = etv_item_price.getText().toString().trim(),
+                    tv_selected_item = tv_selectMenuType.getText().toString().trim();
 
 
-            if (etv_itemName.isEmpty()) {
+            if (tv_menu_item.isEmpty()) {
+                tv_menuItems.setError(getString(R.string.pleaseFillMandatoryDetails));
+                tv_menuItems.setFocusableInTouchMode(true);
+                tv_menuItems.requestFocus();
+            }else if (etv_itemName.isEmpty()) {
                 etv_item_name.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_name.setFocusableInTouchMode(true);
                 etv_item_name.requestFocus();
@@ -489,6 +514,10 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 etv_item_price.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_price.setFocusableInTouchMode(true);
                 etv_item_price.requestFocus();
+            }else if (tv_selected_item.isEmpty()) {
+                tv_selectMenuType.setError(getString(R.string.pleaseFillMandatoryDetails));
+                tv_selectMenuType.setFocusableInTouchMode(true);
+                tv_selectMenuType.requestFocus();
             } else {
                 if (menuModel == null) {
                     menuModel = new MenuModel();
@@ -498,8 +527,8 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 menuModel.setPrice(etv_item_Price);
                 menuModel.setDescription(tv_description);
                 menuModel.setAr_description(etv_ArabicDesc);
-               // menuModel.setMenu_type_id(vehicleNumber);
-              //  menuModel.setType(choosePassword);
+                menuModel.setMenu_type_id(tv_selected_item);
+              // menuModel.setType(choosePassword);
                // menuModel.setPosition((choosePassword));
                 menuModel.setStatus(selectStatus);
 
@@ -687,5 +716,23 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         if (activity != null) activity = null;
         super.onDestroy();
     }
+
+   /* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == activity.RESULT_OK) {
+
+            if (requestCode == globalVariables.REQUEST_CODE_FOR_SEARCH) {
+                MenuTypeModel menuTypeModel = (MenuTypeModel) data.getExtras().getSerializable(MenuItemListActivity.BUNDLE_SEARCH_TYPE);
+                if (menuTypeModel != null) {
+                    if (menuTypeModel.getCount() != null) {
+                        MenuTypeModel menuModel = new MenuTypeModel();
+                        menuModel.setCount(menuTypeModel.getCount());
+                    }
+                }
+            }
+        }
+    }*/
 
 }
