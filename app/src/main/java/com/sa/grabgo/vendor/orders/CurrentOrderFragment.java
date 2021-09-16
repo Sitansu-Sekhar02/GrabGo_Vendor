@@ -231,7 +231,7 @@ public class CurrentOrderFragment extends Fragment implements UpdateCurrentStatu
                 StatusMainModel statusMainModel = (StatusMainModel) arg0;
                 StatusModel statusModel = statusMainModel.getStatusModel();
                 if (statusMainModel.isStatus()){
-                    GlobalFunctions.displayDialog(activity,statusModel.getMessage());
+                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
                     getCurrentOrders();
                 }else {
                     GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());

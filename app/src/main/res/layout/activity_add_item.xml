@@ -50,11 +50,12 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
+                    android:drawableRight="@drawable/ic_drop_down"
+                    android:text="@string/select_category"
                     android:focusable="true"
                     android:maxLines="1"
                     android:padding="@dimen/_15sdp"
                     android:singleLine="true"
-                    android:text=""
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/main_text"
                     android:textStyle="normal" />
@@ -137,10 +138,10 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:padding="@dimen/_15sdp"
                     android:textAppearance="@style/SmallestSizeText"
-                    android:textColor="@color/app_fontBlackColor"
+                    android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color" />
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
@@ -163,10 +164,10 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:padding="@dimen/_15sdp"
                     android:textAppearance="@style/SmallestSizeText"
-                    android:textColor="@color/app_fontBlackColor"
+                    android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color" />
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
@@ -217,11 +218,12 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
+                    android:text="@string/select_type"
+                    android:drawableRight="@drawable/ic_drop_down"
                     android:focusable="true"
                     android:maxLines="1"
                     android:padding="@dimen/_15sdp"
                     android:singleLine="true"
-                    android:text=""
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/main_text"
                     android:textStyle="normal" />

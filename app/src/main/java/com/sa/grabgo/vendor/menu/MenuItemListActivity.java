@@ -44,11 +44,14 @@ import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.adapters.HomeAdapter;
 import com.sa.grabgo.vendor.adapters.MenuTypeListAdapter;
+import com.sa.grabgo.vendor.adapters.interfaces.MenuTypeItemClick;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.image_picker.ImagePickerActivity;
 import com.sa.grabgo.vendor.services.ServerResponseInterface;
 import com.sa.grabgo.vendor.services.ServicesMethodsManager;
+import com.sa.grabgo.vendor.services.model.CategoryListModel;
+import com.sa.grabgo.vendor.services.model.CategoryModel;
 import com.sa.grabgo.vendor.services.model.MenuModel;
 import com.sa.grabgo.vendor.services.model.MenuTypeListModel;
 import com.sa.grabgo.vendor.services.model.MenuTypeMainModel;
@@ -66,9 +69,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItemListActivity extends AppCompatActivity   {
+public class MenuItemListActivity extends AppCompatActivity implements MenuTypeItemClick {
+
     private static final String TAG = "MenuItemListActivity";
-   public static final String BUNDLE_SEARCH_RESPONSE_MODEL = "Bundle_Search_Response_Model",
+
+   public static final String
+           BUNDLE_MENU_RESPONSE_MODEL = "Bundle_Menu_Response_Model",
            BUNDLE_SEARCH_TYPE = "BundleSearchType";
 
 
@@ -82,14 +88,12 @@ public class MenuItemListActivity extends AppCompatActivity   {
     static String mTitle;
     static int mResourceID;
     static int titleResourseID;
-    static TextView toolbar_title;
+    static TextView toolbar_title,tv_cancel,tv_submit;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
 
     GlobalVariables globalVariables;
     GlobalFunctions globalFunctions;
-
-
 
     MenuTypeListAdapter menuTypeListAdapter;
     List<MenuTypeModel> menuTypeModel = new ArrayList<>();
@@ -98,6 +102,17 @@ public class MenuItemListActivity extends AppCompatActivity   {
     SwipeRefreshLayout swipe_container;
     RecyclerView order_list_rr;
 
+    MenuTypeListModel menuTypeListModel=null;
+    MenuTypeModel selectedCategoryModel =null;
+
+
+    public static Intent newInstance(Activity activity, MenuTypeListModel menuModel) {
+        Intent intent = new Intent(activity, MenuItemListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_MENU_RESPONSE_MODEL, menuModel);
+        intent.putExtras(bundle);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,55 +143,50 @@ public class MenuItemListActivity extends AppCompatActivity   {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.ColorStatusBar));
         }
 
+        tv_cancel=findViewById(R.id.tv_cancel);
+        tv_submit=findViewById(R.id.tv_submit);
         details_progressActivity=findViewById(R.id.details_progressActivity);
         order_list_rr=findViewById(R.id.order_list_rr);
-        swipe_container=findViewById(R.id.swipe_container);
         category_linearLayout=new LinearLayoutManager(activity);
 
         mainView = toolbar;
 
-        getMenuTypeList();
+        if (getIntent().hasExtra(BUNDLE_MENU_RESPONSE_MODEL)) {
 
+            menuTypeListModel = (MenuTypeListModel) getIntent().getSerializableExtra(BUNDLE_MENU_RESPONSE_MODEL);
+        } else {
+            menuTypeListModel = null;
+        }
+
+
+        setThisPage(menuTypeListModel);
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeThisActivity();
+            }
+        });
+
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTypeResult(true, selectedCategoryModel);
+
+            }
+        });
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         setTitle(getString(R.string.select_type), 0, 0);
     }
 
-    private void getMenuTypeList() {
-        globalFunctions.showProgress(activity, getString(R.string.loading));
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getItemList(context, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                globalFunctions.hideProgress();
-                Log.d(TAG, "Response: " + arg0.toString());
-                MenuTypeMainModel menuTypeMainModel = (MenuTypeMainModel) arg0;
-                MenuTypeListModel menuTypeListModel = menuTypeMainModel.getMenuTypeListModel();
-
-                if (menuTypeListModel.getMenuTypeModels() != null) {
-                    setThisPage(menuTypeListModel);
-                }
-
-            }
-
-            @Override
-            public void OnFailureFromServer(String msg) {
-                globalFunctions.hideProgress();
-                globalFunctions.displayMessaage(activity, mainView, msg);
-                Log.d(TAG, "Failure : " + msg);
-
-            }
-
-            @Override
-            public void OnError(String msg) {
-                globalFunctions.hideProgress();
-                globalFunctions.displayMessaage(activity, mainView, msg);
-
-                Log.d(TAG, "Error : " + msg);
-            }
-
-        }, "MenuType List");
+    private void setTypeResult(boolean isSuccess, MenuTypeModel model) {
+        Intent intent = new Intent();
+        intent.putExtra(BUNDLE_MENU_RESPONSE_MODEL, model);
+        if (isSuccess) setResult(RESULT_OK, intent);
+        else setResult(RESULT_CANCELED, intent);
+        closeThisActivity();
     }
 
     private void setThisPage(MenuTypeListModel menuTypeListModel) {
@@ -204,7 +214,7 @@ public class MenuItemListActivity extends AppCompatActivity   {
 
         order_list_rr.setLayoutManager(category_linearLayout);
         order_list_rr.setHasFixedSize(true);
-        menuTypeListAdapter = new MenuTypeListAdapter(activity, menuTypeModel);
+        menuTypeListAdapter = new MenuTypeListAdapter(activity, menuTypeModel,this);
         order_list_rr.setAdapter(menuTypeListAdapter);
     }
 
@@ -220,7 +230,6 @@ public class MenuItemListActivity extends AppCompatActivity   {
             details_progressActivity.showContent();
         }
     }
-
 
 
     @Override
@@ -292,4 +301,9 @@ public class MenuItemListActivity extends AppCompatActivity   {
         super.onDestroy();
     }
 
+    @Override
+    public void OnMenuItemClickListener(MenuTypeModel menuTypeModel) {
+        selectedCategoryModel=menuTypeModel;
+
+    }
 }

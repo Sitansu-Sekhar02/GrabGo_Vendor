@@ -1,6 +1,7 @@
 package com.sa.grabgo.vendor.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.menu.AddItemActivity;
+import com.sa.grabgo.vendor.menu.MenuItemListActivity;
 import com.sa.grabgo.vendor.services.model.MenuSubModel;
 import com.sa.grabgo.vendor.services.model.MenuTypeModel;
 import com.squareup.picasso.Picasso;
@@ -61,6 +64,14 @@ public class MenuSubListAdapter extends RecyclerView.Adapter<MenuSubListAdapter.
         if (GlobalFunctions.isNotNullValue(model.getImage())) {
             Picasso.with(activity).load(model.getImage()).placeholder(R.drawable.ic_lazyload).into(holder.product_iv);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = AddItemActivity.newInstance(activity, model);
+                activity.startActivity(intent);
+
+            }
+        });
 
     }
 

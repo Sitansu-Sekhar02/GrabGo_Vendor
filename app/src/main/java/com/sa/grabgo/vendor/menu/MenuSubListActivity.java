@@ -62,10 +62,7 @@ public class MenuSubListActivity extends AppCompatActivity {
     static TextView toolbar_title;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
-    private Button btn_login;
     private TextView  tv_add_item,tv_item_name;
-    String order_id=null;
-
 
 
     GlobalVariables globalVariables;
@@ -249,9 +246,6 @@ public class MenuSubListActivity extends AppCompatActivity {
                     getString(R.string.not_available));
         }
     }
-
-
-
 
 
 

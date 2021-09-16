@@ -5,10 +5,11 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryListModel {
+public class CategoryListModel implements Serializable {
     private final String TAG = "CategoryListModel";
 
     private final String RESPONSE = "response";

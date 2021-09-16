@@ -560,16 +560,16 @@ public class GlobalVariables {
     public static final String  PAGE_TYPE_DELIVERED               = "90";
 
 
-    public static final String UPLOAD_PROFILE_PHOTO_PATH         = "Souqbina/user_profile";
-    public static final String UPLOAD_LICENSE_PHOTO_PATH         = "Souqbina/insert/professional_license";
-    public static final String UPLOAD_SCIENTIFIC_DOC_PHOTO_PATH  = "Souqbina/insert/scientific_documents";
-    public static final String UPLOAD_AD_PHOTO_PATH              = "Souqbina/insert_ad/ad";
-    public static final String UPLOAD_COMMERCIAL_REG_PHOTO_PATH  = "Souqbina/insert/commercial_registration";
-    public static final String UPLOAD_CERTIFICATE_PHOTO_PATH     = "Souqbina/insert/certificates";
+    public static final String UPLOAD_PROFILE_PHOTO_PATH         = "GrabGoBusiness/category_image";
+    public static final String UPLOAD_LICENSE_PHOTO_PATH         = "GrabGoBusiness/insert/professional_license";
+    public static final String UPLOAD_SCIENTIFIC_DOC_PHOTO_PATH  = "GrabGoBusiness/insert/scientific_documents";
+    public static final String UPLOAD_AD_PHOTO_PATH              = "GrabGoBusiness/insert_ad/ad";
+    public static final String UPLOAD_COMMERCIAL_REG_PHOTO_PATH  = "GrabGoBusiness/insert/commercial_registration";
+    public static final String UPLOAD_CERTIFICATE_PHOTO_PATH     = "GrabGoBusiness/insert/certificates";
 
-    public static final String UPLOAD_GALLERY_PHOTO_PATH        = "Souqbina/insert/gallery";
-    public static final String UPLOAD_VIDEO_THUMBNAIL_PATH      = "Souqbina/insert_video_thumbnail";
-    public static final String UPLOAD_BANNER_IMAGE_PATH         = "Souqbina/profile/banner";
+    public static final String UPLOAD_GALLERY_PHOTO_PATH        = "GrabGoBusiness/insert/gallery";
+    public static final String UPLOAD_VIDEO_THUMBNAIL_PATH      = "GrabGoBusiness/insert_video_thumbnail";
+    public static final String UPLOAD_BANNER_IMAGE_PATH         = "GrabGoBusiness/profile/banner";
 
     public static final String UPLOAD_GALLERY_PHOTO_PATH_CODE         = "4";
     public static final String UPLOAD_VIDEO_THUMBNAIL_PHOTO_PATH_CODE  = "20";
@@ -629,6 +629,10 @@ public class GlobalVariables {
     public static final String  GENDER_NONE        = "0";
     public static final String  STATUS_ACTIVE      = "1";
     public static final String  STATUS_INACTIVE    = "2";
+
+
+    public static final String  TYPE_VEG       = "1";
+    public static final String  TYPE_NONVEG    = "2";
 
 
     public static String SHARED_PREFERENCE_KEY                  =  "Yin-Therapist-Android-IMCRINOX@2019";
@@ -726,8 +730,9 @@ public class GlobalVariables {
             REQUEST_LOCATION_CODE           = 225,
             REQUEST_GPS_ENABLED             = 226,
             REQUEST_COLOR_CODE              = 227,
-            REQUEST_RESULT_CODE              = 228,
-            REQUEST_CODE_FOR_SEARCH         = 229;
+            REQUEST_RESULT_CODE_CATEGORY    = 228,
+            REQUEST_RESULT_CODE_MENU        = 229,
+            REQUEST_CODE_FOR_SEARCH         = 230;
     public static final int
                CAR_SERVICE_TYPE_SINGLE_CAR        = 1,
                CAR_SERVICE_TYPE_MULTIPLE_CAR      = 2,

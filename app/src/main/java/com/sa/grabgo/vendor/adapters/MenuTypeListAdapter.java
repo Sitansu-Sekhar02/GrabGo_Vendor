@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
+import com.sa.grabgo.vendor.adapters.interfaces.MenuTypeItemClick;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.services.model.MenuTypeModel;
 import com.sa.grabgo.vendor.services.model.OrderDetailModel;
@@ -23,10 +24,14 @@ public class MenuTypeListAdapter extends RecyclerView.Adapter<MenuTypeListAdapte
 
     private final List<MenuTypeModel> list;
     private final Activity activity;
+    private int selectedItem=0;
+    MenuTypeItemClick menuTypeItemClick;
 
-    public MenuTypeListAdapter(Activity activity, List<MenuTypeModel> list) {
+    public MenuTypeListAdapter(Activity activity, List<MenuTypeModel> list,MenuTypeItemClick menuTypeItemClick) {
         this.list = list;
         this.activity = activity;
+        this.menuTypeItemClick = menuTypeItemClick;
+
     }
 
 
@@ -45,6 +50,25 @@ public class MenuTypeListAdapter extends RecyclerView.Adapter<MenuTypeListAdapte
         if (GlobalFunctions.isNotNullValue(model.getCount())){
             holder.tv_item_name.setText(model.getCount());
         }
+
+        holder.tv_item_name.setTextColor(activity.getResources().getColor(R.color.main_text));
+
+        if (selectedItem == position) {
+
+            holder.tv_item_name.setTextColor(activity.getResources().getColor(R.color.red_color));
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int previousItem = selectedItem;
+                selectedItem = position;
+                notifyItemChanged(previousItem);
+                notifyItemChanged(position);
+                menuTypeItemClick.OnMenuItemClickListener(model);
+            }
+        });
 
     }
 

@@ -89,10 +89,12 @@ public class FragmentOrderMain extends Fragment {
         //toolbar.setNavigationIcon(navIconDrawable);
         toolbar_title = (TextView) toolbar.findViewById(R.id.tv_add_category);
 
+        mainView=toolbar;
+
         tv_est_time=(TextView) toolbar.findViewById(R.id.tv_est_time);
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.current_order)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.past_order)));
-        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF0000"));
+        tabLayout.setSelectedTabIndicatorColor(activity.getResources().getColor(R.color.red_color));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
          adapter = new OrderMainAdapter(getActivity(),getChildFragmentManager(),

@@ -3,6 +3,7 @@ package com.sa.grabgo.vendor.menu;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,28 +24,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.adapters.CategoryListAdapter;
-import com.sa.grabgo.vendor.adapters.MenuListAdapter;
-import com.sa.grabgo.vendor.adapters.MenuSubListAdapter;
-import com.sa.grabgo.vendor.adapters.MenuTypeListAdapter;
+import com.sa.grabgo.vendor.adapters.interfaces.CategoryItemClick;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
-import com.sa.grabgo.vendor.services.ServerResponseInterface;
-import com.sa.grabgo.vendor.services.ServicesMethodsManager;
 import com.sa.grabgo.vendor.services.model.CategoryListModel;
-import com.sa.grabgo.vendor.services.model.CategoryMainModel;
 import com.sa.grabgo.vendor.services.model.CategoryModel;
-import com.sa.grabgo.vendor.services.model.MenuSubModel;
-import com.sa.grabgo.vendor.services.model.MenuTypeListModel;
-import com.sa.grabgo.vendor.services.model.MenuTypeMainModel;
-import com.sa.grabgo.vendor.services.model.MenuTypeModel;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryItemListActivity extends AppCompatActivity   {
+public class CategoryItemListActivity extends AppCompatActivity  implements CategoryItemClick {
+
     private static final String TAG = "CategoryItemListActivity";
-   public static final String BUNDLE_SEARCH_RESPONSE_MODEL = "Bundle_Search_Response_Model",
+
+   public static final String
+           BUNDLE_CATEGORY_RESPONSE_MODEL = "Bundle_Category_Response_Model",
            BUNDLE_SEARCH_TYPE = "BundleSearchType";
 
 
@@ -58,7 +53,7 @@ public class CategoryItemListActivity extends AppCompatActivity   {
     static String mTitle;
     static int mResourceID;
     static int titleResourseID;
-    static TextView toolbar_title;
+    static TextView toolbar_title,tv_cancel,tv_submit;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
     GlobalVariables globalVariables;
@@ -71,6 +66,17 @@ public class CategoryItemListActivity extends AppCompatActivity   {
     ProgressLinearLayout details_progressActivity;
     SwipeRefreshLayout swipe_container;
     RecyclerView order_list_rr;
+
+    CategoryListModel categoryListModel=null;
+    CategoryModel selectedCategoryModel =null;
+
+    public static Intent newInstance(Activity activity, CategoryListModel categoryListModel) {
+        Intent intent = new Intent(activity, CategoryItemListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_CATEGORY_RESPONSE_MODEL, categoryListModel);
+        intent.putExtras(bundle);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,61 +107,51 @@ public class CategoryItemListActivity extends AppCompatActivity   {
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.ColorStatusBar));
         }
 
+        tv_cancel=findViewById(R.id.tv_cancel);
+        tv_submit=findViewById(R.id.tv_submit);
         details_progressActivity=findViewById(R.id.details_progressActivity);
         order_list_rr=findViewById(R.id.order_list_rr);
-        swipe_container=findViewById(R.id.swipe_container);
         category_linearLayout=new LinearLayoutManager(activity);
 
         mainView = toolbar;
 
-        getCategoryTypeList();
+        if (getIntent().hasExtra(BUNDLE_CATEGORY_RESPONSE_MODEL)) {
 
+            categoryListModel = (CategoryListModel) getIntent().getSerializableExtra(BUNDLE_CATEGORY_RESPONSE_MODEL);
+        } else {
+            categoryListModel = null;
+        }
+
+        setThisPage(categoryListModel);
+
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                closeThisActivity();
+            }
+        });
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setCarTypeResult(true, selectedCategoryModel);
+
+            }
+        });
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
-        setTitle(getString(R.string.select_type), 0, 0);
+        setTitle(getString(R.string.select_category), 0, 0);
     }
 
-    private void getCategoryTypeList() {
-        globalFunctions.showProgress(activity, getString(R.string.loading));
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getCategoryList(context, new ServerResponseInterface() {
-            @SuppressLint("LongLogTag")
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                globalFunctions.hideProgress();
-
-                Log.d(TAG, "Response: " + arg0.toString());
-                CategoryMainModel categoryMainModel = (CategoryMainModel) arg0;
-                CategoryListModel categoryListModel = categoryMainModel.getCategoryListModel();
-
-                if (categoryListModel.getCategoryList() != null) {
-                    setThisPage(categoryListModel);
-                }
-
-
-            }
-
-            @SuppressLint("LongLogTag")
-            @Override
-            public void OnFailureFromServer(String msg) {
-                globalFunctions.hideProgress();
-                globalFunctions.displayMessaage(activity, mainView, msg);
-                Log.d(TAG, "Failure : " + msg);
-
-            }
-
-            @SuppressLint("LongLogTag")
-            @Override
-            public void OnError(String msg) {
-                globalFunctions.hideProgress();
-                globalFunctions.displayMessaage(activity, mainView, msg);
-
-                Log.d(TAG, "Error : " + msg);
-            }
-
-        }, "Current Orders");
+    private void setCarTypeResult(boolean isSuccess, CategoryModel model) {
+        Intent intent = new Intent();
+        intent.putExtra(BUNDLE_CATEGORY_RESPONSE_MODEL, model);
+        if (isSuccess) setResult(RESULT_OK, intent);
+        else setResult(RESULT_CANCELED, intent);
+        closeThisActivity();
     }
+
 
     private void setThisPage(CategoryListModel categoryListModel) {
         if (categoryListModel != null && categoryModels != null) {
@@ -181,7 +177,7 @@ public class CategoryItemListActivity extends AppCompatActivity   {
     private void homeCategoryInitRecycler() {
         order_list_rr.setLayoutManager(category_linearLayout);
         order_list_rr.setHasFixedSize(true);
-        categoryListAdapter = new CategoryListAdapter(activity, categoryModels);
+        categoryListAdapter = new CategoryListAdapter(activity, categoryModels,this);
         order_list_rr.setAdapter(categoryListAdapter);
     }
 
@@ -229,7 +225,7 @@ public class CategoryItemListActivity extends AppCompatActivity   {
             toolbar_title.setText(mTitle);
             if (mResourceID != 0) toolbar.setBackgroundResource(mResourceID);
             //actionBar.setTitle("");
-            // actionBar.setDisplayHomeAsUpEnabled(true);
+            //actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -268,4 +264,8 @@ public class CategoryItemListActivity extends AppCompatActivity   {
         super.onDestroy();
     }
 
+    @Override
+    public void OnItemClickListener(CategoryModel categoryModel) {
+        selectedCategoryModel =categoryModel;
+    }
 }

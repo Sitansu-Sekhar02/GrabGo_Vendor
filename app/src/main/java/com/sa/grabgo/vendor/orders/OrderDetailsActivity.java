@@ -202,7 +202,14 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 tv_grant_total.setText(orderModel.getGrand_total());
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getPayment_type())) {
-                tv_payment_type.setText(orderModel.getPayment_type());
+                if (orderModel.getPayment_type().equalsIgnoreCase("1")){
+                    tv_payment_type.setText(getString(R.string.cod));
+
+                } else  if (orderModel.getPayment_type().equalsIgnoreCase("2")){
+                    tv_payment_type.setText(getString(R.string.online));
+                }else {
+
+                }
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getStatus_title())) {
                 tv_status.setText(orderModel.getStatus_title());
@@ -238,7 +245,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 StatusMainModel statusMainModel = (StatusMainModel) arg0;
                 StatusModel statusModel = statusMainModel.getStatusModel();
                 if (statusMainModel.isStatus()){
-                    GlobalFunctions.displayDialog(activity,statusModel.getMessage());
+                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
+                    closeThisActivity();
                 }else {
                     GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
                 }

@@ -31,9 +31,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -42,8 +39,6 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
-import com.sa.grabgo.vendor.adapters.MenuListAdapter;
-import com.sa.grabgo.vendor.adapters.MenuTypeListAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.image_picker.ImagePickerActivity;
@@ -53,6 +48,7 @@ import com.sa.grabgo.vendor.services.model.CategoryListModel;
 import com.sa.grabgo.vendor.services.model.CategoryMainModel;
 import com.sa.grabgo.vendor.services.model.CategoryModel;
 import com.sa.grabgo.vendor.services.model.MenuModel;
+import com.sa.grabgo.vendor.services.model.MenuSubModel;
 import com.sa.grabgo.vendor.services.model.MenuTypeListModel;
 import com.sa.grabgo.vendor.services.model.MenuTypeMainModel;
 import com.sa.grabgo.vendor.services.model.MenuTypeModel;
@@ -61,8 +57,8 @@ import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.sa.grabgo.vendor.upload.UploadImage;
 import com.sa.grabgo.vendor.upload.UploadListener;
 import com.sa.grabgo.vendor.view.AlertDialog;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,15 +66,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddItemActivity extends AppCompatActivity  implements UploadListener {
+
     private static final String TAG = "AddItemActivity";
     private static final int PERMISSION_REQUEST_CODE = 200;
     public static final int REQUEST_IMAGE = 100;
+    public static final String
+            BUNDLE_EDIT_MENU_MODEL = "Bundle_Edit_Menu_Model";
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
-
 
 
     Context context;
     private static Activity activity;
+    static Window mainWindow = null;
+
     View mainView;
 
     static Toolbar toolbar;
@@ -98,6 +98,12 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     private RadioButton radioButton;
     int selectedId;
 
+    String selectedRadioType="1";
+    String selectedCategoryPosition="0";
+
+    String menuType_id=null;
+    String category_id=null;
+
 
     GlobalVariables globalVariables;
     GlobalFunctions globalFunctions;
@@ -105,14 +111,10 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     private LayoutInflater layoutInflater;
     MenuModel menuModel=null;
 
+    CategoryListModel categoryListModel=null;
+    MenuTypeListModel menuTypeListModel=null;
+    MenuSubModel menuSubModel=null;
 
-    MenuTypeListAdapter menuTypeListAdapter;
-    List<MenuTypeModel> menuTypeModel = new ArrayList<>();
-    LinearLayoutManager category_linearLayout;
-    ProgressLinearLayout details_progressActivity;
-    SwipeRefreshLayout swipe_container;
-    RecyclerView menu_list_rr;
-   // MenuTypeModel menuTypeModel=null;
 
     String
             selectStatus = "1";
@@ -122,6 +124,14 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     List<String> downloadProfileImageList;
     String imagePath = "";
 
+    public static Intent newInstance(Activity activity, MenuSubModel model) {
+        Intent intent = new Intent(activity, AddItemActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_EDIT_MENU_MODEL, model);
+        intent.putExtras(bundle);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,9 +139,10 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
 
         context = this;
         activity = this;
+        mainWindow = getWindow();
+
 
         this.layoutInflater = activity.getLayoutInflater();
-
 
         globalFunctions = AppController.getInstance().getGlobalFunctions();
         globalVariables = AppController.getInstance().getGlobalVariables();
@@ -170,6 +181,15 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
 
         mainView = toolbar;
 
+        if (getIntent().hasExtra(BUNDLE_EDIT_MENU_MODEL)) {
+
+            menuSubModel = (MenuSubModel) getIntent().getSerializableExtra(BUNDLE_EDIT_MENU_MODEL);
+        } else {
+            menuSubModel = null;
+        }
+
+        setThisPage(menuSubModel);
+
         downloadProfileImageList = new ArrayList<>();
         uriProfileImageList = new ArrayList<>();
         profileImageList = new ArrayList<>();
@@ -185,28 +205,29 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         // find the radiobutton by returned id
         radioButton = (RadioButton) findViewById(selectedId);
 
-        tv_selectMenuType.setOnClickListener(new View.OnClickListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(activity,MenuItemListActivity.class);
-               // startActivityForResult(intent, GlobalVariables.REQUEST_RESULT_CODE);
-                startActivity(intent);
-            }
-        });
+            public void onCheckedChanged(RadioGroup radioGroup, int radioId) {
+                switch (radioId){
+                    case R.id.rd_type_veg:
+                        if (rd_type_veg.isChecked()){
+                            selectedRadioType="1";
+                        }
+                        break;
 
-        tv_menuItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(activity,CategoryItemListActivity.class);
-                // startActivityForResult(intent, GlobalVariables.REQUEST_RESULT_CODE);
-                startActivity(intent);
+                    case R.id.rd_type_nonveg:
+                        if (rd_type_nonveg.isChecked()){
+                            selectedRadioType="2";
+                        }
+                        break;
+                }
             }
         });
 
         tv_select_status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGenderDialog(activity);
+                openStatusDialog(activity);
             }
         });
 
@@ -219,7 +240,6 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         });
 
 
-
         btn_saveItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,12 +247,84 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             }
         });
 
+
         getMenuTypeList();
+        getCategoryTypeList();
+
+        tv_selectMenuType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = MenuItemListActivity.newInstance(activity, menuTypeListModel);
+                startActivityForResult(intent, GlobalVariables.REQUEST_RESULT_CODE_MENU);
+            }
+        });
+
+        tv_menuItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = CategoryItemListActivity.newInstance(activity, categoryListModel);
+                startActivityForResult(intent, GlobalVariables.REQUEST_RESULT_CODE_CATEGORY);
+            }
+        });
 
 
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         setTitle(getString(R.string.add_new_item), 0, 0);
+    }
+
+    private void setThisPage(MenuSubModel menuSubModel) {
+        if (menuSubModel!=null && context!=null){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getName())){
+                etv_item_name.setText(menuSubModel.getName());
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_name())){
+                etv_item_ar_name.setText(menuSubModel.getAr_name());
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getDescription())){
+                etv_description.setText(globalFunctions.getHTMLString(menuSubModel.getDescription()));
+
+                //etv_description.setText(menuSubModel.getDescription());
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_description())){
+                etv_description_ar.setText(globalFunctions.getHTMLString(menuSubModel.getDescription()));
+
+                //etv_description_ar.setText(menuSubModel.getAr_description());
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getImage())){
+                Picasso.with(activity).load(menuSubModel.getImage()).placeholder(R.drawable.ic_lazyload).into(iv_item);
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getPrice())){
+                etv_item_price.setText(menuSubModel.getPrice());
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_type_name())){
+                tv_selectMenuType.setText(menuSubModel.getMenu_type_name());
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_category_name())){
+                tv_menuItems.setText(menuSubModel.getMenu_category_name());
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getStatus())){
+                if (menuSubModel.getStatus().equalsIgnoreCase("1")){
+                    tv_select_status.setText(getString(R.string.active));
+
+                }else {
+                    tv_select_status.setText(getString(R.string.inactive));
+
+                }
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getType())){
+                if (menuSubModel.getType().equalsIgnoreCase("1")){
+                    rd_type_veg.setChecked(true);
+
+                }else {
+                    rd_type_nonveg.setChecked(true);
+                }
+
+            }
+        }
     }
 
     private void getMenuTypeList() {
@@ -241,20 +333,18 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         servicesMethodsManager.getItemList(context, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-               // globalFunctions.hideProgress();
+              //  globalFunctions.hideProgress();
                 Log.d(TAG, "Response: " + arg0.toString());
                 MenuTypeMainModel menuTypeMainModel = (MenuTypeMainModel) arg0;
-                MenuTypeListModel menuTypeListModel = menuTypeMainModel.getMenuTypeListModel();
 
-                if (menuTypeListModel.getMenuTypeModels() != null) {
-                    setThisPage(menuTypeListModel);
+                if (menuTypeMainModel!=null){
+
+                    menuTypeListModel = menuTypeMainModel.getMenuTypeListModel();
                 }
-
             }
-
             @Override
             public void OnFailureFromServer(String msg) {
-               // globalFunctions.hideProgress();
+                //globalFunctions.hideProgress();
                 globalFunctions.displayMessaage(activity, mainView, msg);
                 Log.d(TAG, "Failure : " + msg);
 
@@ -262,7 +352,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
 
             @Override
             public void OnError(String msg) {
-               // globalFunctions.hideProgress();
+                //globalFunctions.hideProgress();
                 globalFunctions.displayMessaage(activity, mainView, msg);
 
                 Log.d(TAG, "Error : " + msg);
@@ -271,12 +361,41 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         }, "MenuType List");
     }
 
-    private void setThisPage(MenuTypeListModel menuTypeListModel) {
-        if (menuTypeListModel != null && menuTypeModel != null) {
-            menuTypeModel.clear();
-            menuTypeModel.addAll(menuTypeListModel.getMenuTypeModels());
-        }
+
+    private void getCategoryTypeList() {
+       // globalFunctions.showProgress(activity, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getCategoryList(context, new ServerResponseInterface() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+               // globalFunctions.hideProgress();
+                Log.d(TAG, "Response: " + arg0.toString());
+                CategoryMainModel categoryMainModel = (CategoryMainModel) arg0;
+                if (categoryMainModel!=null){
+                    categoryListModel = categoryMainModel.getCategoryListModel();
+                }
+            }
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnFailureFromServer(String msg) {
+                //globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+
+            }
+            @SuppressLint("LongLogTag")
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+
+                Log.d(TAG, "Error : " + msg);
+            }
+
+        }, "CategoryType List");
     }
+
 
     private void openCropFuctionalImage() {
         Dexter.withActivity(this)
@@ -362,52 +481,72 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         startActivityForResult(intent, REQUEST_IMAGE);
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = null;
         Uri selectUri = null;
         GlobalFunctions.hideProgress();
-        if (resultCode == RESULT_OK && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            try {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                Uri selectedImageUri = result.getUri();//data.getData();
-                String selectedImagePath = globalFunctions.getRealPathFromURI(context, selectedImageUri);
-                Log.d(TAG, "Path = " + selectedImagePath);
-                File imagePath = new File(selectedImagePath);
-                if (imagePath.exists()) {
-                    Bitmap bmp = result.getBitmap();
-                    if (bmp == null) {
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inJustDecodeBounds = true;
-                        BitmapFactory.decodeFile(selectedImagePath, options);
-                        final int REQUIRED_SIZE = 200;
-                        int scale = 1;
-                        while (options.outWidth / scale / 2 >= REQUIRED_SIZE
-                                && options.outHeight / scale / 2 >= REQUIRED_SIZE)
-                            scale *= 2;
-                        options.inSampleSize = scale;
-                        options.inJustDecodeBounds = false;
-                        bmp = BitmapFactory.decodeFile(selectedImagePath, options);
-                        bitmap = bmp;
+        if (resultCode==RESULT_OK){
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                try {
+                    CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                    Uri selectedImageUri = result.getUri();//data.getData();
+                    String selectedImagePath = globalFunctions.getRealPathFromURI(context, selectedImageUri);
+                    Log.d(TAG, "Path = " + selectedImagePath);
+                    File imagePath = new File(selectedImagePath);
+                    if (imagePath.exists()) {
+                        Bitmap bmp = result.getBitmap();
+                        if (bmp == null) {
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inJustDecodeBounds = true;
+                            BitmapFactory.decodeFile(selectedImagePath, options);
+                            final int REQUIRED_SIZE = 200;
+                            int scale = 1;
+                            while (options.outWidth / scale / 2 >= REQUIRED_SIZE
+                                    && options.outHeight / scale / 2 >= REQUIRED_SIZE)
+                                scale *= 2;
+                            options.inSampleSize = scale;
+                            options.inJustDecodeBounds = false;
+                            bmp = BitmapFactory.decodeFile(selectedImagePath, options);
+                            bitmap = bmp;
+                        }
                     }
-                }
-                selectUri = selectedImageUri;
-                this.imagePath = selectedImagePath;
-                setProfileImageToModel(bitmap, selectUri);
+                    selectUri = selectedImageUri;
+                    this.imagePath = selectedImagePath;
+                    setProfileImageToModel(bitmap, selectUri);
 
-            } catch (Exception exccc) {
-                globalFunctions.displayMessaage(context, mainView, getString(R.string.something_went_wrong_message));
-            }
-        }else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE) {
-            Uri uri = data.getParcelableExtra("path");
-            try {
-                // You can update this bitmap to your server
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                selectUri = uri;
-                setProfileImageToModel(bitmap,selectUri);
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (Exception exccc) {
+                    globalFunctions.displayMessaage(context, mainView, getString(R.string.something_went_wrong_message));
+                }
+            }else if ( requestCode == REQUEST_IMAGE) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    // You can update this bitmap to your server
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    selectUri = uri;
+                    setProfileImageToModel(bitmap,selectUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else if (requestCode == GlobalVariables.REQUEST_RESULT_CODE_CATEGORY) {
+                CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CategoryItemListActivity.BUNDLE_CATEGORY_RESPONSE_MODEL);
+                if (categoryModel != null) {
+
+                    tv_menuItems.setText(categoryModel.getName());
+                    category_id=categoryModel.getMenu_id();
+                    selectedCategoryPosition=categoryModel.getPosition();
+
+                }
+            }else if (requestCode == GlobalVariables.REQUEST_RESULT_CODE_MENU) {
+                MenuTypeModel menuTypeModel = (MenuTypeModel) data.getExtras().getSerializable(MenuItemListActivity.BUNDLE_MENU_RESPONSE_MODEL);
+                if (menuTypeModel != null) {
+
+                    tv_selectMenuType.setText(menuTypeModel.getCount());
+                    menuType_id=menuTypeModel.getId();
+
+                }
             }
         }
     }
@@ -486,10 +625,10 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                     tv_selected_item = tv_selectMenuType.getText().toString().trim();
 
 
-            if (tv_menu_item.isEmpty()) {
-                tv_menuItems.setError(getString(R.string.pleaseFillMandatoryDetails));
-                tv_menuItems.setFocusableInTouchMode(true);
-                tv_menuItems.requestFocus();
+
+
+            if (!GlobalFunctions.isNotNullValue(category_id)) {
+                GlobalFunctions.displayMessaage(activity,mainView,activity.getString(R.string.pleaseFillMandatoryDetails));
             }else if (etv_itemName.isEmpty()) {
                 etv_item_name.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_name.setFocusableInTouchMode(true);
@@ -510,7 +649,9 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 etv_description_ar.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_description_ar.setFocusableInTouchMode(true);
                 etv_description_ar.requestFocus();
-            } else if (etv_itemPrice.isEmpty()) {
+            } else if (!GlobalFunctions.isNotNullValue(menuType_id)) {
+                GlobalFunctions.displayMessaage(activity,mainView,activity.getString(R.string.pleaseFillMandatoryDetails));
+            }else if (etv_itemPrice.isEmpty()) {
                 etv_item_price.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_price.setFocusableInTouchMode(true);
                 etv_item_price.requestFocus();
@@ -522,19 +663,24 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 if (menuModel == null) {
                     menuModel = new MenuModel();
                 }
+                menuModel.setCategory_id(category_id);
                 menuModel.setName(etv_itemName);
                 menuModel.setAr_name(etv_item_ArabicName);
                 menuModel.setPrice(etv_item_Price);
                 menuModel.setDescription(tv_description);
                 menuModel.setAr_description(etv_ArabicDesc);
-                menuModel.setMenu_type_id(tv_selected_item);
-              // menuModel.setType(choosePassword);
-               // menuModel.setPosition((choosePassword));
+                menuModel.setMenu_type_id(menuType_id);
+                menuModel.setType(selectedRadioType);
+                menuModel.setPosition(selectedCategoryPosition);
+                menuModel.setPosition(selectedCategoryPosition);
                 menuModel.setStatus(selectStatus);
 
-                createMenu(context, menuModel);
+                if (profileImageList.size()>0){
+                    uploadImage(GlobalVariables.UPLOAD_PROFILE_PHOTO_PATH_CODE);
 
-
+                }else {
+                    createMenu(context, menuModel);
+                }
             }
         }
     }
@@ -562,7 +708,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Error : " + msg);
             }
-        }, "Register_User");
+        }, "Create_Menu");
     }
 
     private void validateOutputAfterCreateMenu(Object arg0) {
@@ -572,7 +718,6 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             if (statusMainModel.isStatus()) {
                 globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
                 showAlertDialog(statusModel);
-
 
             } else {
                 globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
@@ -597,11 +742,10 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
 
         alertDialog.show();
 
-
     }
 
 
-    private void openGenderDialog(final Context context) {
+    private void openStatusDialog(final Context context) {
 
         final android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(activity);
         final View alertView = layoutInflater.inflate(R.layout.select_status_custom_dialog, null, false);
@@ -716,23 +860,5 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         if (activity != null) activity = null;
         super.onDestroy();
     }
-
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == activity.RESULT_OK) {
-
-            if (requestCode == globalVariables.REQUEST_CODE_FOR_SEARCH) {
-                MenuTypeModel menuTypeModel = (MenuTypeModel) data.getExtras().getSerializable(MenuItemListActivity.BUNDLE_SEARCH_TYPE);
-                if (menuTypeModel != null) {
-                    if (menuTypeModel.getCount() != null) {
-                        MenuTypeModel menuModel = new MenuTypeModel();
-                        menuModel.setCount(menuTypeModel.getCount());
-                    }
-                }
-            }
-        }
-    }*/
 
 }

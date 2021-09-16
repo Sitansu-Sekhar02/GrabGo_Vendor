@@ -9,23 +9,24 @@ import java.io.Serializable;
 public class MenuTypeModel implements Serializable {
     private final String TAG = "MenuTypeModel";
     private final String
-            MENU_ID              = "id",
+            ID                   = "id",
             NAME                 = "name",
             COUNT                = "count";
 
     String
-            menu_id              = null,
+            id                   = null,
             name                 = null,
             count                = null;
 
     public MenuTypeModel(){}
 
-    public String getMenu_id() {
-        return menu_id;
+
+    public String getId() {
+        return id;
     }
 
-    public void setMenu_id(String menu_id) {
-        this.menu_id = menu_id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCount() {
@@ -48,7 +49,7 @@ public class MenuTypeModel implements Serializable {
     public boolean toObject(String jsonObject){
         try{
             JSONObject json = new JSONObject(jsonObject);
-            if(json.has(MENU_ID))this.menu_id = json.getString(MENU_ID);
+            if(json.has(ID))this.id = json.getString(ID);
             if(json.has(NAME))this.name = json.getString(NAME);
             if(json.has(COUNT))this.count = json.getString(COUNT);
 
@@ -63,7 +64,7 @@ public class MenuTypeModel implements Serializable {
         String returnString = null;
         try{
             JSONObject jsonMain = new JSONObject();
-            jsonMain.put(MENU_ID, menu_id);
+            jsonMain.put(ID, id);
             jsonMain.put(NAME, name);
             jsonMain.put(COUNT, count);
 

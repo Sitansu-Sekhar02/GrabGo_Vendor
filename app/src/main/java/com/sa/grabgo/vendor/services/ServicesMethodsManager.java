@@ -13,6 +13,7 @@ import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.services.model.AddCategoryModel;
 import com.sa.grabgo.vendor.services.model.CategoryMainModel;
 import com.sa.grabgo.vendor.services.model.ChangePasswordModel;
+import com.sa.grabgo.vendor.services.model.EditMenuModel;
 import com.sa.grabgo.vendor.services.model.ForgotPasswordModel;
 import com.sa.grabgo.vendor.services.model.HomeIndexModel;
 import com.sa.grabgo.vendor.services.model.HomePageMainModel;
@@ -314,8 +315,15 @@ public class ServicesMethodsManager {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
 
             }
-        }
-        else if (obj instanceof MenuModel) {
+        } else if (obj instanceof MenuModel) {
+            StatusMainModel model = new StatusMainModel();
+            if (model.toObject(resp.toString())) {
+                mUiCallBack.OnSuccessFromServer(model);
+            } else {
+                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
+
+            }
+        } else if (obj instanceof EditMenuModel) {
             StatusMainModel model = new StatusMainModel();
             if (model.toObject(resp.toString())) {
                 mUiCallBack.OnSuccessFromServer(model);
@@ -408,6 +416,13 @@ public class ServicesMethodsManager {
         String query = null;
         query = query != null ? query + "&status=" + status : "status=" + status;
         getData(context, new HomePageMainModel(), ServerConstants.URL_Homepage, query, TAG);
+    }
+
+    public void Meditenu(Context context,String menu_id, ServerResponseInterface mCallInterface, String TAG) {
+        setCallbacks(mCallInterface);
+        String query = null;
+        query = query != null ? query + "&menu_id=" + menu_id : "menu_id=" + menu_id;
+        getData(context, new HomePageMainModel(), ServerConstants.URL_EditMenu, query, TAG);
     }
 
     public void sendPushNotificationID(Context context, PushNotificationModel pushNotificationModel, ServerResponseInterface mCallInterface, String TAG) {

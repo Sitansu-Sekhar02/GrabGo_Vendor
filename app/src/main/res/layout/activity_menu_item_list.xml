@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/_8sdp"
+        android:layout_above="@+id/rl_sub"
+        android:layout_below="@+id/tool_bar"
         android:background="@color/BaseColor"
         app:emptyTitleTextColor="@color/red_color"
         app:errorContentTextColor="@color/app_fontColor"
@@ -23,18 +25,45 @@
         progressActivity:loadingBackgroundColor="@color/transparent"
         progressActivity:loadingProgressBarColor="@color/red_color">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_list_rr"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </com.vlonjatg.progressactivity.ProgressLinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
 
-</LinearLayout>
+        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            android:id="@+id/tv_cancel"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:background="@drawable/bg_button_border_black_curved"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textAppearance="@style/MediumSizeText"
+            android:textColor="@color/white" />
+
+        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            android:id="@+id/tv_submit"
+            android:layout_toRightOf="@+id/tv_cancel"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@drawable/bg_button_green_curved_filled"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textAppearance="@style/MediumSizeText"
+            android:text="@string/submit"/>
+    </RelativeLayout>
+
+</RelativeLayout>

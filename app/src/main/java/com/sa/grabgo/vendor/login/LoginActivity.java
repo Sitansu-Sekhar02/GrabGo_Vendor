@@ -36,6 +36,7 @@ import com.sa.grabgo.vendor.services.model.StatusMainModel;
 import com.sa.grabgo.vendor.services.model.StatusModel;
 
 public class LoginActivity extends AppCompatActivity {
+
     private static final String TAG = "LoginActivity";
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -58,9 +59,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextView  tv_forgot_password;
     private CountryCodePicker country_code_picker;
 
-
-    static Intent locationintent;
-    private boolean mAlreadyStartedService = false;
 
     LoginModel loginModel = null;
     boolean isLoginBtnEnabled = false;
@@ -113,9 +111,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validateInput();
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
             }
         });
     }

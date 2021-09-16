@@ -11,11 +11,13 @@ public class CategoryModel implements Serializable {
     private final String
             MENU_ID              = "menu_id",
             NAME                 = "name",
+            POSITION             = "position",
             COUNT                = "count";
 
     String
             menu_id              = null,
             name                 = null,
+            position                 = null,
             count                = null;
 
     public CategoryModel(){}
@@ -44,12 +46,20 @@ public class CategoryModel implements Serializable {
         this.name = name;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     public boolean toObject(String jsonObject){
         try{
             JSONObject json = new JSONObject(jsonObject);
             if(json.has(MENU_ID))this.menu_id = json.getString(MENU_ID);
             if(json.has(NAME))this.name = json.getString(NAME);
+            if(json.has(POSITION))this.position = json.getString(POSITION);
             if(json.has(COUNT))this.count = json.getString(COUNT);
 
             return true;
@@ -65,6 +75,7 @@ public class CategoryModel implements Serializable {
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(MENU_ID, menu_id);
             jsonMain.put(NAME, name);
+            jsonMain.put(POSITION, position);
             jsonMain.put(COUNT, count);
 
             returnString = jsonMain.toString();

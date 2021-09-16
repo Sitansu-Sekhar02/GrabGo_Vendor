@@ -49,8 +49,6 @@ public class ProfileFragment extends Fragment {
     Context context;
     Activity activity;
     View mainView;
-    private static int SPLASH_TIME_OUT = 2000;
-    int count = 0;
 
     private TextView tv_edit_profile, tv_view_allOrders;
     private TextView tv_restaurantName, tv_restaurant_name, tv_address, tv_restaurant_id, tv_contact, tv_logout;
@@ -59,8 +57,6 @@ public class ProfileFragment extends Fragment {
     NameInitialsCircleImageView iv_profile;
 
 
-    private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     GlobalVariables globalVariables;
     GlobalFunctions globalFunctions;

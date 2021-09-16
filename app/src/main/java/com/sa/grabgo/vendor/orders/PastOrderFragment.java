@@ -64,7 +64,7 @@ public class PastOrderFragment extends Fragment {
         activity = getActivity();
         context = getActivity();
 
-                globalFunctions = AppController.getInstance().getGlobalFunctions();
+        globalFunctions = AppController.getInstance().getGlobalFunctions();
         globalVariables = AppController.getInstance().getGlobalVariables();
 
         details_progressActivity = view.findViewById(R.id.details_progressActivity);

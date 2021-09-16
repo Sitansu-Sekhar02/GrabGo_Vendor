@@ -65,8 +65,8 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
     LinearLayoutManager homeMain_linear;
     ProgressLinearLayout home_category_progress;
     SwipeRefreshLayout swipe_container;
-
     RecyclerView rr_home_category;
+
     ProgressDialog progress;
 
 
@@ -363,7 +363,7 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
                 StatusMainModel statusMainModel = (StatusMainModel) arg0;
                 StatusModel statusModel = statusMainModel.getStatusModel();
                 if (statusMainModel.isStatus()){
-                    GlobalFunctions.displayDialog(activity,statusModel.getMessage());
+                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
                     homePageApi();
 
                 }else {
