@@ -23,25 +23,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.AppController;
 import com.sa.grabgo.vendor.R;
-import com.sa.grabgo.vendor.adapters.HomeSubListAdapter;
 import com.sa.grabgo.vendor.adapters.OrderDetailsAdapter;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
-import com.sa.grabgo.vendor.services.ServerResponseInterface;
-import com.sa.grabgo.vendor.services.ServicesMethodsManager;
 import com.sa.grabgo.vendor.services.model.OrderDetailListModel;
 import com.sa.grabgo.vendor.services.model.OrderDetailModel;
 import com.sa.grabgo.vendor.services.model.OrderModel;
-import com.sa.grabgo.vendor.services.model.StatusMainModel;
-import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.vlonjatg.progressactivity.ProgressLinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDetailsActivity extends AppCompatActivity {
-    private static final String TAG = "OrderDetailsActivity",
-            BUNDLE_ORDER_DETAILS = "BundleOrderDetails";
+public class PastOrderDetailsActivity extends AppCompatActivity {
+    private static final String TAG = "PastOrderDetailsActivity",
+            BUNDLE_PAST_ORDER_DETAILS = "BundlePastOrderDetails";
 
 
 
@@ -76,9 +71,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
     RecyclerView rv_order_details;
 
     public static Intent newInstance(Activity activity, OrderModel model) {
-        Intent intent = new Intent(activity, OrderDetailsActivity.class);
+        Intent intent = new Intent(activity, PastOrderDetailsActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BUNDLE_ORDER_DETAILS, model);
+        bundle.putSerializable(BUNDLE_PAST_ORDER_DETAILS, model);
         intent.putExtras(bundle);
         return intent;
     }
@@ -113,8 +108,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
 
         //search from home
-        if (getIntent().hasExtra(BUNDLE_ORDER_DETAILS)) {
-            orderModel = (OrderModel) getIntent().getSerializableExtra(BUNDLE_ORDER_DETAILS);
+        if (getIntent().hasExtra(BUNDLE_PAST_ORDER_DETAILS)) {
+            orderModel = (OrderModel) getIntent().getSerializableExtra(BUNDLE_PAST_ORDER_DETAILS);
 
         } else {
             orderModel = null;
@@ -133,17 +128,15 @@ public class OrderDetailsActivity extends AppCompatActivity {
         tv_confirm=findViewById(R.id.tv_confirm);
         rv_order_details=findViewById(R.id.rv_order_details);
         tv_status=findViewById(R.id.tv_status);
+        tv_decline.setVisibility(View.GONE);
+        tv_confirm.setVisibility(View.GONE);
 
         orderMail_linear=new LinearLayoutManager(activity);
 
         mainView = toolbar;
 
-        tv_confirm.setVisibility(View.GONE);
-        tv_decline.setVisibility(View.GONE);
-
         setOrderDetails(orderModel);
         getOrderSubDetails(orderModel.getOrder_details());
-
 
 
         setSupportActionBar(toolbar);
@@ -207,69 +200,20 @@ public class OrderDetailsActivity extends AppCompatActivity {
             if (GlobalFunctions.isNotNullValue(orderModel.getPayment_type())) {
                 if (orderModel.getPayment_type().equalsIgnoreCase("1")){
                     tv_payment_type.setText(getString(R.string.cod));
-                } else{
+
+                } else  if (orderModel.getPayment_type().equalsIgnoreCase("2")){
                     tv_payment_type.setText(getString(R.string.online));
+                }else {
+
                 }
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getStatus_title())) {
                 tv_status.setText(orderModel.getStatus_title());
             }
 
-            tv_decline.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String pageFrom=GlobalVariables.ORDER_VENDOR_CANCELLED;
-                    updateStatus(pageFrom,order_id);
-
-                }
-            });
-            tv_confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String pageFrom=GlobalVariables.ORDER_CONFIRMED;
-
-                    updateStatus(pageFrom,order_id);
-                }
-            });
         }
 
     }
-    private void updateStatus(String pageFrom, String order_id) {
-        //globalFunctions.showProgress(context, getString(R.string.loading));
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getStatusUpdate(context,pageFrom,order_id, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                // globalFunctions.hideProgress();
-                Log.d(TAG, "Response Update : " + arg0.toString());
-                StatusMainModel statusMainModel = (StatusMainModel) arg0;
-                StatusModel statusModel = statusMainModel.getStatusModel();
-                if (statusMainModel.isStatus()){
-                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
-                    closeThisActivity();
-                }else {
-                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
-                }
-
-            }
-
-            @Override
-            public void OnFailureFromServer(String msg) {
-                // globalFunctions.hideProgress();
-
-                Log.d(TAG, "Failure : " + msg);
-                GlobalFunctions.displayMessaage(context, mainView, msg);
-            }
-
-            @Override
-            public void OnError(String msg) {
-                //globalFunctions.hideProgress();
-                Log.d(TAG, "Error : " + msg);
-                GlobalFunctions.displayMessaage(context, mainView, msg);
-            }
-        }, "Update Status");
-    }
-
 
     @Override
     public void onStop() {

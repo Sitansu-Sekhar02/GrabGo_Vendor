@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/activity_gutter_margin"
-                    android:text="@string/select_type"
+                    android:text="@string/select_menu_type"
                     android:textAllCaps="false"
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
@@ -218,7 +218,7 @@
                     android:layout_marginRight="@dimen/activity_gutter_margin"
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
-                    android:text="@string/select_type"
+                    android:text="@string/select_menu_type"
                     android:drawableRight="@drawable/ic_drop_down"
                     android:focusable="true"
                     android:maxLines="1"

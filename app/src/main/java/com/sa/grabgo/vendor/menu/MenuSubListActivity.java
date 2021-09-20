@@ -146,7 +146,7 @@ public class MenuSubListActivity extends AppCompatActivity {
         });
 
 
-        getSubMenuList();
+        //getSubMenuList();
 
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -312,6 +312,13 @@ public class MenuSubListActivity extends AppCompatActivity {
         super.onStart();
     }
 
+    @Override
+    public void onResume() {
+
+        getSubMenuList();
+
+        super.onResume();
+    }
     @Override
     public void onDestroy() {
         if (activity != null) activity = null;

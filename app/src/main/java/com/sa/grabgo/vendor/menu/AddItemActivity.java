@@ -119,6 +119,8 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     String
             selectStatus = "1";
 
+    String menu_id=null;
+
     List<String> profileImageList;
     List<Uri> uriProfileImageList;
     List<String> downloadProfileImageList;
@@ -277,6 +279,18 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         if (menuSubModel!=null && context!=null){
             if (GlobalFunctions.isNotNullValue(menuSubModel.getName())){
                 etv_item_name.setText(menuSubModel.getName());
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getId())){
+                menu_id=menuSubModel.getId();
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_category_id())){
+                category_id=menuSubModel.getMenu_category_id();
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_type_id())){
+                menuType_id=menuSubModel.getMenu_type_id();
 
             }
             if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_name())){
@@ -663,6 +677,8 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 if (menuModel == null) {
                     menuModel = new MenuModel();
                 }
+
+                menuModel.setMenu_id(menu_id);
                 menuModel.setCategory_id(category_id);
                 menuModel.setName(etv_itemName);
                 menuModel.setAr_name(etv_item_ArabicName);

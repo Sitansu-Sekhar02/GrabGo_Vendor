@@ -134,7 +134,7 @@ public class CategoryItemListActivity extends AppCompatActivity  implements Cate
         tv_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setCarTypeResult(true, selectedCategoryModel);
+                setCartResult(true, selectedCategoryModel);
 
             }
         });
@@ -144,7 +144,7 @@ public class CategoryItemListActivity extends AppCompatActivity  implements Cate
         setTitle(getString(R.string.select_category), 0, 0);
     }
 
-    private void setCarTypeResult(boolean isSuccess, CategoryModel model) {
+    private void setCartResult(boolean isSuccess, CategoryModel model) {
         Intent intent = new Intent();
         intent.putExtra(BUNDLE_CATEGORY_RESPONSE_MODEL, model);
         if (isSuccess) setResult(RESULT_OK, intent);

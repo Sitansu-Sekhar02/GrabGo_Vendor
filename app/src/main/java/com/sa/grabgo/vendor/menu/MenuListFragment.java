@@ -127,7 +127,7 @@ public class MenuListFragment extends Fragment {
         category_linearLayout = new LinearLayoutManager(activity);
         mainView = toolbar;
 
-        getMenuList();
+       // getMenuList();
 
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -141,12 +141,12 @@ public class MenuListFragment extends Fragment {
     }
 
     private void getMenuList() {
-        globalFunctions.showProgress(activity, getString(R.string.loading));
+        //globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getCategoryList(context, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-                globalFunctions.hideProgress();
+                //globalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
                 }
@@ -163,7 +163,7 @@ public class MenuListFragment extends Fragment {
 
             @Override
             public void OnFailureFromServer(String msg) {
-                globalFunctions.hideProgress();
+                //globalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
                 }
@@ -174,7 +174,7 @@ public class MenuListFragment extends Fragment {
 
             @Override
             public void OnError(String msg) {
-                globalFunctions.hideProgress();
+               // globalFunctions.hideProgress();
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
                 }
@@ -332,7 +332,8 @@ public class MenuListFragment extends Fragment {
 
     @Override
     public void onResume() {
-        //getProfile();
+        getMenuList();
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
 
         // MainActivity.setTitleResourseID(0);

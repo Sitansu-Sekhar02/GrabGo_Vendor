@@ -1,9 +1,11 @@
 package com.sa.grabgo.vendor.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
+import com.sa.grabgo.vendor.orders.CurrentOrderDetailsActivity;
+import com.sa.grabgo.vendor.orders.PastOrderDetailsActivity;
 import com.sa.grabgo.vendor.services.model.OrderDetailModel;
 import com.sa.grabgo.vendor.services.model.OrderModel;
 
@@ -58,7 +62,7 @@ public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.View
 
 
         LinearLayoutManager layoutManager;
-        layoutManager = new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
         List<OrderDetailModel> productList = new ArrayList<OrderDetailModel>();
 
         if (model.getOrder_details() != null && model.getOrder_details().getOrderDetailModels().size() > 0) {
@@ -75,6 +79,14 @@ public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.View
         } else {
             holder.rv_order_details.setVisibility(View.GONE);
         }
+
+        holder.ll_view_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = PastOrderDetailsActivity.newInstance(activity, model);
+                activity.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -85,6 +97,7 @@ public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_order_id,tv_order_time,tv_total_item,tv_order_delivery;
         RecyclerView rv_order_details;
+        LinearLayout ll_view_order;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +107,7 @@ public class PastOrderAdapter extends RecyclerView.Adapter<PastOrderAdapter.View
             tv_total_item = itemView.findViewById(R.id.tv_total_item);
             tv_order_delivery = itemView.findViewById(R.id.tv_order_delivery);
             rv_order_details = itemView.findViewById(R.id.rv_order_details);
+            ll_view_order = itemView.findViewById(R.id.ll_view_order);
 
         }
     }

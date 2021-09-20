@@ -23,11 +23,11 @@ import java.util.List;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
 
-    public static final String TAG = "MenuAdapter";
+    public static final String TAG = "CategoryListAdapter";
 
     private final List<CategoryModel> list;
     private final Activity activity;
-    private int selectedItem=0;
+    private int selectedItem=-1;
     CategoryItemClick categoryItemClick;
 
 
@@ -52,7 +52,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
         if (GlobalFunctions.isNotNullValue(model.getName())){
             holder.tv_item_name.setText(model.getName());
         }
-
 
         holder.tv_item_name.setTextColor(activity.getResources().getColor(R.color.main_text));
 

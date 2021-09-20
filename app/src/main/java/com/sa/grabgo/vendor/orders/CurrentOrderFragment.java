@@ -167,7 +167,7 @@ public class CurrentOrderFragment extends Fragment implements UpdateCurrentStatu
     private void showCategoryEmptyPage() {
         if (details_progressActivity != null) {
             details_progressActivity.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
-                    getString(R.string.not_available));
+                    getString(R.string.no_orders));
         }
     }
 
@@ -228,14 +228,8 @@ public class CurrentOrderFragment extends Fragment implements UpdateCurrentStatu
             public void OnSuccessFromServer(Object arg0) {
                 // globalFunctions.hideProgress();
                 Log.d(TAG, "Response Update : " + arg0.toString());
-                StatusMainModel statusMainModel = (StatusMainModel) arg0;
-                StatusModel statusModel = statusMainModel.getStatusModel();
-                if (statusMainModel.isStatus()){
-                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
-                    getCurrentOrders();
-                }else {
-                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
-                }
+                validateAfterUpdateStatus(arg0);
+
 
             }
 
@@ -254,5 +248,18 @@ public class CurrentOrderFragment extends Fragment implements UpdateCurrentStatu
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
         }, "Update Status");
+    }
+
+    private void validateAfterUpdateStatus(Object arg0) {
+        if (arg0 instanceof StatusMainModel) {
+            StatusMainModel statusMainModel = (StatusMainModel) arg0;
+            StatusModel statusModel = statusMainModel.getStatusModel();
+            if (statusMainModel.isStatusLogin()) {
+                globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+                getCurrentOrders();
+            } else {
+                globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+            }
+        }
     }
 }

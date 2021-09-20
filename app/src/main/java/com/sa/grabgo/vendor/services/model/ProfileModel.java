@@ -14,7 +14,7 @@ public class ProfileModel implements Serializable {
             FIRST_NAME          = "first_name",
             FULL_NAME           = "full_name",
             LAST_NAME           = "last_name",
-            IS_OTP_VERIFIED      = "is_otp_verified",
+            IS_OTP_VERIFIED     = "is_otp_verified",
             EMAIL               = "email_id",
             PHONE               = "mobile_number",
             ADDRESS             = "address",

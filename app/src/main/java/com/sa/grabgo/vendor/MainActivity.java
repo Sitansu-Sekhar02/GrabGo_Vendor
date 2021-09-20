@@ -39,7 +39,13 @@ import com.sa.grabgo.vendor.home.HomeFragment;
 import com.sa.grabgo.vendor.menu.MenuListFragment;
 import com.sa.grabgo.vendor.orders.FragmentOrderMain;
 import com.sa.grabgo.vendor.profile.ProfileFragment;
+import com.sa.grabgo.vendor.services.ServerResponseInterface;
+import com.sa.grabgo.vendor.services.ServicesMethodsManager;
 import com.sa.grabgo.vendor.services.model.NotificationModel;
+import com.sa.grabgo.vendor.services.model.ProfileMainModel;
+import com.sa.grabgo.vendor.services.model.ProfileModel;
+import com.sa.grabgo.vendor.services.model.StatusMainModel;
+import com.sa.grabgo.vendor.services.model.StatusModel;
 import com.sa.grabgo.vendor.view.AlertDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     public static TextView header_tv;
     public static String address;
     Double latitude, longitude;
+    int isAvailable=1;
 
 
     private NotificationModel notificationModel = null;
@@ -164,6 +171,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        getProfile();
+
+
+        ic_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isAvailable == 1) {
+                    isAvailable = 2 ; // change the status to 2 so the at the second click , the else will be executed
+                } else {
+                    isAvailable = 1;//change the status to 0 so the at the second clic , the if will be executed
+                }
+
+                getAvailableStatus(isAvailable);
+
+            }
+        });
+
+
         bottom_nav_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -200,6 +225,104 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment homeFragment = new HomeFragment();
         replaceFragment(homeFragment, HomeFragment.TAG, getString(R.string.app_name), 0, 0);
+    }
+
+    private void getProfile() {
+        // globalFunctions.showProgress( context, getString( R.string.getting_profile ));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.getProfile(mainContext, new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                //globalFunctions.hideProgress();
+                Log.d(TAG, "Response : " + arg0.toString());
+                if (arg0 instanceof ProfileMainModel) {
+                    ProfileMainModel profileMainModel = (ProfileMainModel) arg0;
+                    ProfileModel profileModel = profileMainModel.getProfileModel();
+                    GlobalFunctions.setProfile(mainContext, profileModel);
+                    setProfile();
+                }
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // globalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage(mainContext, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                GlobalFunctions.displayMessaage(mainContext, mainView, msg);
+                Log.d(TAG, "Error : " + msg);
+            }
+        }, "Get Profile");
+
+    }
+
+    private void setProfile() {
+        ProfileModel profileModel = globalFunctions.getProfile(mainContext);
+        if (profileModel != null && mainContext != null) {
+            try {
+
+                if (GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
+                    MainActivity.tv_restaurant_name.setText(profileModel.getFullname());
+                }
+                if (GlobalFunctions.isNotNullValue(profileModel.getAddress())) {
+                    MainActivity.toolbar_title.setText(profileModel.getAddress());
+                }
+
+                if (GlobalFunctions.isNotNullValue(profileModel.getIs_available())) {
+                    if (profileModel.getIs_available().equalsIgnoreCase("1")){
+                        ic_logout.setImageResource(R.drawable.ic_logout_green);
+
+                    }else{
+                        ic_logout.setImageResource(R.drawable.ic_logout_red);
+                    }
+                }
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+    }
+
+    private void getAvailableStatus(int isAvailable) {
+        // globalFunctions.showProgress(activity, getString(R.string.loading));
+        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
+        servicesMethodsManager.updateAvailableStatus(mainContext, String.valueOf(isAvailable), new ServerResponseInterface() {
+            @Override
+            public void OnSuccessFromServer(Object arg0) {
+                // globalFunctions.hideProgress();
+                Log.d(TAG, "Response: " + arg0.toString());
+                StatusMainModel statusMainModel=(StatusMainModel)arg0;
+                StatusModel statusModel=statusMainModel.getStatusModel();
+                if (statusMainModel.isStatusLogin()) {
+                    //globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+                    getProfile();
+
+                } else {
+                    globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+
+                }
+            }
+
+            @Override
+            public void OnFailureFromServer(String msg) {
+                // globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+                Log.d(TAG, "Failure : " + msg);
+
+            }
+
+            @Override
+            public void OnError(String msg) {
+                //globalFunctions.hideProgress();
+                globalFunctions.displayMessaage(activity, mainView, msg);
+
+                Log.d(TAG, "Error : " + msg);
+            }
+
+        }, "MainActivity");
     }
 
     public static void setTitle(String title, int titleImageID, int backgroundResourceID) {

@@ -22,6 +22,7 @@ public class ServerConstants {
     public static final String URL_LatlongUpdate                             = SERVER_URL + "update_lat_long.php";
     public static final String URL_Homepage                                  = SERVER_URL + "home_page.php";
     public static final String URL_EditMenu                                  = SERVER_URL + "edit_menu_detail.php";
+    public static final String URL_UpdateAvailableStatus                     = SERVER_URL + "update_available.php";
 
 
     public static final String URL_UpdateProfile                             = SERVER_URL + "get_profile.php";

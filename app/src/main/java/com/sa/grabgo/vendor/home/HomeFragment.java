@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
         progress.show();
 
         homePageApi();
-        getProfile();
+
 
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -126,7 +126,6 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
             public void OnSuccessFromServer(Object arg0) {
                 // globalFunctions.hideProgress();
                 progress.dismiss();
-
                 if (swipe_container.isRefreshing()) {
                     swipe_container.setRefreshing(false);
                 }
@@ -223,8 +222,6 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
                 showContent();
                 homeCategoryInitRecycler();
             }
-
-
         }
     }
 
@@ -232,14 +229,14 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
 
         rr_home_category.setLayoutManager(homeMain_linear);
         rr_home_category.setHasFixedSize(true);
-        homeAdapter = new HomeAdapter(activity, orderModels,this);
+        homeAdapter = new HomeAdapter(activity, orderModels, this);
         rr_home_category.setAdapter(homeAdapter);
     }
 
     private void showCategoryEmptyPage() {
         if (home_category_progress != null) {
             home_category_progress.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
-                    getString(R.string.not_available));
+                    getString(R.string.no_orders));
         }
     }
 
@@ -249,64 +246,7 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
         }
     }
 
-    private void getProfile() {
-        // globalFunctions.showProgress( context, getString( R.string.getting_profile ));
-        ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getProfile(context, new ServerResponseInterface() {
-            @Override
-            public void OnSuccessFromServer(Object arg0) {
-                //globalFunctions.hideProgress();
-                Log.d(TAG, "Response : " + arg0.toString());
-                if (arg0 instanceof ProfileMainModel) {
-                    ProfileMainModel profileMainModel = (ProfileMainModel) arg0;
-                    ProfileModel profileModel = profileMainModel.getProfileModel();
-                    GlobalFunctions.setProfile(context, profileModel);
-                    setProfile();
-                }
-            }
 
-            @Override
-            public void OnFailureFromServer(String msg) {
-                // globalFunctions.hideProgress();
-                GlobalFunctions.displayMessaage(context, mainView, msg);
-                Log.d(TAG, "Failure : " + msg);
-            }
-
-            @Override
-            public void OnError(String msg) {
-                //globalFunctions.hideProgress();
-                GlobalFunctions.displayMessaage(context, mainView, msg);
-                Log.d(TAG, "Error : " + msg);
-            }
-        }, "Get Profile");
-
-    }
-
-    private void setProfile() {
-        ProfileModel profileModel = globalFunctions.getProfile(context);
-        if (profileModel != null && context != null) {
-            try {
-
-                if (GlobalFunctions.isNotNullValue(profileModel.getFullname())) {
-                    MainActivity.tv_restaurant_name.setText(profileModel.getFullname());
-                }
-                if (GlobalFunctions.isNotNullValue(profileModel.getAddress())) {
-                    MainActivity.toolbar_title.setText(profileModel.getAddress());
-                }
-
-                if (GlobalFunctions.isNotNullValue(profileModel.getIs_available())) {
-                    MainActivity.ic_logout.setImageResource(R.drawable.ic_logout_green);
-                }else {
-                    MainActivity.ic_logout.setImageResource(R.drawable.ic_logout_red);
-
-                }
-
-            } catch (Exception exxx) {
-                Log.e(TAG, exxx.getMessage());
-            }
-
-        }
-    }
 
     @Override
     public void onResume() {
@@ -340,10 +280,9 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
     }
 
 
-
     @Override
     public void OnCancelClickListener(OrderModel orderModel, String pageFrom, String order_id) {
-        statusUpdate(pageFrom,order_id);
+        statusUpdate(pageFrom, order_id);
 
     }
 
@@ -352,29 +291,22 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
 
         statusUpdate(pageFrom, order_id);
     }
+
     private void statusUpdate(String pageFrom, String order_id) {
         //globalFunctions.showProgress(context, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
-        servicesMethodsManager.getStatusUpdate(context,pageFrom,order_id, new ServerResponseInterface() {
+        servicesMethodsManager.getStatusUpdate(context, pageFrom, order_id, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-               // globalFunctions.hideProgress();
+                // globalFunctions.hideProgress();
                 Log.d(TAG, "Response Update : " + arg0.toString());
-                StatusMainModel statusMainModel = (StatusMainModel) arg0;
-                StatusModel statusModel = statusMainModel.getStatusModel();
-                if (statusMainModel.isStatus()){
-                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
-                    homePageApi();
-
-                }else {
-                    GlobalFunctions.displayMessaage(activity,mainView,statusModel.getMessage());
-                }
+                validateUpdateStatus(arg0);
 
             }
 
             @Override
             public void OnFailureFromServer(String msg) {
-               // globalFunctions.hideProgress();
+                // globalFunctions.hideProgress();
 
                 Log.d(TAG, "Failure : " + msg);
                 GlobalFunctions.displayMessaage(context, mainView, msg);
@@ -387,5 +319,20 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
                 GlobalFunctions.displayMessaage(context, mainView, msg);
             }
         }, "Update Status");
+    }
+
+    private void validateUpdateStatus(Object arg0) {
+        if (arg0 instanceof StatusMainModel) {
+            StatusMainModel statusMainModel = (StatusMainModel) arg0;
+            StatusModel statusModel = statusMainModel.getStatusModel();
+
+            if (statusMainModel.isStatusLogin()) {
+                globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+                homePageApi();
+
+            } else {
+                globalFunctions.displayMessaage(activity, mainView, statusModel.getMessage());
+            }
+        }
     }
 }

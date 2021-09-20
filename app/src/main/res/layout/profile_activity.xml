@@ -2,196 +2,203 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:scrollbars="none">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_48sdp"
+
         android:scrollbars="none">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/rl_profile"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_180sdp"
-                android:background="@color/white"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView
-                        android:id="@+id/iv_profile"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_90sdp"
-                        android:scaleType="centerCrop"
-                        app:circleBackgroundColor="@color/colorAccent"
-                        app:textSize="@dimen/_20sdp" />
+            android:layout_height="match_parent">
 
 
-                    <com.sa.grabgo.vendor.view.AppTextView
-                        android:id="@+id/tv_restaurantName"
+                <RelativeLayout
+                    android:id="@+id/rl_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_180sdp"
+                    android:background="@color/white"
+                    android:gravity="center">
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:layout_marginRight="@dimen/_16sdp"
-                        android:gravity="left"
-                        android:singleLine="true"
-                        android:text=""
-                        android:textAppearance="@style/MediumText"
-                        android:textColor="@color/main_text"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.github.ramiz.nameinitialscircleimageview.NameInitialsCircleImageView
+                            android:id="@+id/iv_profile"
+                            android:layout_width="@dimen/_90sdp"
+                            android:layout_height="@dimen/_90sdp"
+                            android:scaleType="centerCrop"
+                            app:circleBackgroundColor="@color/colorAccent"
+                            app:textSize="@dimen/_20sdp" />
 
 
-            </RelativeLayout>
+                        <com.sa.grabgo.vendor.view.AppTextView
+                            android:id="@+id/tv_restaurantName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginRight="@dimen/_16sdp"
+                            android:gravity="left"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/MediumText"
+                            android:textColor="@color/main_text"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/rl_profile"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@color/BaseColor">
 
-                <LinearLayout
-                    android:id="@+id/linearProfile_details"
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_details"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="36dp"
-                    android:layout_marginTop="44dp"
-                    android:layout_marginRight="@dimen/_15sdp"
-                    android:orientation="vertical">
-
+                    android:layout_below="@id/rl_profile"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@color/BaseColor">
 
                     <LinearLayout
+                        android:id="@+id/linearProfile_details"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_15sdp"
                         android:orientation="vertical">
 
-                        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/restaurant_name"
-                            android:textAppearance="@style/SmallerText"
-                            android:textColor="@color/semi_color" />
 
-                        <com.sa.grabgo.vendor.view.AppTextView
-                            android:id="@+id/tv_restaurant_name"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:text=""
-                            android:textAppearance="@style/SmallMediumText"
-                            android:textColor="@color/main_text"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
+
+                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/restaurant_name"
+                                android:textAppearance="@style/SmallerText"
+                                android:textColor="@color/semi_color" />
+
+                            <com.sa.grabgo.vendor.view.AppTextView
+                                android:id="@+id/tv_restaurant_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text=""
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/main_text"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:orientation="vertical">
+
+                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/address"
+                                android:textAppearance="@style/SmallerText"
+                                android:textColor="@color/semi_color" />
+
+                            <com.sa.grabgo.vendor.view.AppTextView
+                                android:id="@+id/tv_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:maxLines="2"
+                                android:text=""
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/main_text"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:orientation="vertical">
+
+                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/restaurant_id"
+                                android:textAppearance="@style/SmallerText"
+                                android:textColor="@color/semi_color" />
+
+                            <com.sa.grabgo.vendor.view.AppTextView
+                                android:id="@+id/tv_restaurant_id"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text=""
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/main_text"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:orientation="vertical">
+
+                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/contact"
+                                android:textAppearance="@style/SmallerText"
+                                android:textColor="@color/semi_color" />
+
+                            <com.sa.grabgo.vendor.view.AppTextView
+                                android:id="@+id/tv_contact"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:text=""
+                                android:textAppearance="@style/SmallMediumText"
+                                android:textColor="@color/main_text"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:orientation="vertical">
 
-                        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/address"
-                            android:textAppearance="@style/SmallerText"
-                            android:textColor="@color/semi_color" />
+                </RelativeLayout>
+            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                android:id="@+id/tv_logout"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/rl_details"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:drawableRight="@drawable/ic_logout"
+                android:drawablePadding="@dimen/_8sdp"
+                android:text="@string/logout"
+                android:textAppearance="@style/MediumSizeText"
+                android:textColor="@color/red_color"
+                android:textStyle="bold" />
 
-                        <com.sa.grabgo.vendor.view.AppTextView
-                            android:id="@+id/tv_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:maxLines="2"
-                            android:text=""
-                            android:textAppearance="@style/SmallMediumText"
-                            android:textColor="@color/main_text"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:orientation="vertical">
-
-                        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/restaurant_id"
-                            android:textAppearance="@style/SmallerText"
-                            android:textColor="@color/semi_color" />
-
-                        <com.sa.grabgo.vendor.view.AppTextView
-                            android:id="@+id/tv_restaurant_id"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:text=""
-                            android:textAppearance="@style/SmallMediumText"
-                            android:textColor="@color/main_text"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_15sdp"
-                        android:orientation="vertical">
-
-                        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/contact"
-                            android:textAppearance="@style/SmallerText"
-                            android:textColor="@color/semi_color" />
-
-                        <com.sa.grabgo.vendor.view.AppTextView
-                            android:id="@+id/tv_contact"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:text=""
-                            android:textAppearance="@style/SmallMediumText"
-                            android:textColor="@color/main_text"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
-                        android:id="@+id/tv_logout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_40sdp"
-                        android:layout_marginBottom="@dimen/_30sdp"
-                        android:drawableRight="@drawable/ic_logout"
-                        android:drawablePadding="@dimen/_8sdp"
-                        android:text="@string/logout"
-                        android:textAppearance="@style/MediumSizeText"
-                        android:textColor="@color/red_color"
-                        android:textStyle="bold" />
-                </LinearLayout>
+        </RelativeLayout>
 
 
-            </RelativeLayout>
-        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

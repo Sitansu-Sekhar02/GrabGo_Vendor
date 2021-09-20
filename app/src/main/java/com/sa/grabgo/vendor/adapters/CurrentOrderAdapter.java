@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ import com.sa.grabgo.vendor.R;
 import com.sa.grabgo.vendor.adapters.interfaces.UpdateCurrentStatusInvoke;
 import com.sa.grabgo.vendor.global.GlobalFunctions;
 import com.sa.grabgo.vendor.global.GlobalVariables;
+import com.sa.grabgo.vendor.orders.CurrentOrderDetailsActivity;
+import com.sa.grabgo.vendor.orders.FragmentOrderMain;
 import com.sa.grabgo.vendor.orders.OrderDetailsActivity;
 import com.sa.grabgo.vendor.services.model.OrderDetailModel;
 import com.sa.grabgo.vendor.services.model.OrderModel;
@@ -63,10 +66,14 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
         if (GlobalFunctions.isNotNullValue(model.getCounts())) {
             holder.tv_total_item.setText(model.getCounts());
         }
+        if (GlobalFunctions.isNotNullValue(model.getRest_preparation_time())){
+            FragmentOrderMain.tv_est_time.setText(model.getRest_preparation_time());
+        }
 
         if (GlobalFunctions.isNotNullValue(model.getOrder_id())){
             order_id=model.getOrder_id();
         }
+
 
         holder.tv_order_ready.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +116,14 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
             holder.rv_order_details.setVisibility(View.GONE);
         }
 
+        holder.ll_view_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = CurrentOrderDetailsActivity.newInstance(activity, model);
+                activity.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -121,6 +136,7 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
         TextView tv_order_id,tv_order_time,tv_total_item,tv_order_delivery,tv_order_ready;
         RecyclerView rv_order_details;
         CircularProgressBar progressBar;
+        LinearLayout ll_view_order;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -132,6 +148,7 @@ public class CurrentOrderAdapter extends RecyclerView.Adapter<CurrentOrderAdapte
             tv_order_ready = itemView.findViewById(R.id.tv_order_ready);
             progressBar = itemView.findViewById(R.id.progress_bar);
             rv_order_details = itemView.findViewById(R.id.rv_order_details);
+            ll_view_order = itemView.findViewById(R.id.ll_view_order);
 
         }
     }

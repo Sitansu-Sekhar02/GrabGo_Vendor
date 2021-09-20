@@ -28,13 +28,6 @@ public class GlobalVariables {
     private static GlobalVariables thisInstance;
 
 
-    public static final int WAITING                    = 20;
-    public static final int START_RIDE                 = 21;
-    public static final int ON_THE_WAY_TO_THERIPAST    = 22;
-    public static final int REACHED_THERAPIST_LOCATION = 23;
-    public static final int WAY_TO_CUSYOMER_LOCATION   = 24;
-    public static final int COMPLETE                   = 25;
-
     public static final int LOCATION_INTERVAL         = 10000;
     public static final int FASTEST_LOCATION_INTERVAL = 5000;
 
@@ -521,16 +514,16 @@ public class GlobalVariables {
     public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
     //HttpResponse Results
-    public static String RESPONSE_HTTP_SUCCESS             = "3";
-    public static String RESPONSE_HTTP_NO_RECORDS_FOUND    = "404";
-    public static String RESPONSE_HTTP_BAD_REQUEST         = "2";
-    public static String RESPONSE_HTTP_SESSION_EXPIRED     = "401";
-    public static String RESPONSE_HTTP_METHOD_NOT_ALLOWED  = "405";
+    public static String RESPONSE_HTTP_SUCCESS              = "3";
+    public static String RESPONSE_HTTP_NO_RECORDS_FOUND     = "404";
+    public static String RESPONSE_HTTP_BAD_REQUEST          = "2";
+    public static String RESPONSE_HTTP_SESSION_EXPIRED      = "401";
+    public static String RESPONSE_HTTP_METHOD_NOT_ALLOWED   = "405";
     public static int  RESPONSE_HTTP_METHOD_FORBIDDEN       = 403;
     public static int  RESPONSE_HTTP_METHOD_SESSION_EXPIRED = 503;
     public static int  RESPONSE_HTTP_METHOD_ERROR           = 504;
-    public static String RESPONSE_HTTP_RECORD_EXIST        = "409";
-    public static String RESPONSE_HTTP_BAD_REQUEST_5       = "5";
+    public static String RESPONSE_HTTP_RECORD_EXIST         = "409";
+    public static String RESPONSE_HTTP_BAD_REQUEST_5        = "5";
 
     public static String MIN_REQURIED_QUANTITY = "0";
     public static int MIN_REQURIED_QUANTITY_INT = 0;
@@ -656,7 +649,7 @@ public class GlobalVariables {
     public static String SHARED_PREFERENCE_GCM_TOKEN            =  "SharedPreferenceGCMTOKEN";
 
     public static String SHARED_PREFERENCE_ACCOUNT_ID           =  "SharedPreferenceAccountId";
-    public static String SHARED_PREFERENCE_LATLONG           =  "SharedPreferenceLatLong";
+    public static String SHARED_PREFERENCE_LATLONG              =  "SharedPreferenceLatLong";
     public static String SHARED_PREFERENCE_CART_COUNT           =  "SharedPreferenceCartCount";
     public static String SHARED_PREFERENCE_NOTIFICATION_COUNT   =  "SharedPreferenceNotificationCount";
 
@@ -683,27 +676,6 @@ public class GlobalVariables {
     public static final int PERMISSIONS_REQUEST_CALENDER    = 152;
     public static final int PERMISSIONS_REQUEST_PRIMARY     = 153;
 
-    public static final String CATEGORY_VALUE_FOR_FACE      = "1";
-    public static final String CATEGORY_VALUE_FOR_HAIR      = "2";
-    public static final String CATEGORY_VALUE_FOR_MASSAGE   = "3";
-    public static final String CATEGORY_VALUE_FOR_NAIL      = "4";
-    public static final String CATEGORY_VALUE_FOR_TAILOR    = "5";
-    public static final String CATEGORY_VALUE_FOR_FITNESS   = "47";
-    public static final String CATEGORY_VALUE_FOR_PACKAGING = "48";
-
-    public static final String DRIVER_TASK_UPDATE_WAITING                = "20",
-                               DRIVER_TASK_UPDATE_START_RIDE             = "21",
-                               DRIVER_TASK_UPDATE_ON_THE_WAY             = "22",
-                               DRIVER_TASK_UPDATE_REACHED                = "23",
-                               DRIVER_TASK_WAY_To_CUSTOMER_LOCATION      = "24",
-                               DRIVER_TASK_WAY_To_COMPLETE               = "25";
-
-
-    public static final String TYPE_CATEGORY          = "1";
-    public static final String TYPE_TRENDING          = "2";
-    public static final String TYPE_NEARBY           = "3";
-    public static final String TYPE_OFFER            = "4";
-    public static final String TYPE_NORMAL            = "5";
 
 
     public static int
@@ -741,10 +713,6 @@ public class GlobalVariables {
                HOUSE_TYPE_INDEPENDENT_HOUSE       = 2;
 
 
-    public static final String
-            ORDER_TYPE_COMPLETED               = "3",
-            ORDER_TYPE_UPCOMING                = "1",
-            ORDER_TYPE_ON_GOING                = "2";
 
     public static final String
             ORDER_CONFIRMED                   = "101",

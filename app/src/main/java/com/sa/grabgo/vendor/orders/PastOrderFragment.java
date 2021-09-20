@@ -152,7 +152,6 @@ public class PastOrderFragment extends Fragment {
                 homeCategoryInitRecycler();
             }
 
-
         }
     }
 
@@ -167,7 +166,7 @@ public class PastOrderFragment extends Fragment {
     private void showCategoryEmptyPage() {
         if (details_progressActivity != null) {
             details_progressActivity.showEmpty(getResources().getDrawable(R.drawable.app_icon), getString(R.string.emptyList),
-                    getString(R.string.not_available));
+                    getString(R.string.no_orders));
         }
     }
 

@@ -10,14 +10,20 @@
         android:layout_margin="@dimen/_8sdp"
         android:background="@color/white"
         app:cardCornerRadius="@dimen/_5sdp">
-
+        <LinearLayout
+            android:id="@+id/ll_view_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_8sdp"
             android:orientation="vertical">
 
-            <LinearLayout
+
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_5sdp">
@@ -104,6 +110,7 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +131,7 @@
             </LinearLayout>
 
 
+        </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

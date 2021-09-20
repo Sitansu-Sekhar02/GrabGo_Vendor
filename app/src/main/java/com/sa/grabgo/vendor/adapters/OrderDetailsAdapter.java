@@ -38,11 +38,10 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
     @Override
     public void onBindViewHolder(@NonNull OrderDetailsAdapter.ViewHolder holder, int position) {
 
-
         final OrderDetailModel model = list.get(position);
 
-        if (GlobalFunctions.isNotNullValue(model.getName()) && (GlobalFunctions.isNotNullValue(model.getQuantity()))){
-            holder.tv_item_name.setText(model.getName()+" x "+(model.getQuantity()));
+        if (GlobalFunctions.isNotNullValue(model.getName()) && (GlobalFunctions.isNotNullValue(model.getQuantity()))) {
+            holder.tv_item_name.setText(model.getName() + " x " + (model.getQuantity()));
         }
         if (GlobalFunctions.isNotNullValue(model.getCurrency())) {
             holder.tv_currency.setText(model.getCurrency());
@@ -58,7 +57,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_item_name,tv_currency,tv_total_price;
+        TextView tv_item_name, tv_currency, tv_total_price;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +65,7 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
             tv_item_name = itemView.findViewById(R.id.tv_item_name);
             tv_currency = itemView.findViewById(R.id.tv_currency);
             tv_total_price = itemView.findViewById(R.id.tv_total_price);
+
 
         }
     }

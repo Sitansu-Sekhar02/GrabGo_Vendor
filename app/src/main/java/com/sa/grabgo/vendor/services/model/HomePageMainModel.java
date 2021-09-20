@@ -4,7 +4,9 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-public class HomePageMainModel {
+import java.io.Serializable;
+
+public class HomePageMainModel implements Serializable {
     private final String TAG = "HomePageMainModel";
 
     private final String

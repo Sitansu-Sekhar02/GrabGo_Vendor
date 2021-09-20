@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder> {
 
-    public static final String TAG = "MenuAdapter";
+    public static final String TAG = "MenuListAdapter";
 
     private final List<CategoryModel> list;
     private final Activity activity;

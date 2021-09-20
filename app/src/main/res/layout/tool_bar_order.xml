@@ -48,6 +48,7 @@
                 android:id="@+id/tv_est_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_gravity="center"
                 android:text=""
                 android:textAllCaps="false"

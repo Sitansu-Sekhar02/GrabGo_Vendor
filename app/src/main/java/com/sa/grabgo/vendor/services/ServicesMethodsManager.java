@@ -13,7 +13,6 @@ import com.sa.grabgo.vendor.global.GlobalVariables;
 import com.sa.grabgo.vendor.services.model.AddCategoryModel;
 import com.sa.grabgo.vendor.services.model.CategoryMainModel;
 import com.sa.grabgo.vendor.services.model.ChangePasswordModel;
-import com.sa.grabgo.vendor.services.model.EditMenuModel;
 import com.sa.grabgo.vendor.services.model.ForgotPasswordModel;
 import com.sa.grabgo.vendor.services.model.HomeIndexModel;
 import com.sa.grabgo.vendor.services.model.HomePageMainModel;
@@ -323,14 +322,6 @@ public class ServicesMethodsManager {
                 mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
 
             }
-        } else if (obj instanceof EditMenuModel) {
-            StatusMainModel model = new StatusMainModel();
-            if (model.toObject(resp.toString())) {
-                mUiCallBack.OnSuccessFromServer(model);
-            } else {
-                mUiCallBack.OnError(context.getString(R.string.ErrorResponseData));
-
-            }
         }  else if (obj instanceof ForgotPasswordModel) {
             StatusModel model = new StatusModel();
             if (model.toObject(resp.toString())) {
@@ -418,11 +409,12 @@ public class ServicesMethodsManager {
         getData(context, new HomePageMainModel(), ServerConstants.URL_Homepage, query, TAG);
     }
 
-    public void Meditenu(Context context,String menu_id, ServerResponseInterface mCallInterface, String TAG) {
+    public void updateAvailableStatus(Context context,String available, ServerResponseInterface mCallInterface, String TAG) {
         setCallbacks(mCallInterface);
         String query = null;
-        query = query != null ? query + "&menu_id=" + menu_id : "menu_id=" + menu_id;
-        getData(context, new HomePageMainModel(), ServerConstants.URL_EditMenu, query, TAG);
+        query = query != null ? query + "&available=" + available : "available=" + available;
+        String URL = ServerConstants.URL_UpdateAvailableStatus;
+        getData(context,new StatusMainModel(), URL, query, TAG);
     }
 
     public void sendPushNotificationID(Context context, PushNotificationModel pushNotificationModel, ServerResponseInterface mCallInterface, String TAG) {
