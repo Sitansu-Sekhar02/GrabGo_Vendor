@@ -12,12 +12,14 @@ public class MonthlyModel implements Serializable {
 
     private final String
             TOTAL                      = "total",
+            CURRENCY                   = "currency",
             TOTAL_ORDERS               = "total_order";
 
 
     private String
 
             total                   = null,
+            currency                = null,
             total_order             = null;
 
 
@@ -33,6 +35,14 @@ public class MonthlyModel implements Serializable {
         this.total = total;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public String getTotal_order() {
         return total_order;
     }
@@ -45,6 +55,7 @@ public class MonthlyModel implements Serializable {
         try{
             JSONObject json = new JSONObject(jsonObject);
             if(json.has(TOTAL))total = json.getString(TOTAL);
+            if(json.has(CURRENCY))currency = json.getString(CURRENCY);
             if(json.has(TOTAL_ORDERS))total_order = json.getString(TOTAL_ORDERS);
 
 
@@ -60,6 +71,7 @@ public class MonthlyModel implements Serializable {
         try{
             JSONObject jsonMain = new JSONObject();
             jsonMain.put(TOTAL, total);
+            jsonMain.put(CURRENCY, currency);
             jsonMain.put(TOTAL_ORDERS, total_order);
 
             returnString = jsonMain.toString();

@@ -24,7 +24,7 @@ public class MenuTypeListAdapter extends RecyclerView.Adapter<MenuTypeListAdapte
 
     private final List<MenuTypeModel> list;
     private final Activity activity;
-    private int selectedItem=0;
+    private int selectedItem=-1;
     MenuTypeItemClick menuTypeItemClick;
 
     public MenuTypeListAdapter(Activity activity, List<MenuTypeModel> list,MenuTypeItemClick menuTypeItemClick) {
@@ -33,7 +33,6 @@ public class MenuTypeListAdapter extends RecyclerView.Adapter<MenuTypeListAdapte
         this.menuTypeItemClick = menuTypeItemClick;
 
     }
-
 
     @NonNull
     @Override

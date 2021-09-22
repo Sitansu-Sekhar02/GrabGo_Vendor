@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -58,7 +59,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
     static ImageView toolbar_logo, tool_bar_back_icon;
 
     private Button btn_login;
-    private TextView  tv_order_id,tv_order_time,tv_cooking_instruction,sub_total_tv,tv_packaging_price,tv_vat_price,tv_grant_total,tv_payment_type,tv_status,tv_decline,tv_confirm;
+    private  TextView tv_currency_two,tv_currency_three,tv_currency_four;
+    private LinearLayout ln_packaging;
+    private TextView  tv_order_id,tv_order_time,tv_cooking_instruction,sub_total_tv,tv_packaging_price,tv_vat_price,tv_grant_total,tv_payment_type,tv_status,tv_decline,tv_confirm,tv_currency;
     String order_id=null;
 
 
@@ -133,6 +136,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
         tv_confirm=findViewById(R.id.tv_confirm);
         rv_order_details=findViewById(R.id.rv_order_details);
         tv_status=findViewById(R.id.tv_status);
+        tv_currency=findViewById(R.id.tv_currency);
+        tv_currency_two=findViewById(R.id.tv_currency_two);
+        tv_currency_three=findViewById(R.id.tv_currency_three);
+        tv_currency_four=findViewById(R.id.tv_currency_four);
+        ln_packaging=findViewById(R.id.ln_packaging);
 
         orderMail_linear=new LinearLayoutManager(activity);
 
@@ -197,12 +205,27 @@ public class OrderDetailsActivity extends AppCompatActivity {
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getPacking_charges())) {
                 tv_packaging_price.setText(orderModel.getPacking_charges());
+            }else {
+                ln_packaging.setVisibility(View.GONE);
+
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getVat())) {
                 tv_vat_price.setText(orderModel.getVat());
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getGrand_total())) {
                 tv_grant_total.setText(orderModel.getGrand_total());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency.setText(orderModel.getCurrency());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency_two.setText(orderModel.getCurrency());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency_three.setText(orderModel.getCurrency());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency_four.setText(orderModel.getCurrency());
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getPayment_type())) {
                 if (orderModel.getPayment_type().equalsIgnoreCase("1")){
@@ -227,7 +250,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     String pageFrom=GlobalVariables.ORDER_CONFIRMED;
-
                     updateStatus(pageFrom,order_id);
                 }
             });

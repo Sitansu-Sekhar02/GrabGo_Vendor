@@ -122,7 +122,7 @@ public class GlobalFunctions {
         try {
             SimpleDateFormat spf = new SimpleDateFormat(GlobalVariables.DATE_TIME_SERVER_FORMAT);
             Date newDate = spf.parse(date1);
-            spf = new SimpleDateFormat("HH:mm:ss dd MMM yyyy");
+            spf = new SimpleDateFormat("HH:mm a , dd MMM yyyy");
             date = spf.format(newDate);
             System.out.println(date);
         } catch (Exception e) {

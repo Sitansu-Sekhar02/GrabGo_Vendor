@@ -65,7 +65,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddItemActivity extends AppCompatActivity  implements UploadListener {
+public class AddItemActivity extends AppCompatActivity implements UploadListener {
 
     private static final String TAG = "AddItemActivity";
     private static final int PERMISSION_REQUEST_CODE = 200;
@@ -89,37 +89,38 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     static TextView toolbar_title;
     static ImageView toolbar_logo, tool_bar_back_icon;
 
-    private EditText etv_item_name,etv_item_ar_name,etv_description,etv_description_ar,etv_item_price;
-    private  ImageView iv_item;
-    private  Button btn_saveItem;
-    private TextView  tv_select_status,tv_menuItems,tv_addImage,tv_selectMenuType;
-    private RadioButton rd_type_veg,rd_type_nonveg;
+    private EditText etv_item_name, etv_item_ar_name, etv_description, etv_description_ar, etv_item_price;
+    private ImageView iv_item;
+    private String iv_item_image;
+    private Button btn_saveItem;
+    private TextView tv_select_status, tv_menuItems, tv_addImage, tv_selectMenuType;
+    private RadioButton rd_type_veg, rd_type_nonveg;
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     int selectedId;
 
-    String selectedRadioType="1";
-    String selectedCategoryPosition="0";
+    String selectedRadioType = "1";
+    String selectedCategoryPosition = "0";
 
-    String menuType_id=null;
-    String category_id=null;
+    String menuType_id = null;
+    String category_id = null;
 
 
     GlobalVariables globalVariables;
     GlobalFunctions globalFunctions;
 
     private LayoutInflater layoutInflater;
-    MenuModel menuModel=null;
+    MenuModel menuModel = null;
 
-    CategoryListModel categoryListModel=null;
-    MenuTypeListModel menuTypeListModel=null;
-    MenuSubModel menuSubModel=null;
+    CategoryListModel categoryListModel = null;
+    MenuTypeListModel menuTypeListModel = null;
+    MenuSubModel menuSubModel = null;
 
 
     String
             selectStatus = "1";
 
-    String menu_id=null;
+    String menu_id = null;
 
     List<String> profileImageList;
     List<Uri> uriProfileImageList;
@@ -159,20 +160,20 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             }
         });
 
-        tv_select_status=findViewById(R.id.tv_select_status);
-        tv_menuItems=findViewById(R.id.tv_menuItems);
-        etv_item_name=findViewById(R.id.etv_item_name);
-        etv_item_ar_name=findViewById(R.id.etv_item_ar_name);
-        etv_description=findViewById(R.id.etv_description);
-        etv_description_ar=findViewById(R.id.etv_description_ar);
-        etv_item_price=findViewById(R.id.etv_item_price);
-        tv_addImage=findViewById(R.id.tv_addImage);
-        iv_item=findViewById(R.id.iv_item);
-        btn_saveItem=findViewById(R.id.btn_saveItem);
-        rd_type_veg=findViewById(R.id.rd_type_veg);
-        rd_type_nonveg=findViewById(R.id.rd_type_nonveg);
-        radioGroup=findViewById(R.id.radioGroup);
-        tv_selectMenuType=findViewById(R.id.tv_selectMenuType);
+        tv_select_status = findViewById(R.id.tv_select_status);
+        tv_menuItems = findViewById(R.id.tv_menuItems);
+        etv_item_name = findViewById(R.id.etv_item_name);
+        etv_item_ar_name = findViewById(R.id.etv_item_ar_name);
+        etv_description = findViewById(R.id.etv_description);
+        etv_description_ar = findViewById(R.id.etv_description_ar);
+        etv_item_price = findViewById(R.id.etv_item_price);
+        tv_addImage = findViewById(R.id.tv_addImage);
+        iv_item = findViewById(R.id.iv_item);
+        btn_saveItem = findViewById(R.id.btn_saveItem);
+        rd_type_veg = findViewById(R.id.rd_type_veg);
+        rd_type_nonveg = findViewById(R.id.rd_type_nonveg);
+        radioGroup = findViewById(R.id.radioGroup);
+        tv_selectMenuType = findViewById(R.id.tv_selectMenuType);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = this.getWindow();
@@ -202,7 +203,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
 
 
         // get selected radio button from radioGroup
-         selectedId = radioGroup.getCheckedRadioButtonId();
+        selectedId = radioGroup.getCheckedRadioButtonId();
 
         // find the radiobutton by returned id
         radioButton = (RadioButton) findViewById(selectedId);
@@ -210,16 +211,16 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int radioId) {
-                switch (radioId){
+                switch (radioId) {
                     case R.id.rd_type_veg:
-                        if (rd_type_veg.isChecked()){
-                            selectedRadioType="1";
+                        if (rd_type_veg.isChecked()) {
+                            selectedRadioType = "1";
                         }
                         break;
 
                     case R.id.rd_type_nonveg:
-                        if (rd_type_nonveg.isChecked()){
-                            selectedRadioType="2";
+                        if (rd_type_nonveg.isChecked()) {
+                            selectedRadioType = "2";
                         }
                         break;
                 }
@@ -269,71 +270,72 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             }
         });
 
-
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         setTitle(getString(R.string.add_new_item), 0, 0);
     }
 
     private void setThisPage(MenuSubModel menuSubModel) {
-        if (menuSubModel!=null && context!=null){
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getName())){
+        if (menuSubModel != null && context != null) {
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getName())) {
                 etv_item_name.setText(menuSubModel.getName());
 
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getId())){
-                menu_id=menuSubModel.getId();
-
-            }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_category_id())){
-                category_id=menuSubModel.getMenu_category_id();
-
-            }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_type_id())){
-                menuType_id=menuSubModel.getMenu_type_id();
-
-            }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_name())){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_name())) {
                 etv_item_ar_name.setText(menuSubModel.getAr_name());
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getDescription())){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getId())) {
+                menu_id = menuSubModel.getId();
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_category_id())) {
+                category_id = menuSubModel.getMenu_category_id();
+
+            }
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_type_id())) {
+                menuType_id = menuSubModel.getMenu_type_id();
+
+            }
+
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getDescription())) {
                 etv_description.setText(globalFunctions.getHTMLString(menuSubModel.getDescription()));
 
-                //etv_description.setText(menuSubModel.getDescription());
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_description())){
-                etv_description_ar.setText(globalFunctions.getHTMLString(menuSubModel.getDescription()));
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getAr_description())) {
+                etv_description_ar.setText(globalFunctions.getHTMLString(menuSubModel.getAr_description()));
 
-                //etv_description_ar.setText(menuSubModel.getAr_description());
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getImage())){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getImage())) {
                 Picasso.with(activity).load(menuSubModel.getImage()).placeholder(R.drawable.ic_lazyload).into(iv_item);
+                iv_item_image=menuSubModel.getImage();
+
+
 
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getPrice())){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getPrice())) {
                 etv_item_price.setText(menuSubModel.getPrice());
 
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_type_name())){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_type_name())) {
                 tv_selectMenuType.setText(menuSubModel.getMenu_type_name());
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_category_name())){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getMenu_category_name())) {
                 tv_menuItems.setText(menuSubModel.getMenu_category_name());
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getStatus())){
-                if (menuSubModel.getStatus().equalsIgnoreCase("1")){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getStatus())) {
+                if (menuSubModel.getStatus().equalsIgnoreCase("1")) {
                     tv_select_status.setText(getString(R.string.active));
 
-                }else {
+                } else {
                     tv_select_status.setText(getString(R.string.inactive));
 
                 }
             }
-            if (GlobalFunctions.isNotNullValue(menuSubModel.getType())){
-                if (menuSubModel.getType().equalsIgnoreCase("1")){
+            if (GlobalFunctions.isNotNullValue(menuSubModel.getType())) {
+                if (menuSubModel.getType().equalsIgnoreCase("1")) {
                     rd_type_veg.setChecked(true);
 
-                }else {
+                } else {
                     rd_type_nonveg.setChecked(true);
                 }
 
@@ -342,20 +344,21 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     }
 
     private void getMenuTypeList() {
-       // globalFunctions.showProgress(activity, getString(R.string.loading));
+        // globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getItemList(context, new ServerResponseInterface() {
             @Override
             public void OnSuccessFromServer(Object arg0) {
-              //  globalFunctions.hideProgress();
+                //  globalFunctions.hideProgress();
                 Log.d(TAG, "Response: " + arg0.toString());
                 MenuTypeMainModel menuTypeMainModel = (MenuTypeMainModel) arg0;
 
-                if (menuTypeMainModel!=null){
+                if (menuTypeMainModel != null) {
 
                     menuTypeListModel = menuTypeMainModel.getMenuTypeListModel();
                 }
             }
+
             @Override
             public void OnFailureFromServer(String msg) {
                 //globalFunctions.hideProgress();
@@ -377,19 +380,20 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
 
 
     private void getCategoryTypeList() {
-       // globalFunctions.showProgress(activity, getString(R.string.loading));
+        // globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
         servicesMethodsManager.getCategoryList(context, new ServerResponseInterface() {
             @SuppressLint("LongLogTag")
             @Override
             public void OnSuccessFromServer(Object arg0) {
-               // globalFunctions.hideProgress();
+                // globalFunctions.hideProgress();
                 Log.d(TAG, "Response: " + arg0.toString());
                 CategoryMainModel categoryMainModel = (CategoryMainModel) arg0;
-                if (categoryMainModel!=null){
+                if (categoryMainModel != null) {
                     categoryListModel = categoryMainModel.getCategoryListModel();
                 }
             }
+
             @SuppressLint("LongLogTag")
             @Override
             public void OnFailureFromServer(String msg) {
@@ -398,6 +402,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 Log.d(TAG, "Failure : " + msg);
 
             }
+
             @SuppressLint("LongLogTag")
             @Override
             public void OnError(String msg) {
@@ -432,7 +437,8 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                     }
                 }).check();
     }
-      private void showImagePickerOptions() {
+
+    private void showImagePickerOptions() {
         ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
             @Override
             public void onTakeCameraSelected() {
@@ -502,7 +508,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         Bitmap bitmap = null;
         Uri selectUri = null;
         GlobalFunctions.hideProgress();
-        if (resultCode==RESULT_OK){
+        if (resultCode == RESULT_OK) {
             if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 try {
                     CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -534,31 +540,31 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 } catch (Exception exccc) {
                     globalFunctions.displayMessaage(context, mainView, getString(R.string.something_went_wrong_message));
                 }
-            }else if ( requestCode == REQUEST_IMAGE) {
+            } else if (requestCode == REQUEST_IMAGE) {
                 Uri uri = data.getParcelableExtra("path");
                 try {
                     // You can update this bitmap to your server
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                     selectUri = uri;
-                    setProfileImageToModel(bitmap,selectUri);
+                    setProfileImageToModel(bitmap, selectUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else if (requestCode == GlobalVariables.REQUEST_RESULT_CODE_CATEGORY) {
+            } else if (requestCode == GlobalVariables.REQUEST_RESULT_CODE_CATEGORY) {
                 CategoryModel categoryModel = (CategoryModel) data.getExtras().getSerializable(CategoryItemListActivity.BUNDLE_CATEGORY_RESPONSE_MODEL);
                 if (categoryModel != null) {
 
                     tv_menuItems.setText(categoryModel.getName());
-                    category_id=categoryModel.getMenu_id();
-                    selectedCategoryPosition=categoryModel.getPosition();
+                    category_id = categoryModel.getMenu_id();
+                    selectedCategoryPosition = categoryModel.getPosition();
 
                 }
-            }else if (requestCode == GlobalVariables.REQUEST_RESULT_CODE_MENU) {
+            } else if (requestCode == GlobalVariables.REQUEST_RESULT_CODE_MENU) {
                 MenuTypeModel menuTypeModel = (MenuTypeModel) data.getExtras().getSerializable(MenuItemListActivity.BUNDLE_MENU_RESPONSE_MODEL);
                 if (menuTypeModel != null) {
 
                     tv_selectMenuType.setText(menuTypeModel.getCount());
-                    menuType_id=menuTypeModel.getId();
+                    menuType_id = menuTypeModel.getId();
 
                 }
             }
@@ -585,11 +591,11 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                     }
                 } else {
                     GlobalFunctions.hideProgress();
-                    createMenu(activity,menuModel);
+                    createMenu(activity, menuModel);
                 }
             } else {
                 GlobalFunctions.hideProgress();
-                createMenu(activity,menuModel);
+                createMenu(activity, menuModel);
             }
         }
     }
@@ -607,6 +613,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             }
         });
     }
+
     private void setUploadedImageToModel(String type, String imagePath) {
         if (type != null) {
             if (type.equalsIgnoreCase(GlobalVariables.UPLOAD_PROFILE_PHOTO_PATH_CODE)) {
@@ -615,7 +622,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 }
                 menuModel.setImage(imagePath);
                 GlobalFunctions.hideProgress();
-                createMenu(activity,menuModel);
+                createMenu(activity, menuModel);
             }
         }
     }
@@ -627,9 +634,9 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
     }
 
     private void validateInput() {
-        if (tv_menuItems != null && etv_item_name != null &&  etv_item_ar_name != null && etv_description != null && etv_description_ar!=null && etv_item_price!=null && tv_selectMenuType!=null) {
+        if (tv_menuItems != null && etv_item_name != null && etv_item_ar_name != null && etv_description != null && etv_description_ar != null && etv_item_price != null && tv_selectMenuType != null) {
             String
-                    tv_menu_item=tv_menuItems.getText().toString().trim(),
+                    tv_menu_item = tv_menuItems.getText().toString().trim(),
                     etv_itemName = etv_item_name.getText().toString().trim(),
                     etv_item_ArabicName = etv_item_ar_name.getText().toString().trim(),
                     etv_item_Price = etv_item_price.getText().toString().trim(),
@@ -639,15 +646,13 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                     tv_selected_item = tv_selectMenuType.getText().toString().trim();
 
 
-
-
             if (!GlobalFunctions.isNotNullValue(category_id)) {
-                GlobalFunctions.displayMessaage(activity,mainView,activity.getString(R.string.pleaseFillMandatoryDetails));
-            }else if (etv_itemName.isEmpty()) {
+                GlobalFunctions.displayMessaage(activity, mainView, activity.getString(R.string.pleaseFillMandatoryDetails));
+            } else if (etv_itemName.isEmpty()) {
                 etv_item_name.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_name.setFocusableInTouchMode(true);
                 etv_item_name.requestFocus();
-            }else if (etv_item_ArabicName.isEmpty()) {
+            } else if (etv_item_ArabicName.isEmpty()) {
                 etv_item_ar_name.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_ar_name.setFocusableInTouchMode(true);
                 etv_item_ar_name.requestFocus();
@@ -659,17 +664,17 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 etv_item_price.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_price.setFocusableInTouchMode(true);
                 etv_item_price.requestFocus();
-            }  else if (etv_ArabicDesc.isEmpty()) {
+            } else if (etv_ArabicDesc.isEmpty()) {
                 etv_description_ar.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_description_ar.setFocusableInTouchMode(true);
                 etv_description_ar.requestFocus();
             } else if (!GlobalFunctions.isNotNullValue(menuType_id)) {
-                GlobalFunctions.displayMessaage(activity,mainView,activity.getString(R.string.pleaseFillMandatoryDetails));
-            }else if (etv_itemPrice.isEmpty()) {
+                GlobalFunctions.displayMessaage(activity, mainView, activity.getString(R.string.pleaseFillMandatoryDetails));
+            } else if (etv_itemPrice.isEmpty()) {
                 etv_item_price.setError(getString(R.string.pleaseFillMandatoryDetails));
                 etv_item_price.setFocusableInTouchMode(true);
                 etv_item_price.requestFocus();
-            }else if (tv_selected_item.isEmpty()) {
+            } else if (tv_selected_item.isEmpty()) {
                 tv_selectMenuType.setError(getString(R.string.pleaseFillMandatoryDetails));
                 tv_selectMenuType.setFocusableInTouchMode(true);
                 tv_selectMenuType.requestFocus();
@@ -688,18 +693,19 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
                 menuModel.setMenu_type_id(menuType_id);
                 menuModel.setType(selectedRadioType);
                 menuModel.setPosition(selectedCategoryPosition);
-                menuModel.setPosition(selectedCategoryPosition);
                 menuModel.setStatus(selectStatus);
+                menuModel.setImage(iv_item_image);
 
-                if (profileImageList.size()>0){
+                if (profileImageList.size() > 0) {
                     uploadImage(GlobalVariables.UPLOAD_PROFILE_PHOTO_PATH_CODE);
 
-                }else {
+                } else {
                     createMenu(context, menuModel);
                 }
             }
         }
     }
+
     private void createMenu(final Context context, final MenuModel model) {
         globalFunctions.showProgress(activity, getString(R.string.loading));
         ServicesMethodsManager servicesMethodsManager = new ServicesMethodsManager();
@@ -741,12 +747,13 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
             }
         }
     }
+
     private void showAlertDialog(StatusModel statusModel) {
         final AlertDialog alertDialog = new AlertDialog(context);
         alertDialog.setCancelable(false);
         alertDialog.setIcon(R.drawable.app_icon);
         alertDialog.setTitle(getString(R.string.app_name));
-        alertDialog.setMessage(activity.getString(R.string.menu_create_successfully));
+        alertDialog.setMessage(statusModel.getMessage());
         alertDialog.setPositiveButton(getString(R.string.ok), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -770,7 +777,7 @@ public class AddItemActivity extends AppCompatActivity  implements UploadListene
         // alertDialog.setIcon(R.drawable.app_icon);
         final android.app.AlertDialog dialog = alertDialog.create();
 
-        TextView back_tv,active_tv, inactive_tv;
+        TextView back_tv, active_tv, inactive_tv;
 
         back_tv = (TextView) alertView.findViewById(R.id.back_tv);
         active_tv = (TextView) alertView.findViewById(R.id.tv_active);

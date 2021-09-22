@@ -188,6 +188,9 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
             if (GlobalFunctions.isNotNullValue(weeklyModel.getTotal_order())) {
                 tv_total_orders.setText(weeklyModel.getTotal_order());
             }
+            if (GlobalFunctions.isNotNullValue(weeklyModel.getCurrency())) {
+                tv_currency.setText(weeklyModel.getCurrency());
+            }
         }
 
     }
@@ -200,6 +203,9 @@ public class HomeFragment extends Fragment implements UpdateStatusInterface {
             }
             if (GlobalFunctions.isNotNullValue(monthlyModel.getTotal_order())) {
                 tv_td_orders.setText(monthlyModel.getTotal_order());
+            }
+            if (GlobalFunctions.isNotNullValue(monthlyModel.getCurrency())) {
+                tv_td_currency.setText(monthlyModel.getCurrency());
             }
         }
     }

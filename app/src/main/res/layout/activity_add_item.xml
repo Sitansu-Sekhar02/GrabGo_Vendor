@@ -139,6 +139,9 @@
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
                     android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
                     android:padding="@dimen/_15sdp"
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/semi_color"
@@ -154,7 +157,6 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
-
                 <com.sa.grabgo.vendor.view.AppEditTextView
                     android:id="@+id/etv_description_ar"
                     android:layout_width="match_parent"
@@ -165,10 +167,13 @@
                     android:background="@drawable/bg_button_color_primary_dark_curved_filled"
                     android:elevation="2dp"
                     android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:scrollbarStyle="insideInset"
+                    android:overScrollMode="always"
                     android:padding="@dimen/_15sdp"
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/semi_color"
-                    android:textColorHint="@color/border_color" />
+                    android:textColorHint="@color/border_color"/>
 
                 <com.sa.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"

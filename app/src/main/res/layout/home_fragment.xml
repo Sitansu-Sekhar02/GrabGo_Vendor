@@ -74,7 +74,7 @@
                                     android:id="@+id/tv_td_currency"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/sar"
+                                    android:text=""
                                     android:textAppearance="@style/MediumSizeText"
                                     android:textColor="@color/white" />
 
@@ -151,7 +151,7 @@
                                 android:id="@+id/tv_currency"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/sar"
+                                android:text=""
                                 android:textAppearance="@style/MediumSizeText"
                                 android:textColor="@color/white" />
 

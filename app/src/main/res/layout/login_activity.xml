@@ -157,6 +157,7 @@
                             android:layout_marginTop="@dimen/_8sdp"
                             android:layout_marginRight="@dimen/_16sdp"
                             android:gravity="right"
+                            android:visibility="gone"
                             android:orientation="vertical">
 
                             <com.sa.grabgo.vendor.view.AppTextView_SubTitle

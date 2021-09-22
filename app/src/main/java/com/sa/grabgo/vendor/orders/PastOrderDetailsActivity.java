@@ -53,6 +53,8 @@ public class PastOrderDetailsActivity extends AppCompatActivity {
     static ImageView toolbar_logo, tool_bar_back_icon;
 
     private Button btn_login;
+    private  TextView tv_currency,tv_currency_two,tv_currency_three,tv_currency_four;
+
     private TextView  tv_order_id,tv_order_time,tv_cooking_instruction,sub_total_tv,tv_packaging_price,tv_vat_price,tv_grant_total,tv_payment_type,tv_status,tv_decline,tv_confirm;
     String order_id=null;
 
@@ -128,8 +130,14 @@ public class PastOrderDetailsActivity extends AppCompatActivity {
         tv_confirm=findViewById(R.id.tv_confirm);
         rv_order_details=findViewById(R.id.rv_order_details);
         tv_status=findViewById(R.id.tv_status);
+        tv_currency=findViewById(R.id.tv_currency);
+        tv_currency_two=findViewById(R.id.tv_currency_two);
+        tv_currency_three=findViewById(R.id.tv_currency_three);
+        tv_currency_four=findViewById(R.id.tv_currency_four);
+
         tv_decline.setVisibility(View.GONE);
         tv_confirm.setVisibility(View.GONE);
+
 
         orderMail_linear=new LinearLayoutManager(activity);
 
@@ -196,6 +204,18 @@ public class PastOrderDetailsActivity extends AppCompatActivity {
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getGrand_total())) {
                 tv_grant_total.setText(orderModel.getGrand_total());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency.setText(orderModel.getCurrency());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency_two.setText(orderModel.getCurrency());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency_three.setText(orderModel.getCurrency());
+            }
+            if (GlobalFunctions.isNotNullValue(orderModel.getCurrency())) {
+                tv_currency_four.setText(orderModel.getCurrency());
             }
             if (GlobalFunctions.isNotNullValue(orderModel.getPayment_type())) {
                 if (orderModel.getPayment_type().equalsIgnoreCase("1")){
