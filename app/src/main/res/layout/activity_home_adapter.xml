@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.sa.grabgo.vendor.view.AppTextView
+                    <com.sauthi.grabgo.vendor.view.AppTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/order_id"
@@ -35,7 +35,7 @@
                         android:textColor="@color/semi_color"
                         android:textStyle="bold" />
 
-                    <com.sa.grabgo.vendor.view.AppTextView
+                    <com.sauthi.grabgo.vendor.view.AppTextView
                         android:id="@+id/tv_order_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,14 +50,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_2sdp">
 
-                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/placed"
                         android:textAppearance="@style/SmallerText"
                         android:textColor="@color/semi_color" />
 
-                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                         android:id="@+id/tv_order_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:orientation="horizontal">
 
-                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                         android:id="@+id/tv_total_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                         android:textColor="@color/semi_color"
                         android:textStyle="bold" />
 
-                    <com.sa.grabgo.vendor.view.AppTextView
+                    <com.sauthi.grabgo.vendor.view.AppTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_4sdp"
@@ -128,7 +128,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp">
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_cancel_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                     android:textColor="@color/semi_color"
                     android:textStyle="bold" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_confirm_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

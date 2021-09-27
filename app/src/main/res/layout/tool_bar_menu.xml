@@ -16,7 +16,7 @@
         android:gravity="center"
         android:weightSum="5">
 
-        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+        <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
             android:id="@+id/tv_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textStyle="bold"
             android:text="@string/menu"/>
 
-        <com.sa.grabgo.vendor.view.AppTextView
+        <com.sauthi.grabgo.vendor.view.AppTextView
             android:id="@+id/tv_add_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

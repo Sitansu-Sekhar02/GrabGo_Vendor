@@ -38,7 +38,7 @@
                             app:textSize="@dimen/_20sdp" />
 
 
-                        <com.sa.grabgo.vendor.view.AppTextView
+                        <com.sauthi.grabgo.vendor.view.AppTextView
                             android:id="@+id/tv_restaurantName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -80,14 +80,14 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/restaurant_name"
                                 android:textAppearance="@style/SmallerText"
                                 android:textColor="@color/semi_color" />
 
-                            <com.sa.grabgo.vendor.view.AppTextView
+                            <com.sauthi.grabgo.vendor.view.AppTextView
                                 android:id="@+id/tv_restaurant_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -105,14 +105,14 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:orientation="vertical">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/address"
                                 android:textAppearance="@style/SmallerText"
                                 android:textColor="@color/semi_color" />
 
-                            <com.sa.grabgo.vendor.view.AppTextView
+                            <com.sauthi.grabgo.vendor.view.AppTextView
                                 android:id="@+id/tv_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -131,14 +131,14 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:orientation="vertical">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/restaurant_id"
                                 android:textAppearance="@style/SmallerText"
                                 android:textColor="@color/semi_color" />
 
-                            <com.sa.grabgo.vendor.view.AppTextView
+                            <com.sauthi.grabgo.vendor.view.AppTextView
                                 android:id="@+id/tv_restaurant_id"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -156,14 +156,14 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:orientation="vertical">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/contact"
                                 android:textAppearance="@style/SmallerText"
                                 android:textColor="@color/semi_color" />
 
-                            <com.sa.grabgo.vendor.view.AppTextView
+                            <com.sauthi.grabgo.vendor.view.AppTextView
                                 android:id="@+id/tv_contact"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
 
 
                 </RelativeLayout>
-            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                 android:id="@+id/tv_logout"
                 android:layout_width="wrap_content"
                 android:layout_below="@+id/rl_details"

@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
         android:id="@+id/back_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         android:textStyle="normal" />
 
 
-    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
         android:id="@+id/tv_active"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_gravity="center"
         android:background="@color/border_color" />
 
-    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
         android:id="@+id/tv_inActive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

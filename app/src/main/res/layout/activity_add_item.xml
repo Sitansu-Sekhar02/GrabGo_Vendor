@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -40,7 +40,7 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_menuItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                     android:textColor="@color/main_text"
                     android:textStyle="normal" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -71,7 +71,7 @@
                     android:textColor="@color/semi_color" />
 
 
-                <com.sa.grabgo.vendor.view.AppEditTextView
+                <com.sauthi.grabgo.vendor.view.AppEditTextView
                     android:id="@+id/etv_item_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                     android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -100,7 +100,7 @@
                     android:textColor="@color/semi_color" />
 
 
-                <com.sa.grabgo.vendor.view.AppEditTextView
+                <com.sauthi.grabgo.vendor.view.AppEditTextView
                     android:id="@+id/etv_item_ar_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                     android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -129,7 +129,7 @@
                     android:textColor="@color/semi_color" />
 
 
-                <com.sa.grabgo.vendor.view.AppEditTextView
+                <com.sauthi.grabgo.vendor.view.AppEditTextView
                     android:id="@+id/etv_description"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_87sdp"
@@ -147,7 +147,7 @@
                     android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -157,7 +157,7 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
-                <com.sa.grabgo.vendor.view.AppEditTextView
+                <com.sauthi.grabgo.vendor.view.AppEditTextView
                     android:id="@+id/etv_description_ar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_87sdp"
@@ -175,7 +175,7 @@
                     android:textColor="@color/semi_color"
                     android:textColorHint="@color/border_color"/>
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -185,7 +185,7 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
-                <com.sa.grabgo.vendor.view.AppEditTextView
+                <com.sauthi.grabgo.vendor.view.AppEditTextView
                     android:id="@+id/etv_item_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
                     android:textAppearance="@style/SmallestSizeText"
                     android:textColor="@color/app_fontBlackColor"
                     android:textColorHint="@color/border_color" />
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -213,7 +213,7 @@
                     android:textAppearance="@style/SmallerText"
                     android:textColor="@color/semi_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_selectMenuType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                     android:textStyle="normal" />
 
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -273,7 +273,7 @@
                         android:textAppearance="@style/SmallMediumText" />
                 </RadioGroup>
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -295,7 +295,7 @@
                         android:layout_height="@dimen/_79sdp"
                         android:background="@drawable/ic_lazyload" />
 
-                    <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                    <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                         android:id="@+id/tv_addImage"
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_30sdp"
@@ -308,7 +308,7 @@
                         android:textColor="@color/white" />
                 </LinearLayout>
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_16sdp"
@@ -319,7 +319,7 @@
                     android:textColor="@color/semi_color" />
 
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_select_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -340,7 +340,7 @@
                     android:textStyle="normal" />
 
 
-                <com.sa.grabgo.vendor.view.AppButton
+                <com.sauthi.grabgo.vendor.view.AppButton
                     android:id="@+id/btn_saveItem"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_48sdp"

@@ -57,7 +57,7 @@
                             android:layout_marginLeft="@dimen/_8sdp"
                             android:orientation="vertical">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/todays_revenue"
@@ -70,7 +70,7 @@
                                 android:layout_marginTop="@dimen/_4sdp"
                                 android:orientation="horizontal">
 
-                                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                     android:id="@+id/tv_td_currency"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                                     android:textAppearance="@style/MediumSizeText"
                                     android:textColor="@color/white" />
 
-                                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                     android:id="@+id/tv_td_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_4sdp">
 
-                                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                     android:id="@+id/tv_td_orders"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                                     android:textAppearance="@style/SmallerText"
                                     android:textColor="@color/white" />
 
-                                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/_4sdp"
@@ -134,7 +134,7 @@
                             android:layout_marginLeft="@dimen/_8sdp"
                             android:orientation="vertical">
 
-                        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                        <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/week_revenue"
@@ -147,7 +147,7 @@
                             android:layout_marginTop="@dimen/_4sdp"
                             android:orientation="horizontal">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:id="@+id/tv_currency"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
                                 android:textAppearance="@style/MediumSizeText"
                                 android:textColor="@color/white" />
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:id="@+id/tv_revenue_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -170,14 +170,14 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp">
 
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:id="@+id/tv_total_orders"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:textAppearance="@style/SmallerText"
                                 android:textColor="@color/white" />
-                            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_4sdp"
@@ -200,7 +200,7 @@
                     android:layout_marginRight="@dimen/_10sdp"
                     android:orientation="horizontal">
 
-                    <com.sa.grabgo.vendor.view.AppTextView
+                    <com.sauthi.grabgo.vendor.view.AppTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

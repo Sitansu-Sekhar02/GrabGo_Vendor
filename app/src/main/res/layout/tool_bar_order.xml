@@ -15,7 +15,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.sa.grabgo.vendor.view.AppTextView
+        <com.sauthi.grabgo.vendor.view.AppTextView
             android:id="@+id/toolbar_orders"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_8sdp"
             android:orientation="horizontal">
-            <com.sa.grabgo.vendor.view.AppTextView
+            <com.sauthi.grabgo.vendor.view.AppTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -44,7 +44,7 @@
                 android:textColor="@color/Color_confirm_order"
                 android:textStyle="normal"
                 android:visibility="visible" />
-            <com.sa.grabgo.vendor.view.AppTextView
+            <com.sauthi.grabgo.vendor.view.AppTextView
                 android:id="@+id/tv_est_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

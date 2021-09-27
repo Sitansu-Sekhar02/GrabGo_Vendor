@@ -30,7 +30,7 @@
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <com.sa.grabgo.vendor.view.AppTextView
+                <com.sauthi.grabgo.vendor.view.AppTextView
                     android:id="@+id/tv_restaurant_name"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                     android:textColor="@color/main_text"
                     android:textStyle="bold"
                     android:visibility="visible" />
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/toolbar_title"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"

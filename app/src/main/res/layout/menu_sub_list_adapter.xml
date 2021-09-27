@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_veg_menu_item" />
 
-                <com.sa.grabgo.vendor.view.AppTextView
+                <com.sauthi.grabgo.vendor.view.AppTextView
                     android:id="@+id/item_title_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal">
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_currency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/unit_price_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                     android:textAppearance="@style/SmallMediumText"
                     android:textColor="@color/semi_color" />
 
-                <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+                <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                     android:id="@+id/tv_offer_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
             </LinearLayout>
 
 
-            <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+            <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
                 android:id="@+id/product_description_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

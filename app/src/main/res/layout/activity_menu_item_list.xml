@@ -43,7 +43,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white">
 
-        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+        <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
             android:id="@+id/tv_cancel"
             android:layout_width="@dimen/_140sdp"
             android:layout_height="@dimen/_40sdp"
@@ -54,7 +54,7 @@
             android:textAppearance="@style/MediumSizeText"
             android:textColor="@color/white" />
 
-        <com.sa.grabgo.vendor.view.AppTextView_SubTitle
+        <com.sauthi.grabgo.vendor.view.AppTextView_SubTitle
             android:id="@+id/tv_submit"
             android:layout_toRightOf="@+id/tv_cancel"
             android:layout_width="@dimen/_140sdp"

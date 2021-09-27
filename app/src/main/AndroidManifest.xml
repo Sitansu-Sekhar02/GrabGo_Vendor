@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.sa.grabgo.vendor"
+    package="com.sauthi.grabgo.vendor"
     android:installLocation="auto">
 
     <uses-permission
@@ -26,7 +26,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <application
-        android:name=".AppController"
+        android:name="com.sauthi.grabgo.vendor.AppController"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
@@ -37,7 +37,7 @@
         tools:replace="android:icon, android:label"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.sauthi.grabgo.vendor.SplashActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -49,7 +49,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.sauthi.grabgo.vendor.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -69,7 +69,7 @@
 
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.sauthi.grabgo.vendor.login.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -77,7 +77,7 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".orders.OrderDetailsActivity"
+            android:name="com.sauthi.grabgo.vendor.orders.OrderDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -85,49 +85,49 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".menu.MenuSubListActivity"
+            android:name="com.sauthi.grabgo.vendor.menu.MenuSubListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".menu.AddItemActivity"
+            android:name="com.sauthi.grabgo.vendor.menu.AddItemActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".menu.MenuItemListActivity"
+            android:name="com.sauthi.grabgo.vendor.menu.MenuItemListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".menu.CategoryItemListActivity"
+            android:name="com.sauthi.grabgo.vendor.menu.CategoryItemListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".orders.CurrentOrderDetailsActivity"
+            android:name="com.sauthi.grabgo.vendor.orders.CurrentOrderDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".orders.PastOrderDetailsActivity"
+            android:name="com.sauthi.grabgo.vendor.orders.PastOrderDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".image_picker.ImagePickerActivity"
+            android:name="com.sauthi.grabgo.vendor.image_picker.ImagePickerActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop"
@@ -148,7 +148,7 @@
             android:label="@string/app_name" />
 
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
+            android:name="com.sauthi.grabgo.vendor.fcm.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -158,7 +158,7 @@
 
 
         <service
-            android:name=".fcm.MyFirebaseInstanceIDService"
+            android:name="com.sauthi.grabgo.vendor.fcm.MyFirebaseInstanceIDService"
             android:visibleToInstantApps="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
